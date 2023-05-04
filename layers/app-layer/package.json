@@ -1,0 +1,25 @@
+{
+  "name": "lambda-template",
+  "version": "1.0.0",
+  "description": "lambda-template",
+  "author": "isystk",
+  "license": "MIT",
+  "scripts": {
+    "start": "IS_LOCAL=true node dist/local-app",
+    "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --collect-coverage",
+    "lint": "eslint --ext .ts .",
+    "lintfix": "eslint --fix --ext .ts .",
+    "format": "prettier -w 'src/**/*.ts'",
+    "fix": "npm run format && npm run lint"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1198.0",
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "lodash": "^4.17.21",
+    "node-uuid": "^1.4.8"
+  }
+}
