@@ -1,8 +1,5 @@
-// import { DynamoDBClient, type DynamoDBRecord } from './dynamodb-client.js'
-// const dbClient = new DynamoDBClient('lambda_stripe_api_posts')
 import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
-// import crypto from 'crypto'
 import stripe from 'stripe'
 import { isString } from 'lodash'
 // @ts-ignore
@@ -12,13 +9,6 @@ const app: Application = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
-
-// type Post = {
-//   paymentMethod: string
-//   name: string
-//   email: string
-//   priceId: string
-// } & DynamoDBRecord
 
 // 商品と含まれるプランの一覧を取得します。
 app.get('/product', async (req: Request, res: Response) => {
@@ -52,11 +42,11 @@ app.get('/product', async (req: Request, res: Response) => {
 
 // 支払い処理（サブスクリプションを作成します）
 app.post('/payment', async (req: Request, res: Response) => {
-  const { paymentMethod, name, email, productId } = {
+  const { paymentMethod, name, email, planId } = {
     paymentMethod: req.body['paymentMethod'],
     name: req.body['name'],
     email: req.body['email'],
-    productId: req.body['productId'],
+    planId: req.body['planId'],
   }
   try {
     if (paymentMethod === undefined) {
@@ -68,8 +58,8 @@ app.post('/payment', async (req: Request, res: Response) => {
     if (email === undefined) {
       throw new Error('email is required.')
     }
-    if (productId === undefined) {
-      throw new Error('productId is required.')
+    if (planId === undefined) {
+      throw new Error('planId is required.')
     }
 
     // メールアドレスを元に顧客を取得する
@@ -92,16 +82,8 @@ app.post('/payment', async (req: Request, res: Response) => {
       console.log('Found Customer:', customer)
     }
 
-    // 商品の情報を取得します。
-    const product = await stripeInstance.products.retrieve(productId)
-    // console.log("Product Info:", product);
-    if (!product) {
-      throw new Error('Product not found.')
-    }
-
     // 商品に紐つくプランを全て検索し、該当するプランを返却する
-    const { data: plans } = await stripeInstance.plans.list()
-    const plan = plans.find((e: { product: any }) => e.product === product.id)
+    const plan = await stripeInstance.plans.retrieve(planId)
     // console.log('Found Plan:', plan)
     if (!plan) {
       throw new Error('Plan not found.')
@@ -124,22 +106,6 @@ app.post('/payment', async (req: Request, res: Response) => {
     })
     console.log('Create Subscription:', subscription)
 
-    // サブスクリプションをキャンセルする
-    // await stripeInstance.subscriptions.del("sub_1N4HnnGvN4v1v54fzwpv0euk");
-
-    // const pk = crypto
-    //     .createHash('sha256')
-    //     .update(email)
-    //     .digest('hex')
-    // const params = {
-    //   pk,
-    //   sk: 'line',
-    //   paymentMethod,
-    //   name,
-    //   email,
-    //   priceId,
-    // } as Post
-    // const post = await dbClient.post<Post>(params)
     res.json({ message: 'Successfully created a Subscription!' })
   } catch (e: unknown) {
     console.error('error', e)

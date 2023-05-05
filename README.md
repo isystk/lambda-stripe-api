@@ -8,8 +8,8 @@
 
 ## 📗 プロジェクトの概要
 
-AWS（API Gateway → Lambda → DynamoDB）を利用したCRUDのサンプルです。
-投稿された記事データをAPI経由で取得・登録・変更・削除が出来ます。
+Lambda(Node.js)でStripeのサブスクリプションを管理する為のサンプルです。
+API経由でサブスクリプションの登録・解約・契約中かどうかの判別が出来ます。
 SAM を利用して管理しているので、コマンドひとつでインフラを構築出来るようにしています。
 また、Dockerを利用することでローカル環境でも実装・テストが出来るようにしています。
 
@@ -31,11 +31,6 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 │   ├── src
 │   ├── tests
 │   └── tsconfig.json
-├── dc.sh (Docker管理用のシェルスクリプト)
-├── docker
-│   ├── awscli
-│   ├── docker-compose.yml
-│   └── dynamodb
 ├── frontend
 │   ├── README.md
 │   ├── node_modules
@@ -47,9 +42,6 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 ├── layers (共通モジュール)
 │   └── app-layer
 ├── samconfig.toml
-├── schema
-│   ├── data
-│   └── posts.json
 ├── task
 │   ├── env.json
 │   └── env.json.example
@@ -79,40 +71,10 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
 
-## 🖊️ Docker 操作用シェルスクリプトの使い方
-
-```
-Usage:
-  dc.sh [command] [<options>]
-
-Options:
-  stats|st                 Dockerコンテナの状態を表示します。
-  init                     Dockerコンテナ・イメージ・生成ファイルの状態を初期化します。
-  start                    すべてのDaemonを起動します。
-  stop                     すべてのDaemonを停止します。
-  --version, -v     バージョンを表示します。
-  --help, -h        ヘルプを表示します。
-```
-
 ## 💬 使い方
 
 ローカルでAPIを起動する
 ```
-# 事前準備
-$ ./dc.sh init
-$ docker network create lambda-local
-
-# Dockerを起動する
-$ ./dc.sh start
-
-# DynamoDBにテーブルを作成する
-$ ./dc.sh aws local
-> aws dynamodb create-table --cli-input-json file://schema/posts.json --endpoint-url http://dynamodb:8000  --billing-mode PAY_PER_REQUEST
-> aws dynamodb list-tables  --endpoint-url http://dynamodb:8000 
-
-(テーブルを削除する場合)
-> aws dynamodb delete-table --table-name lambda_stripe_api_posts --endpoint-url http://dynamodb:8000
-
 # ESModuleでビルドできるようにする
 $ npm install -g esbuild 
 # SAMでアプリをビルドしてからAPIを起動する
@@ -138,18 +100,9 @@ $ sam build
 # AWSに反映する
 $ sam deploy --config-env stg
 
-# AWSから、DynamoDB、Lambda&APIGatewayを削除する
+# AWSから、Lambda&APIGatewayを削除する
 $ sam delete --stack-name lambda-stripe-api --profile lambda-user
 ```
-
-### DynamoDBAdmin
-DynamoDBに接続してデータの参照や編集が可能です。
-Dockerを起動後に以下のURLにアクセスすると利用可能です。
-
-http://localhost:8001/
-
-![DynamoDB-Admin](./dynamodb-admin.png "WSL-MySQL")
-
 
 ## 🎨 参考
 
