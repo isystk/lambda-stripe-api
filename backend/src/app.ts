@@ -36,24 +36,24 @@ app.get('/product', async (req: Request, res: Response) => {
     res.json(products)
   } catch (e: unknown) {
     console.error('error', e)
-    res.sendStatus(500)
+    let message
+    if (e instanceof Error) {
+      message = e.message
+    }
+    res.status(500).json({ message })
   }
 })
 
 // 支払い処理（サブスクリプションを作成します）
 app.post('/payment', async (req: Request, res: Response) => {
-  const { paymentMethod, name, email, planId } = {
+  const { paymentMethod, email, planId } = {
     paymentMethod: req.body['paymentMethod'],
-    name: req.body['name'],
     email: req.body['email'],
     planId: req.body['planId'],
   }
   try {
     if (paymentMethod === undefined) {
       throw new Error('paymentMethod is required.')
-    }
-    if (name === undefined) {
-      throw new Error('name is required.')
     }
     if (email === undefined) {
       throw new Error('email is required.')
@@ -106,10 +106,16 @@ app.post('/payment', async (req: Request, res: Response) => {
     })
     console.log('Create Subscription:', subscription)
 
-    res.json({ message: 'Successfully created a Subscription!' })
+    res.json({
+      message: 'Successfully created a Subscription!',
+    })
   } catch (e: unknown) {
     console.error('error', e)
-    res.sendStatus(500)
+    let message
+    if (e instanceof Error) {
+      message = e.message
+    }
+    res.status(500).json({ message })
   }
 })
 
@@ -154,7 +160,11 @@ app.post('/cancel', async (req: Request, res: Response) => {
     res.json({ message: 'Successfully removed a Subscription!' })
   } catch (e: unknown) {
     console.error('error', e)
-    res.sendStatus(500)
+    let message
+    if (e instanceof Error) {
+      message = e.message
+    }
+    res.status(500).json({ message })
   }
 })
 
@@ -195,7 +205,11 @@ app.post('/active-check', async (req: Request, res: Response) => {
     res.json({ status })
   } catch (e: unknown) {
     console.error('error', e)
-    res.sendStatus(500)
+    let message
+    if (e instanceof Error) {
+      message = e.message
+    }
+    res.status(500).json({ message })
   }
 })
 

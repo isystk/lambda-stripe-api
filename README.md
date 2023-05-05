@@ -86,7 +86,7 @@ $ curl http://127.0.0.1:3000/product
 $ curl "http://127.0.0.1:3000/product?productId=prod_xxxxx"
 
 # 支払い処理（サブスクリプションを作成します）
-$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/payment -d '{ "paymentMethod": "pm_xxxxxx", "name": "test", email": "test@test.com", "planId": "price_xxxxx" }'
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/payment -d '{ "paymentMethod": "pm_xxxxxx", email": "test@test.com", "planId": "price_xxxxx" }'
 # キャンセル処理（サブスクリプションを解約します）
 $ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel -d '{ "email": "test@test.com", "planId": "price_xxxxx" }'
 # アクティブチェック（サブスクリプションが有効かどうかを確認します）

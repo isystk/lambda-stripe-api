@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import "./CheckoutForm.css"
+import Loading from "./Loading";
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
@@ -20,7 +21,7 @@ const CARD_ELEMENT_OPTIONS = {
 };
 function CheckoutForm() {
   
-  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const planId = process.env.REACT_APP_PLAN_ID;
   
@@ -29,60 +30,48 @@ function CheckoutForm() {
 
   const createSubscription = async () => {
     try {
-      
+      setLoading(true) 
       // create a payment method
       const paymentMethod = await stripe?.createPaymentMethod({
         type: "card",
         card: elements?.getElement(CardElement)!,
         billing_details: {
-          name,
           email,
         },
       });
 
       // call the backend to create subscription
-      const response = await fetch(process.env.REACT_APP_PAYMENT_API_URL??'', {
+      const {message, error} = await fetch(process.env.REACT_APP_PAYMENT_API_URL??'', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           paymentMethod: paymentMethod?.paymentMethod?.id,
-          name,
           email,
           planId
         }),
       }).then((res) => res.json());
 
-      const confirmPayment = await stripe?.confirmCardPayment(
-        response.clientSecret
-      );
+      setLoading(false) 
 
-      if (confirmPayment?.error) {
-        alert(confirmPayment.error.message);
-      } else {
-        alert("Success! Check your email for the invoice.");
+      alert(message);
+    } catch (e: unknown) {
+      console.log(e);
+      let message
+      if (e instanceof Error) {
+        message = e.message
       }
-    } catch (error) {
-      console.log(error);
+      alert(message);
     }
   };
   
   return (
     <div>
-        <div>
-            <label htmlFor="name" >名前:</label>
-            <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-        </div>
-        <div>
-            <label htmlFor="email">メールアドレス:</label>
+        <div className="checkout-form">
             <input
                 id="email"
+                placeholder="メールアドレス"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -94,6 +83,7 @@ function CheckoutForm() {
         <div>
             <button className="buy-btn" onClick={createSubscription} disabled={!stripe}>購入する</button>
         </div>
+        <Loading loading={loading} />
     </div>
   );
 }
