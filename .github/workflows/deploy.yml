@@ -8,12 +8,6 @@ on:
   # Github Actionsを手動で起動できるようにする。
   workflow_dispatch:
 
-# パーミッションの設定
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 # これを指定していると、重複してActionsが走った時に前のをキャンセルしてくれる
 concurrency:
   group: "pages"
