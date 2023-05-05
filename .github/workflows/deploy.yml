@@ -40,6 +40,9 @@ jobs:
         npm run build
 
     - name: deploy to Github Page
-      uses: actions/upload-pages-artifact
+      uses: actions/upload-artifact@v3
       with:
-        path: frontend/build
+        name: ${{ inputs.name }}
+        path: ${{ runner.temp }}/frontend/build
+        retention-days: ${{ inputs.retention-days }}
+        if-no-files-found: error
