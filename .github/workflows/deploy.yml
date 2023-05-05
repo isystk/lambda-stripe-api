@@ -39,8 +39,11 @@ jobs:
         cd frontend
         npm run build
 
-    - name: deploy to Github Page
+    - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: my-upload-artifact
         path: ./frontend/build
+        
+    - name: deploy to Github Page
+      id: deployment
+      uses: actions/deploy-pages@main
