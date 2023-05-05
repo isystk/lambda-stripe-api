@@ -91,8 +91,8 @@ app.post('/payment', async (req: Request, res: Response) => {
 
     // メールアドレスを元にサブスクリプションを検索する
     const { data: subscriptions } = await stripeInstance.subscriptions.list({
-      customer_email: email,
-      plan: [plan.id],
+      customer: customer.id,
+      plan: plan.id,
       status: 'active', // サブスクリプションの状態を指定する。active, canceled, or all.
     })
 

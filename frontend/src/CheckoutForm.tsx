@@ -22,7 +22,7 @@ function CheckoutForm() {
   
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const productId = process.env.REACT_APP_PRODUCT_ID;
+  const planId = process.env.REACT_APP_PLAN_ID;
   
   const stripe = useStripe();
   const elements = useElements();
@@ -50,7 +50,7 @@ function CheckoutForm() {
           paymentMethod: paymentMethod?.paymentMethod?.id,
           name,
           email,
-          productId
+          planId
         }),
       }).then((res) => res.json());
 
