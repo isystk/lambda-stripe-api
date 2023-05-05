@@ -42,7 +42,5 @@ jobs:
     - name: deploy to Github Page
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.name }}
+        name: my-upload-artifact
         path: ./frontend/build
-        retention-days: ${{ inputs.retention-days }}
-        if-no-files-found: error
