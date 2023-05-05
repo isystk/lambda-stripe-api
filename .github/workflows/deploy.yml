@@ -1,12 +1,31 @@
 name: Deploy
 
 on:
+  # ★★★Github Actionsを起動するブランチ★★★
   push:
     branches: [ master ]
 
-jobs:
-  build:
+  # Github Actionsを手動で起動できるようにする。
+  workflow_dispatch:
 
+# パーミッションの設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# これを指定していると、重複してActionsが走った時に前のをキャンセルしてくれる
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
     runs-on: ubuntu-latest
 
     strategy:
@@ -14,11 +33,14 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v1
+    - name: Setup Node
+      uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 16
 
     - name: Install dependencies 👨🏻‍💻
       run:  |
@@ -42,6 +64,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
+        # ★★★ Deployするディレクトリ ★★★
         path: ./frontend/build
         
     - name: deploy to Github Page
