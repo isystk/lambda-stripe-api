@@ -36,6 +36,14 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 │   ├── awscli
 │   ├── docker-compose.yml
 │   └── dynamodb
+├── frontend
+│   ├── README.md
+│   ├── node_modules
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   ├── src
+│   └── tsconfig.json
 ├── layers (共通モジュール)
 │   └── app-layer
 ├── samconfig.toml

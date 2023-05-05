@@ -57,6 +57,9 @@ Resources:
       Policies: AmazonDynamoDBFullAccess
       Layers:
         - !Ref AppLayer
+      Environment:
+        Variables:
+          STRIPE_SECRET: ""
       Events:
         Api:
           Type: Api
