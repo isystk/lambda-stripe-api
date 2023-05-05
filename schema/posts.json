@@ -1,5 +1,5 @@
 {
-  "TableName": "lambda_template_posts",
+  "TableName": "lambda_stripe_api_posts",
   "KeySchema": [
     {
       "AttributeName": "pk",

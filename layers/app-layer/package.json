@@ -1,7 +1,7 @@
 {
-  "name": "lambda-template",
+  "name": "lambda-stripe-api",
   "version": "1.0.0",
-  "description": "lambda-template",
+  "description": "lambda-stripe-api",
   "author": "isystk",
   "license": "MIT",
   "scripts": {

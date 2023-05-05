@@ -1,7 +1,7 @@
 {
-  "name": "lambda-template",
+  "name": "lambda-stripe-api",
   "version": "1.0.0",
-  "description": "lambda-template",
+  "description": "lambda-stripe-api",
   "author": "isystk",
   "license": "MIT",
   "scripts": {
@@ -15,12 +15,14 @@
     "fix": "npm run format && npm run lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.52.1",
     "aws-sdk": "^2.1198.0",
     "axios": "^0.27.2",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "lodash": "^4.17.21",
-    "node-uuid": "^1.4.8"
+    "node-uuid": "^1.4.8",
+    "stripe": "^12.4.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

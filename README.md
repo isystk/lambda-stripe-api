@@ -1,10 +1,10 @@
-🌙 lambda-template
+🌙 lambda-stripe-api
 ====
 
-![GitHub issues](https://img.shields.io/github/issues/isystk/lambda-template)
-![GitHub forks](https://img.shields.io/github/forks/isystk/lambda-template)
-![GitHub stars](https://img.shields.io/github/stars/isystk/lambda-template)
-![GitHub license](https://img.shields.io/github/license/isystk/lambda-template)
+![GitHub issues](https://img.shields.io/github/issues/isystk/lambda-stripe-api)
+![GitHub forks](https://img.shields.io/github/forks/isystk/lambda-stripe-api)
+![GitHub stars](https://img.shields.io/github/stars/isystk/lambda-stripe-api)
+![GitHub license](https://img.shields.io/github/license/isystk/lambda-stripe-api)
 
 ## 📗 プロジェクトの概要
 
@@ -22,7 +22,7 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 ```
 .
 ├── README.md
-├── app (Lambdaのモジュール)
+├── backend (Lambdaのモジュール)
 │   ├── dist
 │   ├── jest.config.ts
 │   ├── node_modules
@@ -103,7 +103,7 @@ $ ./dc.sh aws local
 > aws dynamodb list-tables  --endpoint-url http://dynamodb:8000 
 
 (テーブルを削除する場合)
-> aws dynamodb delete-table --table-name lambda_template_posts --endpoint-url http://dynamodb:8000
+> aws dynamodb delete-table --table-name lambda_stripe_api_posts --endpoint-url http://dynamodb:8000
 
 # ESModuleでビルドできるようにする
 $ npm install -g esbuild 
@@ -111,18 +111,16 @@ $ npm install -g esbuild
 $ sam build
 $ sam local start-api --env-vars task/env.json --docker-network lambda-local
 
-# 一覧取得
-$ curl http://127.0.0.1:3000/posts
-$ curl "http://127.0.0.1:3000/posts?limit=3&page=2"
-$ curl "http://127.0.0.1:3000/posts?userId=aaa"
-# 登録
-$ curl -X POST -H "Content-Type: application/json" -d @schema/data/post.json http://127.0.0.1:3000/posts
-# 単一取得
-$ curl http://127.0.0.1:3000/posts/49e3de26-f28b-4140-becf-06d8b3279914/
-# 更新
-$ curl -X PUT -H "Content-Type: application/json" -d @schema/data/post.json http://localhost:3000/posts/49e3de26-f28b-4140-becf-06d8b3279914/
-# 削除
-$ curl -X DELETE http://127.0.0.1:3000/posts/49e3de26-f28b-4140-becf-06d8b3279914/
+# 商品と含まれるプランの一覧を取得する
+$ curl http://127.0.0.1:3000/product
+$ curl "http://127.0.0.1:3000/product?productId=prod_xxxxx"
+
+# 支払い処理（サブスクリプションを作成します）
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/payment -d '{ "message": "こんにちわ！" }'
+# キャンセル処理（サブスクリプションを解約します）
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel -d '{ "email": "test@test.com", "planId": "price_xxxxx" }'
+# アクティブチェック（サブスクリプションが有効かどうかを確認します）
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/active-check -d '{ "email": "test@test.com", "planId": "price_xxxxx" }'
 ```
 
 本番環境（AWS） にデプロイする
@@ -133,7 +131,7 @@ $ sam build
 $ sam deploy --config-env stg
 
 # AWSから、DynamoDB、Lambda&APIGatewayを削除する
-$ sam delete --stack-name lambda-template --profile lambda-user
+$ sam delete --stack-name lambda-stripe-api --profile lambda-user
 ```
 
 ### DynamoDBAdmin
@@ -157,7 +155,7 @@ http://localhost:8001/
 
 ## 🎫 Licence
 
-[MIT](https://github.com/isystk/lambda-template/blob/master/LICENSE)
+[MIT](https://github.com/isystk/lambda-stripe-api/blob/master/LICENSE)
 
 ## 👀 Author
 
