@@ -40,8 +40,6 @@ jobs:
         npm run build
 
     - name: deploy to Github Page
-      uses: peaceiris/actions-gh-pages@v3
-      if: ${{ github.ref == 'refs/heads/master' }}
+      uses: actions/upload-pages-artifact
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/build
+        path: frontend/build
