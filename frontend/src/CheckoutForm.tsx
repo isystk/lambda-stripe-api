@@ -22,6 +22,7 @@ const CARD_ELEMENT_OPTIONS = {
 function CheckoutForm() {
   
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const planId = process.env.REACT_APP_PLAN_ID;
   
@@ -48,6 +49,7 @@ function CheckoutForm() {
         },
         body: JSON.stringify({
           paymentMethod: paymentMethod?.paymentMethod?.id,
+          name,
           email,
           planId
         }),
@@ -70,9 +72,18 @@ function CheckoutForm() {
     <div>
         <div className="checkout-form">
             <input
+                id="name"
+                placeholder="お名前"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+        </div>
+        <div className="checkout-form">
+            <input
                 id="email"
                 placeholder="メールアドレス"
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />

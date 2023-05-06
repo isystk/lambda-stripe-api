@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
 import stripe from 'stripe'
 import { isString } from 'lodash'
+import { SmtpClient } from './smtp-client'
+const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(process.env.STRIPE_SECRET ?? '')
 
@@ -33,6 +35,7 @@ app.get('/product', async (req: Request, res: Response) => {
       )
       return { ...e, plan }
     })
+
     res.json(products)
   } catch (e: unknown) {
     console.error('error', e)
@@ -46,14 +49,18 @@ app.get('/product', async (req: Request, res: Response) => {
 
 // 支払い処理（サブスクリプションを作成します）
 app.post('/payment', async (req: Request, res: Response) => {
-  const { paymentMethod, email, planId } = {
+  const { paymentMethod, name, email, planId } = {
     paymentMethod: req.body['paymentMethod'],
+    name: req.body['name'],
     email: req.body['email'],
     planId: req.body['planId'],
   }
   try {
     if (paymentMethod === undefined) {
       throw new Error('paymentMethod is required.')
+    }
+    if (name === undefined) {
+      throw new Error('name is required.')
     }
     if (email === undefined) {
       throw new Error('email is required.')
@@ -105,6 +112,25 @@ app.post('/payment', async (req: Request, res: Response) => {
       items: [{ plan: plan.id }], // プランID
     })
     console.log('Create Subscription:', subscription)
+
+    const text = [
+      `${name}様`,
+      'この度は、lambda-stripe-apiをご利用いただき、誠にありがとうございます。',
+      '会員登録が完了しました。',
+      '',
+      '登録内容について',
+      '----',
+      '',
+      '----',
+    ].join('\\n')
+
+    // メールを送信します。
+    await mailClient.mailSend(
+      undefined,
+      email,
+      'ご登録ありがとうございます',
+      text
+    )
 
     res.json({
       message: 'Successfully created a Subscription!',
@@ -211,6 +237,11 @@ app.post('/active-check', async (req: Request, res: Response) => {
     }
     res.status(500).json({ message })
   }
+})
+
+// 404エラーハンドリング
+app.use((_req, res, _next) => {
+  res.status(404).send('404 Not Found').end()
 })
 
 export { app }
