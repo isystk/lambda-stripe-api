@@ -28,12 +28,12 @@ app.get('/product', async (req: Request, res: Response) => {
         return e.id === productId
       })
     }
-    const { data: plans } = await stripeInstance.plans.list()
+    const { data: allPlan } = await stripeInstance.plans.list()
     products = products.map((e: { id: string }) => {
-      const plan = plans.filter(
+      const plans = allPlan.filter(
         (e2: { product: string }) => e2.product === e.id
       )
-      return { ...e, plan }
+      return { ...e, plans }
     })
 
     res.json(products)

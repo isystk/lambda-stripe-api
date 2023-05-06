@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import "./CheckoutForm.css"
 import Loading from "./Loading";
+import {ProductData} from "./Payment";
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
@@ -19,12 +20,17 @@ const CARD_ELEMENT_OPTIONS = {
       }
   }
 };
-function CheckoutForm() {
+
+type InputTypes = {
+    product: ProductData
+}
+
+function CheckoutForm({product}: InputTypes) {
   
   const [loading, setLoading] = useState(false);
+  const [planId, setPlanId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const planId = process.env.REACT_APP_PLAN_ID;
   
   const stripe = useStripe();
   const elements = useElements();
@@ -42,7 +48,7 @@ function CheckoutForm() {
       });
 
       // call the backend to create subscription
-      const {message, error} = await fetch(process.env.REACT_APP_PAYMENT_API_URL??'', {
+      const {message, error} = await fetch(`${process.env.REACT_APP_ENDPOINT_URL??''}/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,6 +76,20 @@ function CheckoutForm() {
   
   return (
     <div>
+        <div className="product-plan">
+            {product.plans.map(({id, amount , currency }) => {
+                const amountFmt = amount ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency }).format(amount) : ''
+                return <>
+                    <input
+                        id="planId"
+                        type="radio"
+                        value={id}
+                        onChange={(e) => setPlanId(e.target.value)}
+                    />
+                    <p className="product-price">{amountFmt}</p>
+                </>
+            })}
+        </div>
         <div className="checkout-form">
             <input
                 id="name"
