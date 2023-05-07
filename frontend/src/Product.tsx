@@ -1,11 +1,12 @@
 import React from 'react';
-import './Payment.css';
+import './Product.css';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import useSWR from 'swr';
 import axios from 'axios';
 import stripe from "stripe";
+import { useParams } from 'react-router-dom';
 
 const REACT_APP_STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY??''
 const REACT_APP_ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL??''
@@ -16,10 +17,10 @@ export type ProductData = {
     plans: stripe.Plan[]
 } & stripe.Product
 
-function Payment() {
-    
-    const productId = process.env.REACT_APP_PRODUCT_ID??'';
 
+function Product() {
+    const { id: productId } = useParams();
+    
     const { data: product, error } = useSWR([`${REACT_APP_ENDPOINT_URL}/product`, productId], async ([url, productId]) => {
         const result = await axios.get(url, {
             params: {
@@ -54,4 +55,4 @@ function Payment() {
   );
 }
 
-export default Payment;
+export default Product;

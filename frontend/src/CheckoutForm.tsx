@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import "./CheckoutForm.css"
 import Loading from "./Loading";
-import {ProductData} from "./Payment";
+import {ProductData} from "./Product";
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
