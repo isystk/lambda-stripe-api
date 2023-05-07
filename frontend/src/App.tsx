@@ -6,6 +6,7 @@ import Home from "./Home";
 import Products from "./Products";
 import Product from "./Product";
 import Cancel from "./Cancel";
+import CancelConfirm from "./CancelConfirm";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/products" element={<Products/>}/>
         <Route path="/products/:id" element={<Product />}/>
         <Route path="/products/:id/cancel" element={<Cancel/>}/>
+        <Route path="/products/:id/cancel/:token" element={<CancelConfirm/>}/>
       </Routes>
     </BrowserRouter>
     )

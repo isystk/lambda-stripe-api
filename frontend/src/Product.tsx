@@ -34,14 +34,13 @@ function Product() {
     if (!product) {
         return <></>
     }
-    console.log("product", product)
 
     return (
     <div>
         <header>
             <h1>{product.name}</h1>
         </header>
-        <section id="product-info">
+        <section className="content">
             <img className="product-img" src={product.images[0]} alt={product.name} />
             <h2 className="product-name">{product.name}</h2>
             <p className="product-description">{product.description}</p>

@@ -1,5 +1,5 @@
 /* 商品情報のスタイル */
-#product-info {
+.content {
   max-width: 800px;
   margin: 50px auto;
   background-color: #FFF;
