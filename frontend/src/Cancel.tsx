@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import Loading from "./Loading";
 import { useParams } from 'react-router-dom';
 
@@ -10,33 +11,27 @@ function Cancel() {
     const [loading, setLoading] = useState(false);
     const [isComplete, setIsComplete] = useState(false);
     const [email, setEmail] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
     
     const cancelRequest = async () => {
         try {
             setLoading(true)
 
-            // call the backend to create subscription
-            const {message, error} = await fetch(`${process.env.REACT_APP_ENDPOINT_URL??''}/cancel-request`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    productId,
-                    email,
-                }),
-            }).then((res) => res.json());
-
-            setLoading(false)
+            // 解約処理をする
+            const { data: {message, error}} = await axios.post(`${process.env.REACT_APP_ENDPOINT_URL??''}/cancel-request`, {
+                productId,
+                email,
+            })
 
             setIsComplete(true);
+            
         } catch (e: unknown) {
             console.log(e);
-            let message
             if (e instanceof Error) {
-                message = e.message
+                setErrorMsg(e.message);
             }
-            alert(message);
+        } finally {
+            setLoading(false)
         }
     };
     
@@ -63,6 +58,7 @@ function Cancel() {
                             <div>
                                 <button className="buy-btn" onClick={cancelRequest}>メールを送信する</button>
                             </div>
+                            {errorMsg && <span className="error">{errorMsg}</span>}
                             <Loading loading={loading} />
                         </div>
                     </>

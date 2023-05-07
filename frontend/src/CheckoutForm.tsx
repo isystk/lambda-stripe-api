@@ -1,8 +1,11 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import axios from 'axios';
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import "./CheckoutForm.css"
 import Loading from "./Loading";
 import {ProductData} from "./Product";
+import {PaymentMethodResult} from "@stripe/stripe-js";
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
@@ -25,45 +28,59 @@ type InputTypes = {
     product: ProductData
 }
 
+type FormInputs = { 
+    name: string 
+    email: string
+    planId: string 
+};
+
 function CheckoutForm({product}: InputTypes) {
-  
+
+  const [isComplete, setIsComplete] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [planId, setPlanId] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  
+  const [cardErrorMsg, setCardErrorMsg] = useState('');
   const stripe = useStripe();
   const elements = useElements();
 
-  const createSubscription = async () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormInputs>();
+
+ // フォーム送信ボタンを押された時の処理
+  const onsubmit: SubmitHandler<FormInputs> = async ({planId, name, email}) => {
     try {
-      setLoading(true) 
+        
       // create a payment method
-      const paymentMethod = await stripe?.createPaymentMethod({
+      const payment: PaymentMethodResult|undefined = await stripe?.createPaymentMethod({
         type: "card",
         card: elements?.getElement(CardElement)!,
         billing_details: {
           email,
         },
       });
+      if (!payment) {
+        setCardErrorMsg('カード情報を入力してください');
+        return;
+      }
+      if (payment.error) {
+        setCardErrorMsg(payment.error.message??'カード情報が不正です');
+        return;
+      }
+      setLoading(true) 
+      
+      // 決済処理をする
+      const { data} = await axios.post(`${process.env.REACT_APP_ENDPOINT_URL??''}/payment`, {
+        paymentMethod: payment.paymentMethod?.id,
+        name,
+        email,
+        planId
+      })
+      reset();
 
-      // call the backend to create subscription
-      const {message, error} = await fetch(`${process.env.REACT_APP_ENDPOINT_URL??''}/payment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          paymentMethod: paymentMethod?.paymentMethod?.id,
-          name,
-          email,
-          planId
-        }),
-      }).then((res) => res.json());
-
-      setLoading(false) 
-
-      alert(message);
+      setIsComplete(true)
     } catch (e: unknown) {
       console.log(e);
       let message
@@ -71,49 +88,62 @@ function CheckoutForm({product}: InputTypes) {
         message = e.message
       }
       alert(message);
+    } finally {
+      setLoading(false)
     }
+
   };
   
   return (
     <div>
-        <div className="product-plan">
-            {product.plans.map(({id, amount , currency }) => {
-                const amountFmt = amount ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency }).format(amount) : ''
-                return <>
-                    <input
-                        id="planId"
-                        type="radio"
-                        value={id}
-                        onChange={(e) => setPlanId(e.target.value)}
-                    />
-                    <p className="product-price">{amountFmt}</p>
-                </>
-            })}
-        </div>
-        <div className="checkout-form">
-            <input
-                id="name"
-                placeholder="お名前"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-        </div>
-        <div className="checkout-form">
-            <input
-                id="email"
-                placeholder="メールアドレス"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-        </div>
-        <div className="card-element-wrapper">
-            <CardElement options={CARD_ELEMENT_OPTIONS} />
-        </div>
-        <div>
-            <button className="buy-btn" onClick={createSubscription} disabled={!stripe}>購入する</button>
-        </div>
+        {
+            !isComplete ? (
+                    <form onSubmit={handleSubmit(onsubmit)}>
+                        <div className="product-plan">
+                            {product.plans.map(({id, amount , currency }, idx) => {
+                                const amountFmt = amount ? new Intl.NumberFormat('ja-JP', { style: 'currency', currency }).format(amount) : ''
+                                return (
+                                    <div key={id}>
+                                        <input
+                                            type="radio"
+                                            checked={idx === 0}
+                                            value={id}
+                                            {...register("planId", { required: true })}
+                                        />
+                                        <p className="product-price">{amountFmt}</p>
+                                    </div>
+                                )
+                            })}
+                            {errors.planId && <span className="error">プランを選択してください</span>}
+                        </div>
+                        <div className="checkout-form">
+                            <input
+                                placeholder="お名前"
+                                type="text"
+                                {...register("name", { required: true })}
+                            />
+                            {errors.name && <span className="error">お名前を入力してください</span>}
+                        </div>
+                        <div className="checkout-form">
+                            <input
+                                placeholder="メールアドレス"
+                                type="email"
+                                {...register("email", { required: true })}
+                            />
+                            {errors.email && <span className="error">メールアドレスを入力してください</span>}
+                        </div>
+                        <div className="card-element-wrapper">
+                            <CardElement options={CARD_ELEMENT_OPTIONS} />
+                            {cardErrorMsg && <span className="error">{cardErrorMsg}</span>}
+                        </div>
+                        <div>
+                            <button className="buy-btn" type="submit" disabled={!stripe}>購入する</button>
+                        </div>
+                    </form>
+                )
+                :
+                <p className="product-description">解約ページのリンクをメールアドレス宛に送信しました。<br/>メールに記載のURLから解約の手続きを行ってください。</p>
+        }
         <Loading loading={loading} />
     </div>
   );

@@ -19,7 +19,7 @@ function Products() {
 
     if (error) return <div>Server communication failed. Please start Backend if it has not started.</div>
     if (!products) {
-        return <></>
+        return <div className="container py-5">商品データがありません</div>
     }
 
     return (

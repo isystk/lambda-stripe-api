@@ -1,4 +1,4 @@
-import nodemailer, { type TransportOptions} from 'nodemailer'
+import nodemailer, { type TransportOptions } from 'nodemailer'
 
 const SMTP_SERVER = process.env.SMTP_SERVER ?? ''
 const SMTP_PORT = process.env.SMTP_PORT ?? ''

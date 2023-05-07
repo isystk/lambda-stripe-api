@@ -25,11 +25,10 @@ const Status = {
 } as const
 
 type Post = {
-  status: typeof Status[keyof typeof Status]
-  cancel_token: string|undefined
-  cancel_token_at: string|undefined
+  status: (typeof Status)[keyof typeof Status]
+  cancel_token: string | undefined
+  cancel_token_at: string | undefined
 } & DynamoDBRecord
-
 
 // 商品と含まれるプランの一覧を取得します。
 app.get('/product', async (req: Request, res: Response) => {
@@ -109,8 +108,8 @@ app.post('/payment', async (req: Request, res: Response) => {
     }
 
     const postId = crypto.createHash('sha256').update(customer.id).digest('hex')
-    let post = await getPost(postId);
-    if(!post) {
+    let post = await getPost(postId)
+    if (!post) {
       // 顧客をDBに登録する
       const params = {
         pk: postId,
@@ -146,12 +145,15 @@ app.post('/payment', async (req: Request, res: Response) => {
     console.log('Create Subscription:', subscription)
 
     // 顧客のステータスを「契約中」にする
-    post = await dbClient.update<Post>({
-      pk: postId,
-      sk: customer.id,
-    }, {
-      status: Status.contract
-    } as Post)
+    post = await dbClient.update<Post>(
+      {
+        pk: postId,
+        sk: customer.id,
+      },
+      {
+        status: Status.contract,
+      } as Post
+    )
     console.log('Update Post:', post.pk, post.sk, post.status)
 
     const text = [
@@ -188,7 +190,7 @@ app.post('/payment', async (req: Request, res: Response) => {
 
 // 解約リクエスト（解約ページのURLをメールで送信します）
 app.post('/cancel-request', async (req: Request, res: Response) => {
-  const { productId, email} = {
+  const { productId, email } = {
     productId: req.body['productId'],
     email: req.body['email'],
   }
@@ -227,7 +229,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
       customer: customer.id,
       status: 'active',
     })
-    console.log("subscriptions", subscriptions)
+    console.log('subscriptions', subscriptions)
 
     if (0 === subscriptions.length) {
       throw new Error('No valid Subscription found.')
@@ -235,14 +237,14 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
 
     // 解約ページのトークンを生成する
     const postId = crypto.createHash('sha256').update(customer.id).digest('hex')
-    let post = await getPost(postId);
+    let post = await getPost(postId)
     const params = {
       ...post,
       pk: postId,
       sk: customer.id,
       status: Status.contract,
       cancel_token: uuid.v4(),
-      cancel_token_at: new Date().toISOString()
+      cancel_token_at: new Date().toISOString(),
     } as Post
     // stripeに存在してDynamoDBに存在しない顧客（通常はありえないが）を想定して、updateではなくcreateにしておく
     post = await dbClient.create<Post>(params)
@@ -264,7 +266,10 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
       text
     )
 
-    res.json({ message: 'The URL of the cancellation page was successfully sent via email!' })
+    res.json({
+      message:
+        'The URL of the cancellation page was successfully sent via email!',
+    })
   } catch (e: unknown) {
     console.error('error', e)
     let message
@@ -290,7 +295,9 @@ app.post('/cancel-confirm', async (req: Request, res: Response) => {
     }
 
     const posts = await dbClient
-      .scan<Post>('cancel_token = :cancel_token', undefined, {':cancel_token': cancelToken})
+      .scan<Post>('cancel_token = :cancel_token', undefined, {
+        ':cancel_token': cancelToken,
+      })
       .then((e) =>
         e.sort(function (a, b) {
           // 登録日時の降順
@@ -300,7 +307,7 @@ app.post('/cancel-confirm', async (req: Request, res: Response) => {
     if (0 === posts.length) {
       throw new Error('cancelToken not found.')
     }
-    const post = posts[0];
+    const post = posts[0]
     if (!post?.cancel_token_at) {
       throw new Error('An unexpected error has occurred.')
     }
@@ -308,15 +315,17 @@ app.post('/cancel-confirm', async (req: Request, res: Response) => {
     const hourAgo = new Date(new Date().getTime() - sessionTime).getTime()
     if (hourAgo > new Date(post.cancel_token_at).getTime()) {
       // トークン発行から１時間経過した場合はエラーにする
-      throw new Error('The deadline has passed. Please submit a cancellation request again.')
-    } 
-    const customerId = post?.sk;
+      throw new Error(
+        'The deadline has passed. Please submit a cancellation request again.'
+      )
+    }
+    const customerId = post?.sk
     // 顧客IDに紐づくにサブスクリプションを検索する
     const { data: subscriptions } = await stripeInstance.subscriptions.list({
       customer: customerId,
       status: 'active',
     })
-    console.log("subscriptions", subscriptions)
+    console.log('subscriptions', subscriptions)
 
     res.json(subscriptions)
   } catch (e: unknown) {
@@ -344,7 +353,9 @@ app.post('/cancel', async (req: Request, res: Response) => {
     }
 
     const posts = await dbClient
-      .scan<Post>('cancel_token = :cancel_token', undefined, {':cancel_token': cancelToken})
+      .scan<Post>('cancel_token = :cancel_token', undefined, {
+        ':cancel_token': cancelToken,
+      })
       .then((e) =>
         e.sort(function (a, b) {
           // 登録日時の降順
@@ -354,7 +365,7 @@ app.post('/cancel', async (req: Request, res: Response) => {
     if (0 === posts.length) {
       throw new Error('cancelToken not found.')
     }
-    let post = posts[0];
+    let post = posts[0]
     if (!post || !post?.cancel_token_at) {
       throw new Error('An unexpected error has occurred.')
     }
@@ -375,12 +386,15 @@ app.post('/cancel', async (req: Request, res: Response) => {
     }
 
     // 顧客のステータスを「解約済み」にする
-    post = await dbClient.update<Post>({
-      pk: post.pk,
-      sk: post.sk,
-    }, {
-      status: Status.cancelled
-    } as Post)
+    post = await dbClient.update<Post>(
+      {
+        pk: post.pk,
+        sk: post.sk,
+      },
+      {
+        status: Status.cancelled,
+      } as Post
+    )
     console.log('Update Post:', post.pk, post.sk, post.status)
 
     res.json({ message: 'Successfully removed a Subscription!' })

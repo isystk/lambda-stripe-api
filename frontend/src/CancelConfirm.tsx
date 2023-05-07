@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import axios from 'axios';
 import Loading from "./Loading";
 import { useParams } from 'react-router-dom';
+import NotFound from "./NotFound";
 
 const REACT_APP_ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL??''
 
@@ -10,7 +11,8 @@ function CancelConfirm() {
     const { id: productId, token: cancelToken } = useParams();
     
     const [loading, setLoading] = useState(false);
-    const { data, error } = useSWR([`${REACT_APP_ENDPOINT_URL}/cancel-confirm`, productId, cancelToken], async ([url, productId, cancelToken]) => {
+    const [isComplete, setIsComplete] = useState(false);
+    const { data, error, isLoading } = useSWR([`${REACT_APP_ENDPOINT_URL}/cancel-confirm`, productId, cancelToken], async ([url, productId, cancelToken]) => {
         const result = await axios.post(url, {
             productId, 
             cancelToken,
@@ -18,13 +20,13 @@ function CancelConfirm() {
         return {...result.data};
     });
 
-    if (error) return <div>Server communication failed. Please start Backend if it has not started.</div>
-    if (!data) {
+    if (isLoading) {
         return <></>
     }
+    if (error) {
+        return <NotFound />
+    }
 
-    console.log("confirm", data)
-    
     const cancelSubscription = async () => {
         try {
             setLoading(true)
@@ -35,9 +37,7 @@ function CancelConfirm() {
               cancelToken,
             })
 
-            setLoading(false)
-
-            alert(message);
+            setIsComplete(true)
         } catch (e: unknown) {
             console.log(e);
             let message
@@ -45,6 +45,8 @@ function CancelConfirm() {
                 message = e.message
             }
             alert(message);
+        } finally {
+            setLoading(false)
         }
     };
     
@@ -54,13 +56,21 @@ function CancelConfirm() {
             <h1>商品の解約ページ</h1>
         </header>
         <section className="content">
-            <p className="product-description">以下のプランを解約します。宜しければ「解約する」を押してください。</p>
-            <div className="product-form">
-                <div>
-                    <button className="buy-btn" onClick={cancelSubscription}>解約する</button>
-                </div>
-                <Loading loading={loading} />
-            </div>
+            {
+                !isComplete ? (
+                        <>
+                            <p className="product-description">以下のプランを解約します。宜しければ「解約する」を押してください。</p>
+                            <div className="product-form">
+                                <div>
+                                    <button className="buy-btn" onClick={cancelSubscription}>解約する</button>
+                                </div>
+                                <Loading loading={loading} />
+                            </div>
+                        </>
+                    )
+                    :
+                    <p className="product-description">解約が完了しました。<br/>またのご利用をお待ちしております。</p>
+            }
         </section>
     </div>
   );

@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import axios from 'axios';
 import stripe from "stripe";
 import { useParams } from 'react-router-dom';
+import NotFound from "./NotFound";
 
 const REACT_APP_STRIPE_KEY = process.env.REACT_APP_STRIPE_KEY??''
 const REACT_APP_ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL??''
@@ -21,18 +22,24 @@ export type ProductData = {
 function Product() {
     const { id: productId } = useParams();
     
-    const { data: product, error } = useSWR([`${REACT_APP_ENDPOINT_URL}/product`, productId], async ([url, productId]) => {
+    const { data: product, error, isLoading } = useSWR([`${REACT_APP_ENDPOINT_URL}/product`, productId], async ([url, productId]) => {
         const result = await axios.get(url, {
             params: {
                 productId,
             },
         });
+        if (0 === result.data.length) {
+            return undefined
+        }
         return {...result.data[0]} as ProductData;
     });
 
-    if (error) return <div>Server communication failed. Please start Backend if it has not started.</div>
-    if (!product) {
+    if (isLoading) {
+        // loading
         return <></>
+    }
+    if (!product) {
+        return <NotFound />
     }
 
     return (
