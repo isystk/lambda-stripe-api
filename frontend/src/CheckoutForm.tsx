@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import "./CheckoutForm.css"
 import Loading from "./Loading";
 import {ProductData} from "./Product";
 import {PaymentMethodResult} from "@stripe/stripe-js";
+import { useLocation } from 'react-router-dom'
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
@@ -35,10 +36,13 @@ type FormInputs = {
 };
 
 function CheckoutForm({product}: InputTypes) {
-
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+  
   const [isComplete, setIsComplete] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cardErrorMsg, setCardErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -69,10 +73,14 @@ function CheckoutForm({product}: InputTypes) {
         setCardErrorMsg(payment.error.message??'カード情報が不正です');
         return;
       }
-      setLoading(true) 
+      setLoading(true)
+
+      // クエリーパラメーターからユーザーキーを取得（無ければメールアドレスをユーザーキーにする）
+      const userKey = query.get('userKey') ?? email
       
       // 決済処理をする
       const { data} = await axios.post(`${process.env.REACT_APP_ENDPOINT_URL??''}/payment`, {
+        userKey,
         paymentMethod: payment.paymentMethod?.id,
         name,
         email,
@@ -83,11 +91,12 @@ function CheckoutForm({product}: InputTypes) {
       setIsComplete(true)
     } catch (e: unknown) {
       console.log(e);
-      let message
-      if (e instanceof Error) {
-        message = e.message
+      if (e instanceof AxiosError) {
+        const {response} = e
+        setErrorMsg(response?.data?.message);
+      } else if (e instanceof Error) {
+        setErrorMsg(e.message);
       }
-      alert(message);
     } finally {
       setLoading(false)
     }
@@ -139,10 +148,11 @@ function CheckoutForm({product}: InputTypes) {
                         <div>
                             <button className="buy-btn" type="submit" disabled={!stripe}>購入する</button>
                         </div>
+                      {errorMsg && <span className="error">{errorMsg}</span>}
                     </form>
                 )
                 :
-                <p className="product-description">解約ページのリンクをメールアドレス宛に送信しました。<br/>メールに記載のURLから解約の手続きを行ってください。</p>
+                <p className="product-description">購入が完了しました。</p>
         }
         <Loading loading={loading} />
     </div>

@@ -111,16 +111,18 @@ $ npm install -g esbuild
 $ sam build
 $ sam local start-api --env-vars task/env.json --docker-network lambda-local
 
-# 商品と含まれるプランの一覧を取得する
+# 製品(サブクスリプション)と含まれるプランの一覧を取得する
 $ curl http://127.0.0.1:3000/product
 $ curl "http://127.0.0.1:3000/product?productId=prod_xxxxx"
 
-# 支払い処理（サブスクリプションを作成します）
-$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/payment -d '{ "paymentMethod": "pm_xxxxxx", email": "test@test.com", "planId": "price_xxxxx" }'
-# キャンセル処理（サブスクリプションを解約します）
-$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel -d '{ "email": "test@test.com", "planId": "price_xxxxx" }'
+# 契約処理（サブスクリプションを作成します）
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/payment -d '{ "userKey": "12345" , "paymentMethod": "pm_xxxxxx", email": "test@test.com", "planId": "price_xxxxx" }'
 # アクティブチェック（サブスクリプションが有効かどうかを確認します）
-$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/active-check -d '{ "email": "test@test.com", "planId": "price_xxxxx" }'
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/active-check -d '{ "productId": "prod_xxxxxx" , "userKey": "12345" }'
+# 解約リクエスト（解約ページのURLをメールで送信します） 
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel-request -d '{ "productId": "prod_xxxxxx" ,"email": "test@test.com" }'
+# 解約処理（サブスクリプションを解約します） 
+$ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel -d '{ "productId": "prod_xxxxxx" ,"cancelToken": "xxxxxxxxxx" }'
 ```
 
 本番環境（AWS） にデプロイする

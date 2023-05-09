@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import Loading from "./Loading";
 import { useParams } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ function Cancel() {
         try {
             setLoading(true)
 
-            // 解約処理をする
+            // 解約リクエストを送信する
             const { data: {message, error}} = await axios.post(`${process.env.REACT_APP_ENDPOINT_URL??''}/cancel-request`, {
                 productId,
                 email,
@@ -27,7 +27,10 @@ function Cancel() {
             
         } catch (e: unknown) {
             console.log(e);
-            if (e instanceof Error) {
+            if (e instanceof AxiosError) {
+                const {response} = e
+                setErrorMsg(response?.data?.message);
+            } else if (e instanceof Error) {
                 setErrorMsg(e.message);
             }
         } finally {

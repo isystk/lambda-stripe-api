@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import useSWR from 'swr';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import Loading from "./Loading";
 import { useParams } from 'react-router-dom';
 import NotFound from "./NotFound";
@@ -12,6 +12,8 @@ function CancelConfirm() {
     
     const [loading, setLoading] = useState(false);
     const [isComplete, setIsComplete] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    
     const { data, error, isLoading } = useSWR([`${REACT_APP_ENDPOINT_URL}/cancel-confirm`, productId, cancelToken], async ([url, productId, cancelToken]) => {
         const result = await axios.post(url, {
             productId, 
@@ -40,11 +42,12 @@ function CancelConfirm() {
             setIsComplete(true)
         } catch (e: unknown) {
             console.log(e);
-            let message
-            if (e instanceof Error) {
-                message = e.message
+            if (e instanceof AxiosError) {
+                const {response} = e
+                setErrorMsg(response?.data?.message);
+            } else if (e instanceof Error) {
+                setErrorMsg(e.message);
             }
-            alert(message);
         } finally {
             setLoading(false)
         }
@@ -64,6 +67,7 @@ function CancelConfirm() {
                                 <div>
                                     <button className="buy-btn" onClick={cancelSubscription}>解約する</button>
                                 </div>
+                                {errorMsg && <span className="error">{errorMsg}</span>}
                                 <Loading loading={loading} />
                             </div>
                         </>

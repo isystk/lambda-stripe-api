@@ -30,7 +30,7 @@ class SmtpClient {
   }
 
   async mailSend(
-    fromEmail: string = MAIL_FROM_ADDRESS,
+    fromEmail: string | undefined = MAIL_FROM_ADDRESS,
     toEmail: string,
     subject: string,
     bodyText: string
