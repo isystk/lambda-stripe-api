@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express'
 import { DynamoDBClient, DynamoDBRecord } from './dynamodb-client.js'
-const dbClient = new DynamoDBClient('lambda_stripe_api_posts')
+const dbClient = new DynamoDBClient('stripe_subscription_api_posts')
 import uuid from 'node-uuid'
 import cors from 'cors'
 import crypto from 'crypto'
@@ -164,13 +164,14 @@ app.post('/payment', async (req: Request, res: Response) => {
         status: Status.contract,
       } as Post
     )
-    
-    let currentPeriodEnd = "";
+
+    let currentPeriodEnd = ''
     if (subscription.current_period_end) {
-      const date = new Date(subscription.current_period_end * 1000)  
-      currentPeriodEnd = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+      const date = new Date(subscription.current_period_end * 1000)
+      currentPeriodEnd =
+        date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
     }
-    
+
     const text = [
       `${name}様`,
       'この度は、ご利用いただき、誠にありがとうございます。',
@@ -270,12 +271,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
     ].join('\n\n')
 
     // メールを送信します。
-    await mailClient.mailSend(
-      undefined,
-      email,
-      '解約手続きのご案内',
-      text
-    )
+    await mailClient.mailSend(undefined, email, '解約手続きのご案内', text)
 
     res.json({
       message:
@@ -392,8 +388,8 @@ app.post('/cancel', async (req: Request, res: Response) => {
       } as Post
     )
 
-    const customer = await stripeInstance.customers.retrieve(post.customer_id);
-    
+    const customer = await stripeInstance.customers.retrieve(post.customer_id)
+
     // 解約完了のメールを送信する
     const text = [
       `${customer.name}様`,
@@ -403,10 +399,10 @@ app.post('/cancel', async (req: Request, res: Response) => {
 
     // メールを送信します。
     await mailClient.mailSend(
-        undefined,
-        customer.email,
-        '解約手続き完了のお知らせ',
-        text
+      undefined,
+      customer.email,
+      '解約手続き完了のお知らせ',
+      text
     )
 
     res.json({ message: 'Successfully removed a Subscription!' })
@@ -454,7 +450,11 @@ app.post('/active-check', async (req: Request, res: Response) => {
       throw new Error('No plans found for productId.')
     }
 
-    const result = {status: false, current_period_start: "", current_period_end: ""}
+    const result = {
+      status: false,
+      current_period_start: '',
+      current_period_end: '',
+    }
     for (const plan of plans) {
       if (result.status) {
         // １つでもActiveなプランがあれば処理を抜ける
@@ -467,12 +467,19 @@ app.post('/active-check', async (req: Request, res: Response) => {
         status: 'all',
       })
       if (0 < subscriptions.length) {
-        const subscription = subscriptions[0];
+        const subscription = subscriptions[0]
         // 最新のサブスクリプションがactiveであれば、課金中と判定する
         const status = subscription.status === 'active'
-        result["current_period_start"] = subscription.current_period_start ? new Date(subscription.current_period_start * 1000).toISOString(): ""
-        result["current_period_end"] = subscription.current_period_end ? new Date(subscription.current_period_end * 1000).toISOString(): ""
-        result["status"] = status && (subscription.current_period_end * 1000 >= new Date().getTime()) && (subscription.current_period_start * 1000 <= new Date().getTime())
+        result['current_period_start'] = subscription.current_period_start
+          ? new Date(subscription.current_period_start * 1000).toISOString()
+          : ''
+        result['current_period_end'] = subscription.current_period_end
+          ? new Date(subscription.current_period_end * 1000).toISOString()
+          : ''
+        result['status'] =
+          status &&
+          subscription.current_period_end * 1000 >= new Date().getTime() &&
+          subscription.current_period_start * 1000 <= new Date().getTime()
       }
     }
 

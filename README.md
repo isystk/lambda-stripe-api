@@ -1,10 +1,10 @@
-🌙 lambda-stripe-api
+🌙 stripe-subscription-api
 ====
 
-![GitHub issues](https://img.shields.io/github/issues/isystk/lambda-stripe-api)
-![GitHub forks](https://img.shields.io/github/forks/isystk/lambda-stripe-api)
-![GitHub stars](https://img.shields.io/github/stars/isystk/lambda-stripe-api)
-![GitHub license](https://img.shields.io/github/license/isystk/lambda-stripe-api)
+![GitHub issues](https://img.shields.io/github/issues/isystk/stripe-subscription-api)
+![GitHub forks](https://img.shields.io/github/forks/isystk/stripe-subscription-api)
+![GitHub stars](https://img.shields.io/github/stars/isystk/stripe-subscription-api)
+![GitHub license](https://img.shields.io/github/license/isystk/stripe-subscription-api)
 
 ## 📗 プロジェクトの概要
 
@@ -103,7 +103,7 @@ $ ./dc.sh aws local
 > aws dynamodb list-tables  --endpoint-url http://dynamodb:8000 
 
 (テーブルを削除する場合)
-> aws dynamodb delete-table --table-name lambda_stripe_api_posts --endpoint-url http://dynamodb:8000
+> aws dynamodb delete-table --table-name stripe_subscription_api_posts --endpoint-url http://dynamodb:8000
 
 # ESModuleでビルドできるようにする
 $ npm install -g esbuild 
@@ -133,7 +133,7 @@ $ sam build
 $ sam deploy --config-env stg
 
 # AWSから、DynamoDB、Lambda&APIGatewayを削除する
-$ sam delete --stack-name lambda-stripe-api --profile lambda-user
+$ sam delete --stack-name stripe-subscription-api --profile lambda-user
 ```
 
 ### DynamoDBAdmin
@@ -162,7 +162,7 @@ http://localhost:8025/
 
 ## 🎫 Licence
 
-[MIT](https://github.com/isystk/lambda-stripe-api/blob/master/LICENSE)
+[MIT](https://github.com/isystk/stripe-subscription-api/blob/master/LICENSE)
 
 ## 👀 Author
 

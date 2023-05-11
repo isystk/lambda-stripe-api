@@ -1,7 +1,7 @@
 {
-  "name": "lambda-stripe-api",
+  "name": "stripe-subscription-api",
   "version": "1.0.0",
-  "description": "lambda-stripe-api",
+  "description": "stripe-subscription-api",
   "author": "isystk",
   "license": "MIT",
   "scripts": {

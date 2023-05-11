@@ -3,22 +3,22 @@ version: '3'
 services:
 
   dynamodb:
-    image: lambda-stripe-api/dynamodb
-    container_name: lambda-stripe-api-dynamodb
+    image: stripe-subscription-api/dynamodb
+    container_name: stripe-subscription-api-dynamodb
     build:
       context: ./dynamodb
       dockerfile: Dockerfile
     ports:
       - 8000:8000
     volumes:
-      - lambda-stripe-api-dynamodb-store:/home/dynamodblocal/data
+      - stripe-subscription-api-dynamodb-store:/home/dynamodblocal/data
     user: root
     command: -jar DynamoDBLocal.jar -sharedDb -dbPath ./data
     networks:
       - lambda-local
 
   dynamodb-admin:
-    container_name: lambda-stripe-api-dynamodb-admin
+    container_name: stripe-subscription-api-dynamodb-admin
     image: aaronshaf/dynamodb-admin:latest
     environment:
       - DYNAMO_ENDPOINT=dynamodb:8000
@@ -30,8 +30,8 @@ services:
       - lambda-local
 
   awscli:
-    image: lambda-stripe-api/awscli
-    container_name: lambda-stripe-api-awscli
+    image: stripe-subscription-api/awscli
+    container_name: stripe-subscription-api-awscli
     build:
       context: ./awscli
       dockerfile: Dockerfile
@@ -51,13 +51,13 @@ services:
 
   mailhog:
     image: mailhog/mailhog:latest
-    container_name: lambda-stripe-api-mailhog
+    container_name: stripe-subscription-api-mailhog
     ports:
       - 8025:8025
       - 25:1025
 
 volumes:
-  lambda-stripe-api-dynamodb-store:
+  stripe-subscription-api-dynamodb-store:
 
 networks:
   lambda-local:

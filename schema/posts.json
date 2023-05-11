@@ -1,5 +1,5 @@
 {
-  "TableName": "lambda_stripe_api_posts",
+  "TableName": "stripe_subscription_api_posts",
   "KeySchema": [
     {
       "AttributeName": "pk",
