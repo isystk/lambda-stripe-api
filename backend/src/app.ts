@@ -164,17 +164,22 @@ app.post('/payment', async (req: Request, res: Response) => {
         status: Status.contract,
       } as Post
     )
-
+    
+    let currentPeriodEnd = "";
+    if (subscription.current_period_end) {
+      const date = new Date(subscription.current_period_end * 1000)  
+      currentPeriodEnd = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    }
+    
     const text = [
       `${name}様`,
-      'この度は、lambda-stripe-apiをご利用いただき、誠にありがとうございます。',
+      'この度は、ご利用いただき、誠にありがとうございます。',
       '会員登録が完了しました。',
-      '',
-      '登録内容について',
       '----',
-      '',
+      `現在の有効期限： ～${currentPeriodEnd}`,
       '----',
-    ].join('\n')
+      'お客様の会員資格はキャンセルされるまで毎月自動で更新し、毎月更新日に会費が請求されます。',
+    ].join('\n\n')
 
     // メールを送信します。
     await mailClient.mailSend(
@@ -262,7 +267,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
       'お手数ですが以下のURLからご契約のプランの解約手続きをお願い致します。',
       '',
       cancelUrl,
-    ].join('\n')
+    ].join('\n\n')
 
     // メールを送信します。
     await mailClient.mailSend(
@@ -365,8 +370,12 @@ app.post('/cancel', async (req: Request, res: Response) => {
       throw new Error('No valid Subscription found.')
     }
     for (const subscription of subscriptions) {
-      // サブスクリプションをキャンセルする
-      await stripeInstance.subscriptions.del(subscription.id)
+      // // サブスクリプションをキャンセルする
+      // await stripeInstance.subscriptions.del(subscription.id)
+      // 期間満了となったら解約させる
+      await stripeInstance.subscriptions.update(subscription.id, {
+        cancel_at_period_end: true,
+      })
     }
 
     // 顧客のステータスを「解約済み」にする
@@ -390,7 +399,7 @@ app.post('/cancel', async (req: Request, res: Response) => {
       `${customer.name}様`,
       '解約手続きが完了しましたのでご案内申し上げます。',
       '是迄、ご利用頂きまして誠にありがとうございました。',
-    ].join('\n')
+    ].join('\n\n')
 
     // メールを送信します。
     await mailClient.mailSend(
@@ -445,9 +454,9 @@ app.post('/active-check', async (req: Request, res: Response) => {
       throw new Error('No plans found for productId.')
     }
 
-    let status = false
+    const result = {status: false, current_period_start: "", current_period_end: ""}
     for (const plan of plans) {
-      if (status) {
+      if (result.status) {
         // １つでもActiveなプランがあれば処理を抜ける
         break
       }
@@ -457,11 +466,17 @@ app.post('/active-check', async (req: Request, res: Response) => {
         plan: plan.id,
         status: 'all',
       })
-      // 最新のサブスクリプションがactiveであれば、課金中と判定する
-      status = subscriptions.length > 0 && subscriptions[0].status === 'active'
+      if (0 < subscriptions.length) {
+        const subscription = subscriptions[0];
+        // 最新のサブスクリプションがactiveであれば、課金中と判定する
+        const status = subscription.status === 'active'
+        result["current_period_start"] = subscription.current_period_start ? new Date(subscription.current_period_start * 1000).toISOString(): ""
+        result["current_period_end"] = subscription.current_period_end ? new Date(subscription.current_period_end * 1000).toISOString(): ""
+        result["status"] = status && (subscription.current_period_end * 1000 >= new Date().getTime()) && (subscription.current_period_start * 1000 <= new Date().getTime())
+      }
     }
 
-    res.json({ status })
+    res.json(result)
   } catch (e: unknown) {
     console.error('error', e)
     let message

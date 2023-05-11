@@ -14,7 +14,7 @@ function CancelConfirm() {
     const [isComplete, setIsComplete] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     
-    const { data, error, isLoading } = useSWR([`${REACT_APP_ENDPOINT_URL}/cancel-confirm`, productId, cancelToken], async ([url, productId, cancelToken]) => {
+    const { data: subscriptions, error, isLoading } = useSWR([`${REACT_APP_ENDPOINT_URL}/cancel-confirm`, productId, cancelToken], async ([url, productId, cancelToken]) => {
         const result = await axios.post(url, {
             productId, 
             cancelToken,
@@ -27,6 +27,12 @@ function CancelConfirm() {
     }
     if (error) {
         return <NotFound />
+    }
+    const subscription = subscriptions[0]
+    let currentPeriodEnd = "";
+    if (subscription.current_period_end) {
+        const date = new Date(subscription.current_period_end * 1000)
+        currentPeriodEnd = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     }
 
     const cancelSubscription = async () => {
@@ -62,7 +68,7 @@ function CancelConfirm() {
             {
                 !isComplete ? (
                         <>
-                            <p className="product-description">以下のプランを解約します。宜しければ「解約する」を押してください。</p>
+                            <p className="product-description">{`解約すると${currentPeriodEnd}以降はご利用できなくなります。宜しければ「解約する」を押してください。`}</p>
                             <div className="product-form">
                                 <div>
                                     <button className="buy-btn" onClick={cancelSubscription}>解約する</button>
