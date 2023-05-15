@@ -1,56 +1,113 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "stripe-subscription-api-frontend",
+  "description": "stripe-subscription-api-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "PORT=9000 NODE_ENV=development next",
+    "start": "PORT=9000 NODE_ENV=production next start",
+    "build": "NODE_ENV=production next build && next export",
+    "test": "jest ",
+    "test:coverage": "jest --collect-coverage",
+    "lint": "eslint --ext .ts,.tsx .",
+    "lintfix": "eslint --fix --ext .ts,.tsx .",
+    "format": "prettier -w 'src/**/*.{ts,tsx}'",
+    "fix": "yarn format && yarn lint",
+    "deploy:production": "now -t $VERCEL_TOKEN -c --prod",
+    "deploy:preview": "now -t $VERCEL_TOKEN -c",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,less,sass,scss}": [
+      "stylelint --fix"
+    ]
+  },
   "dependencies": {
+    "@apollo/client": "^3.7.1",
+    "@aws-sdk/client-kinesis-video": "^3.159.0",
+    "@aws-sdk/client-kinesis-video-signaling": "^3.159.0",
+    "@emotion/css": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.17",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.11",
+    "@reduxjs/toolkit": "^1.8.6",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.1",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.25",
-    "@types/react": "^18.2.5",
-    "@types/react-dom": "^18.2.3",
-    "@types/stripe": "^8.0.417",
-    "axios": "^1.4.0",
-    "bootstrap": "^5.2.3",
+    "@types/lodash": "^4.14.186",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@types/react-redux": "^7.1.24",
+    "@types/redux-logger": "^3.0.9",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "amazon-kinesis-video-streams-webrtc": "^2.0.0",
+    "aws-amplify": "^4.3.36",
+    "aws-appsync-auth-link": "^3.0.7",
+    "aws-appsync-subscription-link": "^3.1.1",
+    "aws-sdk": "^2.1204.0",
+    "axios": "^1.1.3",
+    "browser-image-compression": "^2.0.0",
+    "cropperjs": "^1.5.12",
+    "date-fns": "^2.29.3",
+    "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
+    "jsonc-parser": "^3.2.0",
     "lodash": "^4.17.21",
+    "next": "^13.0.0",
+    "next-redux-wrapper": "^8.0.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1",
+    "react-redux": "^8.0.4",
+    "react-router": "^6.4.2",
+    "react-virtuoso": "^3.1.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.8",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "stripe": "^12.5.0",
     "swr": "^2.1.5",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "PORT=9000 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "tailwindcss": "^3.3.2",
+    "typescript": "4.8",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.194"
-  }
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/react": "^6.5.13",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/react-test-renderer": "^18.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.1",
+    "jest": "^27.5.1",
+    "lint-staged": "^13.0.3",
+    "now": "^21.0.1",
+    "postcss": "^8.4.23",
+    "postcss-loader": "^7.2.4",
+    "prettier": "^2.7.1",
+    "react-test-renderer": "^18.2.0",
+    "storybook-addon-next-router": "^4.0.1",
+    "types": "^0.1.1"
+  },
+  "license": "MIT"
 }

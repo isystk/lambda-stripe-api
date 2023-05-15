@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideMenu Match Snapshot 1`] = `
+Array [
+  <div
+    className="css-0 fixed top-0 right-0 z-30 bg-white h-screen w-64 css-hc9ocb"
+  >
+    <div
+      className="mt-24"
+    />
+    <ul
+      className="list-none"
+    >
+      <li
+        className="py-4"
+      >
+        <a
+          className="block text-gray-700 font-bold whitespace-nowrap px-4"
+          href="/"
+        >
+          ホーム
+        </a>
+      </li>
+      <li
+        className="py-4"
+      >
+        <a
+          className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
+          href="#"
+        >
+          機能
+        </a>
+      </li>
+      <li
+        className="py-4"
+      >
+        <a
+          className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
+          href="#"
+        >
+          料金
+        </a>
+      </li>
+      <li
+        className="py-4"
+      >
+        <a
+          className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
+          href="#"
+        >
+          お問い合わせ
+        </a>
+      </li>
+    </ul>
+  </div>,
+  <div
+    className="hidden z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
+    onClick={[Function]}
+  />,
+]
+`;

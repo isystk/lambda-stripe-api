@@ -260,7 +260,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
     } as Post
     post = await dbClient.update<Post>({ pk: post.pk, sk: post.sk }, params)
 
-    const cancelUrl = `${ENDPOINT_URL}/products/${productId}/cancel/${post.cancel_token}`
+    const cancelUrl = `${ENDPOINT_URL}/product/${productId}/cancel/${post.cancel_token}`
     // 解約ページのURLをメールで送信する
     const text = [
       `${customer.name}様`,

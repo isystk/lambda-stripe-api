@@ -1,46 +1,131 @@
-# Getting Started with Create React App
+🌙 react-video-chat
+====
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![CircleCI](https://circleci.com/gh/isystk/react-video-chat/tree/master.svg?style=svg)](https://circleci.com/gh/isystk/react-video-chat/tree/master)
+![GitHub issues](https://img.shields.io/github/issues/isystk/react-video-chat)
+![GitHub forks](https://img.shields.io/github/forks/isystk/react-video-chat)
+![GitHub stars](https://img.shields.io/github/stars/isystk/react-video-chat)
+![GitHub license](https://img.shields.io/github/license/isystk/react-video-chat)
 
-## Available Scripts
+## 📗 プロジェクトの概要
 
-In the project directory, you can run:
+React.js(Next.js)で作成したビデオ&チャットアプリケーションです。<br/>
+チャット機能は、AWS Lambda の WebSocket機能を利用しています。<br/>
+ビデオ通話には、AWS Kinesis Video Streamを利用しています。
 
-### `npm start`
+## 🌐 Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://react-video-chat-isystk.vercel.app
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![投稿画面](./app.png "投稿画面")
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📦 ディレクトリ構造
 
-### `npm run build`
+```
+.
+├── LICENSE
+├── README.md
+├── app.png
+├── aws-sam
+│   ├── layers
+│   ├── onconnect
+│   ├── ondisconnect
+│   ├── samconfig.toml
+│   ├── sendmessage
+│   └── template.yaml
+├── jest.config.js
+├── next-env.d.ts
+├── next.config.js
+├── node_modules
+├── public
+│   ├── apple-touch-icon.png
+│   ├── favicon.ico
+│   ├── images
+│   ├── manifest.json
+│   ├── ogp-image.png
+│   └── sounds
+├── src
+│   ├── @types
+│   ├── API.ts（amplify）
+│   ├── assets
+│   ├── aws-exports.js（amplify）
+│   ├── components
+│   ├── constants
+│   ├── graphql（amplify）
+│   ├── models（amplify）
+│   ├── pages
+│   ├── services
+│   ├── stores
+│   └── utils
+├── tsconfig.jest.json
+├── tsconfig.json
+└── yarn.lock
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🖊️ 環境構築
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+IAM ユーザーを用意する
+```
+ユーザ名：「lambda-user」
+アクセス権限：
+「AmazonKinesisVideoStreamsFullAccess」
+「AdministratorAccess」
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+SAMコマンドをインストールする
+```
+$ pip install aws-sam-cli
+```
 
-### `npm run eject`
+AWSに、DynamoDB、Lambda&APIGatewayをCFnで構築する
+```
+$ WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える
+$ sam build
+$ sam deploy --config-env stg
+```
+[{"M":{"icon":{"S":"avatar"},"connectionId":{"S":"Wxs75dHHNjMCElA="},"username":{"S":"taro"}}},{"M":{"icon":{"S":"avatar"},"connectionId":{"S":"Wxs9XdooNjMCIcA="},"username":{"S":"taro"}}}]
+WebSocketの動作を確認する
+```
+$ wscat -c wss:///xxxxxx.execute-api.ap-northeast-1.amazonaws.com/Prod?roomId=test
+Connected (press CTRL+C to quit)
+< { "action": "sendmessage", "data": {"type": "test", "value": "hello world" }}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+AWSから、DynamoDB、Lambda&APIGatewayを削除する
+```
+$ cd aws-sam
+$ sam delete --stack-name reactVideoChat
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Amplify の環境を構築する
+```
+$ amplify pull --appId d1gaaytviiyq79 --envName dev
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 💬 使い方
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+$ cp .env.example .env
+$ yarn
+$ yarn dev
+```
 
-## Learn More
+## 🎨 参考
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| プロジェクト| 概要|
+| :---------------------------------------| :-------------------------------|
+| [Material Icons](https://v4.mui.com/components/material-icons/)| Material Icons |
+| [Amazon Kinesis Video Streams WebRTC を動かしてみた](https://qiita.com/massie_g/items/b6d3513d06a28ba89677)| Amazon Kinesis Video Streams WebRTC を動かしてみた |
+| [Amazon Kinesis Video Streams WebRTC で無理やり複数人のビデオチャットを作る](https://qiita.com/massie_g/items/4cdf475ab623757a2630)| Amazon Kinesis Video Streams WebRTC で無理やり複数人のビデオチャットを作る |
+| [WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える](https://qiita.com/anfangd/items/ebcd77173341b10b3684)| WebSocket - AWS の API Gateway と Lambda でルーム機能付きのchatを作る時の仕様を考える |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+## 🎫 Licence
+
+[MIT](https://github.com/isystk/react-video-chat/blob/master/LICENSE)
+
+## 👀 Author
+
+[isystk](https://github.com/isystk)
+
