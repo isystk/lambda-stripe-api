@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import CheckoutForm from './index'
-import '@testing-library/jest-dom/extend-expect'
+
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
 

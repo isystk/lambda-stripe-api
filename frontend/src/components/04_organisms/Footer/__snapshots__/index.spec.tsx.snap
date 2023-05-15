@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Footer Match Snapshot 1`] = `
-Array [
+[
   <footer
     className="css-0 relative"
   >

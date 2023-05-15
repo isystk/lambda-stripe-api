@@ -22,7 +22,7 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 ```
 .
 ├── README.md
-├── backend (Lambdaのモジュール)
+├── backend（Lambda バックエンドモジュール）
 │   ├── dist
 │   ├── jest.config.ts
 │   ├── node_modules
@@ -31,21 +31,36 @@ SAM を利用して管理しているので、コマンドひとつでインフ�
 │   ├── src
 │   ├── tests
 │   └── tsconfig.json
-├── frontend
-│   ├── README.md
+├── dc.sh（Docker起動用シェルスクリプト）
+├── demo.png
+├── docker（Docker）
+│   ├── awscli
+│   ├── docker-compose.yml
+│   └── dynamodb
+├── dynamodb-admin.png
+├── frontend（Next.js フロントモジュール）
+│   ├── jest.config.js
+│   ├── next-env.d.ts
+│   ├── next.config.js
 │   ├── node_modules
-│   ├── package-lock.json
+│   ├── out
 │   ├── package.json
+│   ├── postcss.config.js
 │   ├── public
 │   ├── src
-│   └── tsconfig.json
-├── layers (共通モジュール)
+│   ├── tailwind.config.js
+│   ├── tsconfig.jest.json
+│   └── yarn.lock
+├── layers（Lambda用レイヤーモジュール）
 │   └── app-layer
 ├── samconfig.toml
+├── schema
+│   ├── data
+│   └── posts.json
 ├── task
-│   ├── env.json
 │   └── env.json.example
 └── template.yaml
+
 ```
 
 ## 🔧 開発環境の構築
@@ -87,6 +102,8 @@ Options:
 ```
 
 ## 💬 使い方
+
+### バックエンド（Lambda）
 
 ローカルでAPIを起動する
 ```
@@ -135,6 +152,24 @@ $ sam deploy --config-env stg
 # AWSから、DynamoDB、Lambda&APIGatewayを削除する
 $ sam delete --stack-name stripe-subscription-api --profile lambda-user
 ```
+### フロントエンド（Next.js）
+
+```
+$ cd frontend
+
+# アプリを起動
+$ npm install
+$ npm run dev
+
+# テストの実行
+$ npm run test
+
+# コードチェック
+$ npm run fix
+
+# Storybookの起動
+$ npm run storybook
+```
 
 ### DynamoDBAdmin
 DynamoDBに接続してデータの参照や編集が可能です。
@@ -142,7 +177,6 @@ Dockerを起動後に以下のURLにアクセスすると利用可能です。
 
 http://localhost:8001/
 
-![DynamoDB-Admin](./dynamodb-admin.png "WSL-MySQL")
 
 ### mailhog
 ダミーのメールサーバーです。実際にはメールは送信されず、送信されたメールはブラウザで閲覧できます。

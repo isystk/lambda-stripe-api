@@ -3,6 +3,7 @@ import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
 import * as styles from './styles'
 import { APP_NAME } from '@/constants'
+import { Url } from '@/constants/url'
 
 /** LogoProps Props */
 export type LogoProps = WithChildren & {
@@ -14,9 +15,9 @@ export type PresenterProps = LogoProps
 /** Presenter Component */
 const LogoPresenter: FC<PresenterProps> = ({ name = APP_NAME }) => (
   <>
-    <div className={`${styles.logo} w-20 md:w-40`}>
+    <a href={Url.Top} className={`${styles.logo} w-20 md:w-40`}>
       <img src="/images/logo.png" alt={name}></img>
-    </div>
+    </a>
   </>
 )
 

@@ -1,12 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Logo Match Snapshot 1`] = `
-<div
+<a
   className="css-0 w-20 md:w-40"
+  href="/"
 >
   <img
     alt="sample"
     src="/images/logo.png"
   />
-</div>
+</a>
 `;

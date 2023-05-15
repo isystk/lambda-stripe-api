@@ -1,13 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { Url } from '@/constants/url'
 
-import useAppRoot from '@/stores/useAppRoot'
-import LandingPageTemplate, {
-  type LandingPageTemplateProps,
-} from '@/components/06_templates/LandingPageTemplate'
 const Index: FC = () => {
-  const main = useAppRoot()
-  if (!main) return <></>
-  const props: LandingPageTemplateProps = { main }
-  return <LandingPageTemplate {...props} />
+  const router = useRouter()
+
+  useEffect(() => {
+    router.replace(Url.Product) // ここでリダイレクト
+  }, [])
+
+  return null
 }
 export default Index

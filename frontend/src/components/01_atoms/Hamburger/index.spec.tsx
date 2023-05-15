@@ -1,7 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import Hamburger from './index'
-import '@testing-library/jest-dom/extend-expect'
 
 describe('Hamburger', () => {
   it('Match Snapshot', () => {

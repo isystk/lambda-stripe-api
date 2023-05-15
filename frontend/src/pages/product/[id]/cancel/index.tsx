@@ -7,6 +7,11 @@ import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
 import axios, { AxiosError } from 'axios'
 import Loading from '@/components/01_atoms/Loading'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+
+type FormInputs = {
+  email: string
+}
 
 const Index: FC = () => {
   const {
@@ -19,7 +24,25 @@ const Index: FC = () => {
   const [email, setEmail] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 
-  const cancelRequest = async () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormInputs>()
+
+  const validate = {
+    email: {
+      required: 'メールアドレスを入力してください',
+      pattern: {
+        value: /[\w\-\\._]+@[\w\-\\._]+\.[A-Za-z]+/,
+        message: 'メールアドレスを正しく入力してください',
+      },
+    },
+  }
+
+  // フォーム送信ボタンを押された時の処理
+  const onsubmit: SubmitHandler<FormInputs> = async ({ email }) => {
     try {
       setLoading(true)
 
@@ -51,36 +74,42 @@ const Index: FC = () => {
   return (
     <InputFormTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">
-        <h2 className="text-36 mb-12 md:mb-20">商品の解約ページ</h2>
+        <h2 className="text-2xl mb-8 md:mb-10">商品の解約ページ</h2>
         <div>
           {!isComplete ? (
             <>
-              <p className="text-36 mb-4">メールアドレスを入力してください。</p>
-              <div>
+              <p className="mb-4 leading-6">
+                入力して頂いたメールアドレス宛に解約ページのURLを記載したメールをお送りさせて頂きます。
+              </p>
+              <form onSubmit={handleSubmit(onsubmit)}>
                 <div className="flex flex-col mb-4">
                   <input
                     id="email"
                     placeholder="メールアドレス"
                     type="email"
-                    value={email}
                     className="p-3 bg-gray-200 rounded-md"
-                    onChange={(e) => setEmail(e.target.value)}
+                    {...register('email', validate['email'])}
                   />
+                  {errors.email && (
+                    <span className="pt-4 text-red-500">
+                      {errors.email.message}
+                    </span>
+                  )}
                 </div>
                 <div>
                   <button
                     className="bg-blue-500 rounded-md text-white border-none rounded-5 px-20 py-4 text-18 cursor-pointer mt-10"
-                    onClick={cancelRequest}
+                    type="submit"
                   >
                     メールを送信する
                   </button>
                 </div>
                 {errorMsg && <p className="pt-4 text-red-500">{errorMsg}</p>}
                 <Loading loading={loading} />
-              </div>
+              </form>
             </>
           ) : (
-            <p className="product-description">
+            <p className="mb-4 leading-6">
               解約ページのリンクをメールアドレス宛に送信しました。
               <br />
               メールに記載のURLから解約の手続きを行ってください。

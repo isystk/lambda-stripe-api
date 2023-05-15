@@ -11,7 +11,7 @@ import useSWR from 'swr'
 import ErrorTemplate, {
   ErrorTemplateProps,
 } from '@/components/06_templates/ErrorTemplate'
-import Modal from "@/components/01_atoms/Modal";
+import Modal from '@/components/01_atoms/Modal'
 
 const Index: FC = () => {
   const {
@@ -87,11 +87,11 @@ const Index: FC = () => {
   return (
     <InputFormTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">
-        <h2 className="text-36 mb-12 md:mb-20">商品の解約ページ</h2>
+        <h2 className="text-2xl mb-8 md:mb-10">商品の解約ページ</h2>
         <div>
           {!isComplete ? (
             <>
-              <p className="text-36 mb-4">{`解約すると${currentPeriodEnd}以降はご利用できなくなります。宜しければ「解約する」を押してください。`}</p>
+              <p className="mb-4 leading-6">{`解約すると${currentPeriodEnd}以降はご利用できなくなります。宜しければ「解約する」を押してください。`}</p>
               <div>
                 <button
                   className="bg-blue-500 rounded-md text-white border-none rounded-5 px-20 py-4 text-18 cursor-pointer mt-10"
@@ -104,7 +104,7 @@ const Index: FC = () => {
               </div>
             </>
           ) : (
-            <p className="product-description">
+            <p className="mb-4 leading-6">
               解約が完了しました。
               <br />
               またのご利用をお待ちしております。
@@ -112,9 +112,29 @@ const Index: FC = () => {
           )}
         </div>
       </section>
-      <Modal isOpen={showModal} handleCancel={() => setShowModal(false)} handleAccept={() => cancelSubscription()}>
-        <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">解約します。よろしいですか？</h3>
+      <Modal
+        isOpen={showModal}
+        handleCancel={() => setShowModal(false)}
+        handleAccept={() => cancelSubscription()}
+      >
+        <svg
+          aria-hidden="true"
+          className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          解約します。よろしいですか？
+        </h3>
       </Modal>
     </InputFormTemplate>
   )

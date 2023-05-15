@@ -36,7 +36,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
       <ul className="list-none">
         <li className="py-4">
           <a
-            href={Url.TOP}
+            href={Url.Top}
             className="block text-gray-700 font-bold whitespace-nowrap px-4"
           >
             ホーム
@@ -44,15 +44,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
         </li>
         <li className="py-4">
           <a
-            href="#"
-            className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          >
-            機能
-          </a>
-        </li>
-        <li className="py-4">
-          <a
-            href="#"
+            href={Url.Payment}
             className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
           >
             料金
@@ -60,7 +52,9 @@ const SideMenuPresenter: FC<PresenterProps> = ({
         </li>
         <li className="py-4">
           <a
-            href="https://twitter.com/ise0615" target="_blank"
+            href="https://twitter.com/ise0615"
+            target="_blank"
+            rel="noreferrer"
             className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
           >
             お問い合わせ

@@ -4,13 +4,14 @@ exports[`Header Match Snapshot 1`] = `
 <header
   className="css-0 flex justify-between items-center px-4 py-4 sm:px-8 bg-gray-100 w-full"
 >
-  <div
+  <a
     className="css-0 w-20 md:w-40"
+    href="/"
   >
     <img
       src="/images/logo.png"
     />
-  </div>
+  </a>
   <div
     className="flex pr-3 z-50 md:hidden"
   >
@@ -44,21 +45,16 @@ exports[`Header Match Snapshot 1`] = `
       </li>
       <li>
         <a
-          href="#"
-        >
-          機能
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
+          href="/product/prod_NpvV9ohJIlgElI/payment"
         >
           料金
         </a>
       </li>
       <li>
         <a
-          href="#"
+          href="https://twitter.com/ise0615"
+          rel="noreferrer"
+          target="_blank"
         >
           お問い合わせ
         </a>

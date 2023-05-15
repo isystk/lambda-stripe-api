@@ -30,16 +30,19 @@ const HeaderPresenter: FC<PresenterProps> = ({
       <nav className="hidden sm:block">
         <ul className="flex gap-6">
           <li>
-            <a href={Url.TOP}>ホーム</a>
+            <a href={Url.Top}>ホーム</a>
           </li>
           <li>
-            <a href="#">機能</a>
+            <a href={Url.Payment}>料金</a>
           </li>
           <li>
-            <a href="#">料金</a>
-          </li>
-          <li>
-            <a href="https://twitter.com/ise0615" target="_blank">お問い合わせ</a>
+            <a
+              href="https://twitter.com/ise0615"
+              target="_blank"
+              rel="noreferrer"
+            >
+              お問い合わせ
+            </a>
           </li>
         </ul>
       </nav>

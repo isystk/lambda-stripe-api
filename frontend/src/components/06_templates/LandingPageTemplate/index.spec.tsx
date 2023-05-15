@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import LandingPageTemplate, { LandingPageTemplateProps } from './index'
-import '@testing-library/jest-dom/extend-expect'
+
 import MainService from '@/services/main'
 import { Provider } from 'react-redux'
 import { store } from '@/stores'

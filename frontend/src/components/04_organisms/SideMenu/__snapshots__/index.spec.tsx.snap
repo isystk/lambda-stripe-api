@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SideMenu Match Snapshot 1`] = `
-Array [
+[
   <div
     className="css-0 fixed top-0 right-0 z-30 bg-white h-screen w-64 css-hc9ocb"
   >
@@ -26,17 +26,7 @@ Array [
       >
         <a
           className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          href="#"
-        >
-          機能
-        </a>
-      </li>
-      <li
-        className="py-4"
-      >
-        <a
-          className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          href="#"
+          href="/product/prod_NpvV9ohJIlgElI/payment"
         >
           料金
         </a>
@@ -46,7 +36,9 @@ Array [
       >
         <a
           className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          href="#"
+          href="https://twitter.com/ise0615"
+          rel="noreferrer"
+          target="_blank"
         >
           お問い合わせ
         </a>

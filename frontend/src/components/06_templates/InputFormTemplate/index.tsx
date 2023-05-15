@@ -30,9 +30,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
     <div className="flex items-center justify-center">
       <Circles>
         <div className="px-1 md:px-32 w-full">
-          <div className="py-8">
-            {children}
-          </div>
+          <div className="py-8">{children}</div>
         </div>
       </Circles>
     </div>

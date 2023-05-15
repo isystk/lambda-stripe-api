@@ -71,6 +71,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
   register,
   handleSubmit,
   errors,
+  validate,
   stripe,
   ...props
 }) => (
@@ -78,7 +79,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
     <div>
       {!isComplete ? (
         <form onSubmit={handleSubmit(onsubmit)}>
-          <div className=" mb-4">
+          <div className="flex flex-wrap items-center md:mb-8">
             {product.plans.map(({ id, amount, currency }, idx) => {
               const amountFmt = amount
                 ? new Intl.NumberFormat('ja-JP', {
@@ -87,21 +88,24 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
                   }).format(amount)
                 : ''
               return (
-                <div key={id}>
-                  <input
-                    type="radio"
-                    checked={idx === 0}
-                    value={id}
-                    {...register('planId', { required: true })}
-                  />
-                  <p className="product-price">{amountFmt}</p>
+                <div key={id} className="w-full md:w-1/2">
+                  <div className="bg-black rounded-lg md:mr-4 py-12 h-72 mb-8">
+                    <p className="text-white text-center mb-12">プラン</p>
+                    <p className="text-white font-bold text-center text-5xl mb-12">
+                      {amountFmt}
+                    </p>
+                    <input
+                      type="radio"
+                      checked={idx === 0}
+                      value={id}
+                      {...register('planId', validate['planId'])}
+                    />
+                  </div>
                 </div>
               )
             })}
             {errors.planId && (
-              <span className="pt-4 text-red-500">
-                プランを選択してください
-              </span>
+              <span className="pt-4 text-red-500">{errors.planId.message}</span>
             )}
           </div>
           <div className="flex flex-col mb-4">
@@ -109,12 +113,10 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
               placeholder="お名前"
               type="text"
               className="p-3 bg-gray-200 rounded-md"
-              {...register('name', { required: true })}
+              {...register('name', validate['name'])}
             />
             {errors.name && (
-              <span className="pt-4 text-red-500">
-                お名前を入力してください
-              </span>
+              <span className="pt-4 text-red-500">{errors.name.message}</span>
             )}
           </div>
           <div className="flex flex-col mb-4">
@@ -122,12 +124,10 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
               placeholder="メールアドレス"
               type="email"
               className="p-3 bg-gray-200 rounded-md"
-              {...register('email', { required: true })}
+              {...register('email', validate['email'])}
             />
             {errors.email && (
-              <span className="pt-4 text-red-500">
-                メールアドレスを入力してください
-              </span>
+              <span className="pt-4 text-red-500">{errors.email.message}</span>
             )}
           </div>
           <div className="p-4 bg-gray-200 rounded-md">
@@ -176,6 +176,23 @@ const CheckoutFormContainer: React.FC<
     formState: { errors },
   } = useForm<FormInputs>()
 
+  const validate = {
+    planId: {
+      required: 'プランを選択してください',
+    },
+    name: {
+      required: 'お名前を入力してください',
+      max: { value: 30, message: 'お名前は３０文字以内で入力してください' },
+    },
+    email: {
+      required: 'メールアドレスを入力してください',
+      pattern: {
+        value: /[\w\-\\._]+@[\w\-\\._]+\.[A-Za-z]+/,
+        message: 'メールアドレスを正しく入力してください',
+      },
+    },
+  }
+
   // フォーム送信ボタンを押された時の処理
   const onsubmit: SubmitHandler<FormInputs> = async ({
     planId,
@@ -187,7 +204,7 @@ const CheckoutFormContainer: React.FC<
       const payment: PaymentMethodResult | undefined =
         await stripe?.createPaymentMethod({
           type: 'card',
-          card: elements?.getElement(CardElement)!,
+          card: elements?.getElement(CardElement),
           billing_details: {
             email,
           },
@@ -238,6 +255,7 @@ const CheckoutFormContainer: React.FC<
     register,
     handleSubmit,
     errors,
+    validate,
     stripe,
     ...props,
   })
