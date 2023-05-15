@@ -11,6 +11,7 @@ import useSWR from 'swr'
 import ErrorTemplate, {
   ErrorTemplateProps,
 } from '@/components/06_templates/ErrorTemplate'
+import Modal from "@/components/01_atoms/Modal";
 
 const Index: FC = () => {
   const {
@@ -19,6 +20,7 @@ const Index: FC = () => {
   const main = useAppRoot()
 
   const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -55,6 +57,7 @@ const Index: FC = () => {
   const cancelSubscription = async () => {
     try {
       setLoading(true)
+      setShowModal(false)
 
       // call the backend to create subscription
       const {
@@ -92,7 +95,7 @@ const Index: FC = () => {
               <div>
                 <button
                   className="bg-blue-500 rounded-md text-white border-none rounded-5 px-20 py-4 text-18 cursor-pointer mt-10"
-                  onClick={cancelSubscription}
+                  onClick={() => setShowModal(true)}
                 >
                   解約する
                 </button>
@@ -109,6 +112,10 @@ const Index: FC = () => {
           )}
         </div>
       </section>
+      <Modal isOpen={showModal} handleCancel={() => setShowModal(false)} handleAccept={() => cancelSubscription()}>
+        <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">解約します。よろしいですか？</h3>
+      </Modal>
     </InputFormTemplate>
   )
 }

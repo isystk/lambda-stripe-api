@@ -60,7 +60,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
         </li>
         <li className="py-4">
           <a
-            href="#"
+            href="https://twitter.com/ise0615" target="_blank"
             className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
           >
             お問い合わせ

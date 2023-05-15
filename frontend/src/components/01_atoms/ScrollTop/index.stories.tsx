@@ -8,7 +8,7 @@ export default {
 } as Meta
 
 const Template: Story = (props) => {
-  return <ScrollTop name="sample" />
+  return <ScrollTop isVisible={true} />
 }
 
 export const Primary = Template.bind({})

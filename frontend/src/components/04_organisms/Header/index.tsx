@@ -39,7 +39,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
             <a href="#">料金</a>
           </li>
           <li>
-            <a href="#">お問い合わせ</a>
+            <a href="https://twitter.com/ise0615" target="_blank">お問い合わせ</a>
           </li>
         </ul>
       </nav>

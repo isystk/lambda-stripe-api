@@ -56,7 +56,6 @@ const LandingPageTemplateContainer: React.FC<
     ...props,
   })
 }
-
 export default connect<LandingPageTemplateProps, PresenterProps>(
   'LandingPageTemplate',
   LandingPageTemplatePresenter,

@@ -14,9 +14,9 @@ const Template: Story = (props) => {
 
   return (
     <Context.Provider value={main}>
-      <CheckoutForm product={{plans: [{
-          id: 1, amount: 999, currency: 'jpy'
-        }]}}/>
+      {/*<CheckoutForm product={{plans: [{*/}
+      {/*    id: 1, amount: 999, currency: 'jpy'*/}
+      {/*  }]}}/>*/}
     </Context.Provider>
   )
 }

@@ -1,8 +1,5 @@
-import Grid from '@mui/material/Grid'
 import Circles from '@/components/01_atoms/Circles'
-import InputFormName from '@/components/03_molecules/InputFormName'
 import React, { useEffect, FC, useState } from 'react'
-import { useRouter } from 'next/router'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
