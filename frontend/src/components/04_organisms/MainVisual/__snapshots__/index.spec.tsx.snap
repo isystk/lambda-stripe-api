@@ -5,7 +5,7 @@ exports[`MainVisual Match Snapshot 1`] = `
   className="css-0 h-screen"
 >
   <div
-    className="flex flex-wrap items-center h-full bg-gray-100 justify-center"
+    className="flex flex-wrap items-center h-full bg-main justify-center"
   >
     <div
       className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16 pb-8"
@@ -22,7 +22,7 @@ exports[`MainVisual Match Snapshot 1`] = `
         className="px-8"
       >
         <p
-          className="text-green-600 text-xl md:text-3xl font-bold mb-6 "
+          className="text-accent text-xl md:text-3xl font-bold mb-6 "
         >
           リリース1ヶ月で100万人登録！
         </p>
@@ -34,7 +34,7 @@ exports[`MainVisual Match Snapshot 1`] = `
           LINEで使える！
         </h1>
         <a
-          className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-green-500 rounded-full"
+          className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
           href="#"
         >
           <img

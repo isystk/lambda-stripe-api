@@ -5,7 +5,7 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
-import ScrollIn from '@/components/01_atoms/ScrollIn'
+import ScrollIn from '@/components/02_interactions/ScrollIn'
 
 /** PriceProps Props */
 export type PriceProps = WithChildren

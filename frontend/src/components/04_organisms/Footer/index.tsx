@@ -19,8 +19,8 @@ const FooterPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
     <footer className={`${styles.footer} relative`}>
       <div className="absolute left-0 right-0 -mt-64 md:-mt-32">
-        <div className="flex w-full md:w-4/5 bg-gray-100 rounded-tr-full py-24 px-8 pb-16"></div>
-        <div className="flex flex-wrap w-full md:w-4/5 bg-gray-100 md:px-40 pb-16">
+        <div className="flex w-full md:w-4/5 bg-main rounded-tr-full py-24 px-8 pb-16"></div>
+        <div className="flex flex-wrap w-full md:w-4/5 bg-main md:px-40 pb-16">
           <div className="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8">
             <img
               src="https://qr-official.line.me/gs/M_618ecvqb_GW.png"
@@ -29,7 +29,7 @@ const FooterPresenter: FC<PresenterProps> = ({ main, ...props }) => (
           </div>
           <div className="flex w-full md:w-1/2 justify-center md:justify-start items-center md:pl-8">
             <div className="px-8 md:px-0">
-              <p className="text-green-600 text-xl md:text-3xl font-bold mb-6 ">
+              <p className="text-accent text-xl md:text-3xl font-bold mb-6 ">
                 どうして空は青いの？美味しいレシピ教えて！などなど
               </p>
               <p className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 ">
@@ -44,8 +44,8 @@ const FooterPresenter: FC<PresenterProps> = ({ main, ...props }) => (
           </div>
         </div>
       </div>
-      <div className="bg-green-500 rounded-tl-full py-36 px-8 pb-16"></div>
-      <div className="bg-green-500 py-96 px-8 pb-16">
+      <div className="bg-accent rounded-tl-full py-36 px-8 pb-16"></div>
+      <div className="bg-accent py-96 px-8 pb-16">
         <nav className="flex flex-wrap items-center justify-center">
           <a
             href="https://blog.isystk.com/company/"

@@ -11,7 +11,7 @@ import useSWR from 'swr'
 import ErrorTemplate, {
   ErrorTemplateProps,
 } from '@/components/06_templates/ErrorTemplate'
-import Modal from '@/components/01_atoms/Modal'
+import Modal from '@/components/02_interactions/Modal'
 
 const Index: FC = () => {
   const {

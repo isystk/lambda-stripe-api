@@ -1,4 +1,4 @@
-import Circles from '@/components/01_atoms/Circles'
+import Circles from '@/components/02_interactions/Circles'
 import React, { useEffect, FC, useState } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'

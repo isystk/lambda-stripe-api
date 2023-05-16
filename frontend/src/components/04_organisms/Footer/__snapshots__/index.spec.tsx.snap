@@ -9,10 +9,10 @@ exports[`Footer Match Snapshot 1`] = `
       className="absolute left-0 right-0 -mt-64 md:-mt-32"
     >
       <div
-        className="flex w-full md:w-4/5 bg-gray-100 rounded-tr-full py-24 px-8 pb-16"
+        className="flex w-full md:w-4/5 bg-main rounded-tr-full py-24 px-8 pb-16"
       />
       <div
-        className="flex flex-wrap w-full md:w-4/5 bg-gray-100 md:px-40 pb-16"
+        className="flex flex-wrap w-full md:w-4/5 bg-main md:px-40 pb-16"
       >
         <div
           className="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8"
@@ -29,7 +29,7 @@ exports[`Footer Match Snapshot 1`] = `
             className="px-8 md:px-0"
           >
             <p
-              className="text-green-600 text-xl md:text-3xl font-bold mb-6 "
+              className="text-accent text-xl md:text-3xl font-bold mb-6 "
             >
               どうして空は青いの？美味しいレシピ教えて！などなど
             </p>
@@ -43,7 +43,7 @@ exports[`Footer Match Snapshot 1`] = `
               質問してみよう
             </p>
             <a
-              className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-green-500 rounded-full"
+              className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
               href="#"
             >
               <img
@@ -62,10 +62,10 @@ exports[`Footer Match Snapshot 1`] = `
       </div>
     </div>
     <div
-      className="bg-green-500 rounded-tl-full py-36 px-8 pb-16"
+      className="bg-accent rounded-tl-full py-36 px-8 pb-16"
     />
     <div
-      className="bg-green-500 py-96 px-8 pb-16"
+      className="bg-accent py-96 px-8 pb-16"
     >
       <nav
         className="flex flex-wrap items-center justify-center"
@@ -135,7 +135,7 @@ exports[`Footer Match Snapshot 1`] = `
     </div>
   </footer>,
   <button
-    className="css-0 fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-gray-100 rounded-full cursor-pointer transition-opacity duration-200 ease-in-out css-14nb29t"
+    className="css-0 fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-main rounded-full cursor-pointer transition-opacity duration-200 ease-in-out css-14nb29t"
     onClick={[Function]}
   >
     <span

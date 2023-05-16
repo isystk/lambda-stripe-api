@@ -17,7 +17,7 @@ const ScrollTopPresenter: FC<PresenterProps> = ({ isVisible, scrollToTop }) => (
     <button
       className={`${
         styles.scrollTop
-      } fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-gray-100 rounded-full cursor-pointer transition-opacity duration-200 ease-in-out ${
+      } fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-main rounded-full cursor-pointer transition-opacity duration-200 ease-in-out ${
         isVisible ? styles.showButton : styles.hideButton
       }`}
       onClick={scrollToTop}

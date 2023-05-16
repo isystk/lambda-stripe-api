@@ -2,7 +2,7 @@
 
 exports[`LineButton Match Snapshot 1`] = `
 <a
-  className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-green-500 rounded-full"
+  className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
   href="#"
 >
   <img

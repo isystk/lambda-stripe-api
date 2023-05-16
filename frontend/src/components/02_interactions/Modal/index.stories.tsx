@@ -2,7 +2,7 @@ import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import Modal from './index'
 export default {
-  title: '01_atoms/Modal',
+  title: '02_interactions/Modal',
   component: Modal,
 } as Meta
 

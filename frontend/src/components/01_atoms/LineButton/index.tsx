@@ -16,7 +16,7 @@ const LineButtonPresenter: FC<PresenterProps> = ({
   <>
     <a
       href={link}
-      className={`${styles.lineButton} p-2 pl-4 pr-4 flex items-center justify-center bg-green-500 rounded-full`}
+      className={`${styles.lineButton} p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full`}
     >
       <img src="/images/icon-line.png" width="50px" height="50px"></img>
       <span className="text-white font-bold">{label}</span>

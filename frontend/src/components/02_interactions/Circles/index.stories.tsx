@@ -3,7 +3,7 @@ import React from 'react'
 import Circles from './index'
 
 export default {
-  title: '01_atoms/Circles',
+  title: '02_interactions/Circles',
   component: Circles,
 } as Meta
 

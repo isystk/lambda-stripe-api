@@ -28,7 +28,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
     <div
       className={`${
         styles.sideMenu
-      } fixed top-0 right-0 z-30 bg-white h-screen w-64 ${
+      } fixed top-0 right-0 z-30 bg-base h-screen w-64 ${
         isMenuOpen ? styles.menuOpen : styles.menuClose
       }`}
     >

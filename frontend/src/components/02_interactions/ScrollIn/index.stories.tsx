@@ -3,7 +3,7 @@ import React from 'react'
 import ScrollIn from './index'
 
 export default {
-  title: '01_atoms/ScrollIn',
+  title: '02_interactions/ScrollIn',
   component: ScrollIn,
 } as Meta
 

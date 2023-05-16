@@ -17,13 +17,13 @@ export type PresenterProps = MainVisualProps & {
 const MainVisualPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
     <section className={`${styles.mainVisual} h-screen`}>
-      <div className="flex flex-wrap items-center h-full bg-gray-100 justify-center">
+      <div className="flex flex-wrap items-center h-full bg-main justify-center">
         <div className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16 pb-8">
           <img src="/images/iphone.png" className="w-48 md:w-72"></img>
         </div>
         <div className="flex w-full md:w-1/2 justify-center md:justify-start pb-8">
           <div className="px-8">
-            <p className="text-green-600 text-xl md:text-3xl font-bold mb-6 ">
+            <p className="text-accent text-xl md:text-3xl font-bold mb-6 ">
               リリース1ヶ月で100万人登録！
             </p>
             <h1 className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 ">

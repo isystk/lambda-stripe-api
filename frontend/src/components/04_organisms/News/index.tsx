@@ -4,7 +4,7 @@ import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import ScrollIn from '@/components/01_atoms/ScrollIn'
+import ScrollIn from '@/components/02_interactions/ScrollIn'
 
 /** NewsProps Props */
 export type NewsProps = WithChildren
@@ -17,7 +17,7 @@ export type PresenterProps = NewsProps & {
 const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
   <>
     <section className={`${styles.news}`}>
-      <div className="flex items-center bg-white justify-center w-full">
+      <div className="flex items-center bg-base justify-center w-full">
         <div className="py-32 w-full">
           <ScrollIn>
             <p className="text-black font-bold text-3xl md:mb-16 text-center">
@@ -29,7 +29,7 @@ const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
               <div className="flex flex-wrap items-center p-8 md:mb-16">
                 <div className="flex w-full md:w-1/2 justify-end items-center">
                   <div className="w-full">
-                    <p className="text-green-500 font-bold text-xl mb-4">
+                    <p className="text-accent font-bold text-xl mb-4">
                       2022.04.22
                     </p>
                     <p className="font-bold break-words mb-4">
@@ -53,7 +53,7 @@ const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
               <div className="flex flex-wrap items-center p-8 md:mb-16">
                 <div className="flex w-full md:w-1/2 justify-end items-center">
                   <div className="w-full">
-                    <p className="text-green-500 font-bold text-xl mb-4">
+                    <p className="text-accent font-bold text-xl mb-4">
                       2022.04.22
                     </p>
                     <p className="font-bold break-words mb-4">

@@ -21,7 +21,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <header
-      className={`${styles.header} flex justify-between items-center px-4 py-4 sm:px-8 bg-gray-100 w-full`}
+      className={`${styles.header} flex justify-between items-center px-4 py-4 sm:px-8 bg-main w-full`}
     >
       <Logo />
       <div className="flex pr-3 z-50 md:hidden">

@@ -1,3 +1,4 @@
+/* Reset CSS */
 a, abbr, address, article, aside, audio, b, blockquote, body, button, canvas, caption, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, main, mark, menu, nav, object, ol, p, pre, q, samp, section, select, small, span, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
     -webkit-font-smoothing: antialiased;
     -webkit-backface-visibility: hidden;
@@ -13,9 +14,27 @@ a, abbr, address, article, aside, audio, b, blockquote, body, button, canvas, ca
     word-spacing: 1px;
 }
 
+.bg-base {
+    background-color: $baseColor;
+}
+.text-base {
+    color: $baseColor;
+}
+.bg-main {
+    background-color: $mainColor;
+}
+.text-main {
+    color: $mainColor;
+}
+.bg-accent {
+    background-color: $accentColor;
+}
+.text-accent {
+    color: $accentColor;
+}
 
 body {
-    background-color: #F3F4F6;
+    background-color: $mainColor;
     
     /* Bodyの背景に画像を埋め込む */
     &.bg-image {
