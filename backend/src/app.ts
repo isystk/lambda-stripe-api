@@ -6,17 +6,28 @@ import cors from 'cors'
 import crypto from 'crypto'
 import stripe from 'stripe'
 import { isString } from 'lodash'
+import session from './session'
+
+declare module 'express-session' {
+  interface SessionData {
+    firstAccessTime: string
+    counter: number
+    message: string
+  }
+}
+
 import { SmtpClient } from './smtp-client'
 const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(process.env.STRIPE_SECRET ?? '')
 
-const ENDPOINT_URL = process.env.ENDPOINT_URL ?? ''
+const FRONTEND_URL = process.env.FRONTEND_URL ?? ''
 
 const app: Application = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
+session(app)
 
 const Status = {
   untreated: 0, // 処理待ち
@@ -260,7 +271,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
     } as Post
     post = await dbClient.update<Post>({ pk: post.pk, sk: post.sk }, params)
 
-    const cancelUrl = `${ENDPOINT_URL}/product/${productId}/cancel/${post.cancel_token}`
+    const cancelUrl = `${FRONTEND_URL}/product/${productId}/cancel/${post.cancel_token}`
     // 解約ページのURLをメールで送信する
     const text = [
       `${customer.name}様`,

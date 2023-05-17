@@ -42,7 +42,6 @@ SAM を利用しているので、コマンドひとつでAWSに反映出来る�
 │   ├── console 
 │   ├── docker-compose.yml
 │   └── dynamodb
-├── dynamodb-admin.png
 ├── frontend（Next.js フロントモジュール）
 │   ├── jest.config.js
 │   ├── next-env.d.ts
