@@ -5,7 +5,7 @@ import InputFormTemplate, {
 import useAppRoot from '@/stores/useAppRoot'
 import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
-import axios, { AxiosError } from '@/utils/axios' 
+import axios, { AxiosError } from '@/utils/axios'
 import Loading from '@/components/01_atoms/Loading'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 

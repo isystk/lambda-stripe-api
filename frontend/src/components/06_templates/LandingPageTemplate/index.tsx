@@ -9,6 +9,7 @@ import News from '@/components/04_organisms/News'
 import Footer from '@/components/04_organisms/Footer'
 import SideMenu from '@/components/04_organisms/SideMenu'
 import MainService from '@/services/main'
+import { frontMenuItems, frontFooterMenuItems } from '@/constants/menu'
 
 /** LandingPageTemplateProps Props */
 export type LandingPageTemplateProps = WithChildren & {
@@ -26,14 +27,22 @@ const LandingPageTemplatePresenter: FC<PresenterProps> = ({
 }) => (
   <HtmlSkeleton>
     <Title>商品名</Title>
-    <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+    <Header
+      isMenuOpen={isMenuOpen}
+      setMenuOpen={setMenuOpen}
+      menuItems={frontMenuItems}
+    />
     <MainVisual />
     <Price />
     <div className="h-96"></div>
     <News />
-    <Footer />
+    <Footer menuItems={frontFooterMenuItems} />
     <div className="md:hidden">
-      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        setMenuOpen={setMenuOpen}
+        menuItems={frontMenuItems}
+      />
     </div>
   </HtmlSkeleton>
 )

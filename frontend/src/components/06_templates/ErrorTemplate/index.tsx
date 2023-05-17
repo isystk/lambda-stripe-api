@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { ContainerProps } from 'types'
 import Header from '@/components/04_organisms/Header'
 import SideMenu from '@/components/04_organisms/SideMenu'
+import { frontMenuItems } from '@/constants/menu'
 
 /** ErrorTemplate Props */
 export type ErrorTemplateProps = Omit<HtmlSkeletonProps, 'children'> & {
@@ -24,7 +25,11 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
 }) => (
   <HtmlSkeleton>
     <Title>Page Not Found</Title>
-    <Header isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+    <Header
+      isMenuOpen={isMenuOpen}
+      setMenuOpen={setMenuOpen}
+      menuItems={frontMenuItems}
+    />
     <div className="flex items-center justify-center">
       <div className="p-3 md:p-32 w-full ">
         <div className="py-8">
@@ -44,7 +49,11 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
       </div>
     </div>
     <div className="md:hidden">
-      <SideMenu isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        setMenuOpen={setMenuOpen}
+        menuItems={frontMenuItems}
+      />
     </div>
   </HtmlSkeleton>
 )

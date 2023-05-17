@@ -1,7 +1,7 @@
 {
-  "name": "stripe-subscription-api",
+  "name": "stripe-subscription-api-backend",
+  "description": "stripe-subscription-api-backend",
   "version": "1.0.0",
-  "description": "stripe-subscription-api",
   "author": "isystk",
   "license": "MIT",
   "scripts": {

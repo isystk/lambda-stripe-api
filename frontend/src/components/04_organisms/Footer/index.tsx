@@ -8,14 +8,18 @@ import LineButton from '@/components/01_atoms/LineButton'
 import ScrollTop from '@/components/01_atoms/ScrollTop'
 
 /** FooterProps Props */
-export type FooterProps = WithChildren
+export type FooterProps = WithChildren & { menuItems }
 /** Presenter Props */
 export type PresenterProps = FooterProps & {
   main
 }
 
 /** Presenter Component */
-const FooterPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const FooterPresenter: FC<PresenterProps> = ({
+  main,
+  menuItems = [],
+  ...props
+}) => (
   <>
     <footer className={`${styles.footer} relative`}>
       <div className="absolute left-0 right-0 -mt-64 md:-mt-32">
@@ -47,46 +51,29 @@ const FooterPresenter: FC<PresenterProps> = ({ main, ...props }) => (
       <div className="bg-accent rounded-tl-full py-36 px-8 pb-16"></div>
       <div className="bg-accent py-96 px-8 pb-16">
         <nav className="flex flex-wrap items-center justify-center">
-          <a
-            href="https://blog.isystk.com/company/"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full mb-6 md:w-32"
-          >
-            <p className="text-white text-center font-bold">運営会社</p>
-          </a>
-          <a
-            href="https://blog.isystk.com/privacy-poricy/"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full mb-6 md:w-64"
-          >
-            <p className="text-white text-center font-bold">
-              プライバシーポリシー
-            </p>
-          </a>
-          <a
-            href="https://blog.isystk.com/contact/"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full mb-6 md:w-32"
-          >
-            <p className="text-white text-center font-bold">お問い合わせ</p>
-          </a>
-          <a
-            href="https://twitter.com/ise0615"
-            target="_blank"
-            rel="noreferrer"
-            className="w-full mb-6 md:w-32"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="24 24 0 0 "
-              className="text-white h-6 w-6 m-auto"
+          {menuItems.map(({ label, href, target }, idx) => (
+            <a
+              href={href}
+              target={target}
+              rel={target ? 'noreferrer' : ''}
+              className="w-full mb-6 md:w-48"
+              key={idx}
             >
-              <path d="M8.12 20.329c7.75 0 11.99-6.414 11.99-11.989v-.546c.823-.597 1.534-1.336 2.097-2.184-.759.338-1.562.566-2.396.668a4.192 4.192 0 0 0 1.836-2.315 8.331 8.331 0 0 1-2.65 1.011 4.156 4.156 0 0 0-7.113 3.795 11.817 11.817 0 0 1-8.583-4.34 4.156 4.156 0 0 0 1.288 5.559A4.103 4.103 0 0 1 2.3 7.627v.055a4.156 4.156 0 0 0 3.32 4.072 4.16 4.16 0 0 1-1.868.071 4.155 4.155 0 0 0 3.87 2.878 8.343 8.343 0 0 1-5.164 1.78A8.756 8.756 0 0 1 0 16.736 11.722 11.722 0 0 0 8.12 20.33"></path>
-            </svg>
-          </a>
+              <p className="text-white text-center font-bold">
+                {'Twitter' === label ? (
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    className="text-white h-6 w-6 m-auto"
+                  >
+                    <path d="M8.12 20.329c7.75 0 11.99-6.414 11.99-11.989v-.546c.823-.597 1.534-1.336 2.097-2.184-.759.338-1.562.566-2.396.668a4.192 4.192 0 0 0 1.836-2.315 8.331 8.331 0 0 1-2.65 1.011 4.156 4.156 0 0 0-7.113 3.795 11.817 11.817 0 0 1-8.583-4.34 4.156 4.156 0 0 0 1.288 5.559A4.103 4.103 0 0 1 2.3 7.627v.055a4.156 4.156 0 0 0 3.32 4.072 4.16 4.16 0 0 1-1.868.071 4.155 4.155 0 0 0 3.87 2.878 8.343 8.343 0 0 1-5.164 1.78A8.756 8.756 0 0 1 0 16.736 11.722 11.722 0 0 0 8.12 20.33"></path>
+                  </svg>
+                ) : (
+                  label
+                )}
+              </p>
+            </a>
+          ))}
         </nav>
         <div className="flex items-center justify-center ">
           <p className="text-white text-center text-sm">

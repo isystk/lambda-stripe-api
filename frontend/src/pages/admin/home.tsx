@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import InputFormTemplate, {
-  type InputFormTemplateProps,
-} from '@/components/06_templates/InputFormTemplate'
+import AdminTemplate, {
+  type AdminTemplateProps,
+} from '@/components/06_templates/AdminTemplate'
 import useAppRoot from '@/stores/useAppRoot'
 import axios from '@/utils/axios'
-import useSWR from "swr";
-import {Api} from "@/constants/api";
-import {Url} from "@/constants/url";
-import {useRouter} from "next/router"; 
+import useSWR from 'swr'
+import { Api } from '@/constants/api'
+import { Url } from '@/constants/url'
+import { useRouter } from 'next/router'
 
 const Index: FC = () => {
   const router = useRouter()
@@ -24,27 +24,25 @@ const Index: FC = () => {
   })
 
   if (isLoading) return <div>Loading...</div>
-  
+
   if (!user.userName) {
     // 認証が確認できない場合はログイン画面にリダイレクト
     router.replace(Url.AdminLogin)
-    return 
+    return
   }
 
   if (!main) return <></>
-  
-  const props: InputFormTemplateProps = { main, title: 'HOME' }
+
+  const props: AdminTemplateProps = { main, title: 'HOME' }
   return (
-    <InputFormTemplate {...props}>
+    <AdminTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">
         <h2 className="text-2xl mb-8 md:mb-10">HOME</h2>
         <div>
-          <p className="mb-4 leading-6">
-            {user.userName}さん。こんにちわ。
-          </p>
+          <p className="mb-4 leading-6">{user.userName}さん。こんにちわ。</p>
         </div>
       </section>
-    </InputFormTemplate>
+    </AdminTemplate>
   )
 }
 

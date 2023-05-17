@@ -4,10 +4,13 @@ import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import { Url } from '@/constants/url'
 
 /** SideMenuProps Props */
-export type SideMenuProps = WithChildren & { setMenuOpen; isMenuOpen }
+export type SideMenuProps = WithChildren & {
+  setMenuOpen
+  isMenuOpen
+  menuItems
+}
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
   main
@@ -22,6 +25,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
   menu,
   setMenuOpen,
   isMenuOpen,
+  menuItems = [],
   ...props
 }) => (
   <>
@@ -34,32 +38,18 @@ const SideMenuPresenter: FC<PresenterProps> = ({
     >
       <div className="mt-24"></div>
       <ul className="list-none">
-        <li className="py-4">
-          <a
-            href={Url.Top}
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
-          >
-            ホーム
-          </a>
-        </li>
-        <li className="py-4">
-          <a
-            href={Url.Payment}
-            className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          >
-            料金
-          </a>
-        </li>
-        <li className="py-4">
-          <a
-            href="https://twitter.com/ise0615"
-            target="_blank"
-            rel="noreferrer"
-            className="block text-gray-600 hover:text-gray-700 whitespace-nowrap px-4"
-          >
-            お問い合わせ
-          </a>
-        </li>
+        {menuItems.map(({ label, href, target }, idx) => (
+          <li className="py-4" key={idx}>
+            <a
+              href={href}
+              target={target}
+              rel={target ? 'noreferrer' : ''}
+              className="block text-gray-700 font-bold whitespace-nowrap px-4"
+            >
+              {label}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
     <div

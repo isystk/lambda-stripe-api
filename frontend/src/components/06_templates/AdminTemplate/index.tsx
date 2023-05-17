@@ -6,18 +6,18 @@ import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
 import Header from '@/components/04_organisms/Header'
 import SideMenu from '@/components/04_organisms/SideMenu'
 import MainService from '@/services/main'
-import { frontMenuItems } from '@/constants/menu'
+import { adminMenuItems } from '@/constants/menu'
 
-/** InputFormTemplateProps Props */
-export type InputFormTemplateProps = WithChildren & {
+/** AdminTemplateProps Props */
+export type AdminTemplateProps = WithChildren & {
   main: MainService
   title: string
 }
 /** Presenter Props */
-export type PresenterProps = InputFormTemplateProps
+export type PresenterProps = AdminTemplateProps
 
 /** Presenter Component */
-const InputFormTemplatePresenter: FC<PresenterProps> = ({
+const AdminTemplatePresenter: FC<PresenterProps> = ({
   children,
   main,
   title,
@@ -30,7 +30,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
     <Header
       isMenuOpen={isMenuOpen}
       setMenuOpen={setMenuOpen}
-      menuItems={frontMenuItems}
+      menuItems={adminMenuItems}
     />
     <div className="flex items-center justify-center">
       <Circles>
@@ -43,15 +43,15 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
       <SideMenu
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
-        menuItems={frontMenuItems}
+        menuItems={adminMenuItems}
       />
     </div>
   </HtmlSkeleton>
 )
 
 /** Container Component */
-const InputFormTemplateContainer: React.FC<
-  ContainerProps<InputFormTemplateProps, PresenterProps>
+const AdminTemplateContainer: React.FC<
+  ContainerProps<AdminTemplateProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
   const [isMenuOpen, setMenuOpen] = useState(false)
   return presenter({
@@ -62,8 +62,8 @@ const InputFormTemplateContainer: React.FC<
   })
 }
 
-export default connect<InputFormTemplateProps, PresenterProps>(
-  'InputFormTemplate',
-  InputFormTemplatePresenter,
-  InputFormTemplateContainer
+export default connect<AdminTemplateProps, PresenterProps>(
+  'AdminTemplate',
+  AdminTemplatePresenter,
+  AdminTemplateContainer
 )

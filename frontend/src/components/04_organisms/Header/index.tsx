@@ -6,10 +6,14 @@ import Hamburger from '@/components/01_atoms/Hamburger'
 import * as styles from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
-import { Url } from '@/constants/url'
 
 /** HeaderProps Props */
-export type HeaderProps = WithChildren & { isMenuOpen; isPcSize; setMenuOpen }
+export type HeaderProps = WithChildren & {
+  isMenuOpen
+  isPcSize
+  setMenuOpen
+  menuItems
+}
 /** Presenter Props */
 export type PresenterProps = HeaderProps
 
@@ -18,32 +22,29 @@ const HeaderPresenter: FC<PresenterProps> = ({
   main,
   isMenuOpen,
   setMenuOpen,
+  menuItems = [],
 }) => (
   <>
     <header
       className={`${styles.header} flex justify-between items-center px-4 py-4 sm:px-8 bg-main w-full`}
     >
       <Logo />
-      <div className="flex pr-3 z-50 md:hidden">
+      <div
+        className={`flex pr-3 z-50 md:hidden ${
+          isMenuOpen ? 'fixed right-5' : ''
+        }`}
+      >
         <Hamburger isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
       </div>
       <nav className="hidden sm:block">
         <ul className="flex gap-6">
-          <li>
-            <a href={Url.Top}>ホーム</a>
-          </li>
-          <li>
-            <a href={Url.Payment}>料金</a>
-          </li>
-          <li>
-            <a
-              href="https://twitter.com/ise0615"
-              target="_blank"
-              rel="noreferrer"
-            >
-              お問い合わせ
-            </a>
-          </li>
+          {menuItems.map(({ label, href, target }, idx) => (
+            <li key={idx}>
+              <a href={href} target={target} rel={target ? 'noreferrer' : ''}>
+                {label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

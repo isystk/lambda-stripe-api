@@ -11,7 +11,7 @@ export const Api = {
   CancelRequest: [ENDPOINT_URL, '/cancel-request'].join(''),
   CancelConfirm: [ENDPOINT_URL, '/cancel-confirm'].join(''),
   Cancel: [ENDPOINT_URL, '/cancel'].join(''),
-  
+
   /* 認証 */
   Login: [ENDPOINT_URL, '/login'].join(''),
   LoginCheck: [ENDPOINT_URL, '/login-check'].join(''),
