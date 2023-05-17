@@ -3,9 +3,10 @@ import session from 'express-session'
 
 declare module 'express-session' {
   interface SessionData {
-    firstAccessTime: string
-    counter: number
-    message: string
+    firstAccessTime?: string
+    counter?: number
+    message?: string
+    user?: string | undefined
   }
 }
 

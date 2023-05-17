@@ -8,25 +8,23 @@ import stripe from 'stripe'
 import { isString } from 'lodash'
 import session from './session'
 
-declare module 'express-session' {
-  interface SessionData {
-    firstAccessTime: string
-    counter: number
-    message: string
-  }
-}
-
 import { SmtpClient } from './smtp-client'
 const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(process.env.STRIPE_SECRET ?? '')
 
-const FRONTEND_URL = process.env.FRONTEND_URL ?? ''
+const ORIGIN_URL = process.env.ORIGIN_URL ?? ''
 
 const app: Application = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    origin: ORIGIN_URL, //アクセス許可するオリジン
+    credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
+    optionsSuccessStatus: 200, //レスポンスstatusを200に設定
+  })
+)
 session(app)
 
 const Status = {
@@ -271,7 +269,7 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
     } as Post
     post = await dbClient.update<Post>({ pk: post.pk, sk: post.sk }, params)
 
-    const cancelUrl = `${FRONTEND_URL}/product/${productId}/cancel/${post.cancel_token}`
+    const cancelUrl = `${ORIGIN_URL}/product/${productId}/cancel/${post.cancel_token}`
     // 解約ページのURLをメールで送信する
     const text = [
       `${customer.name}様`,
@@ -503,6 +501,46 @@ app.post('/active-check', async (req: Request, res: Response) => {
     }
     res.status(500).json({ message })
   }
+})
+
+// ログイン処理
+app.post('/login', async (req: Request, res: Response) => {
+  const { user, password } = {
+    user: req.body['user'],
+    password: req.body['password'],
+  }
+  if (
+    user !== process.env.ADMIN_USER ||
+    password !== process.env.ADMIN_PASSWORD
+  ) {
+    res.status(401).json({ message: 'Authentication failed.' })
+    return
+  }
+  if (!req.session) {
+    throw new Error('An unexpected error has occurred.')
+  }
+  req.session.user = user
+  res.json({ user })
+})
+
+// ログインチェック
+app.post('/login-check', async (req: Request, res: Response) => {
+  if (!req.session || !req.session.user) {
+    res.status(401).json({ message: 'Authentication failed.' })
+    return
+  }
+  const user = { userName: req.session.user }
+  res.json( user )
+})
+
+// ログアウト
+app.post('/logout', async (req: Request, res: Response) => {
+  if (!req.session || !req.session.user) {
+    res.status(401).json({ message: 'Authentication failed.' })
+    return
+  }
+  req.session.user = undefined
+  res.sendStatus(200)
 })
 
 // 404エラーハンドリング

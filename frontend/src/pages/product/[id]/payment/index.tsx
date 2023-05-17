@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { loadStripe } from '@stripe/stripe-js'
 import { STRIPE_KEY } from '@/constants'
 import { Api } from '@/constants/api'
-import axios from 'axios'
+import axios from '@/utils/axios' 
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm, {
   type ProductData,

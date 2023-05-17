@@ -5,7 +5,7 @@ import InputFormTemplate, {
 import useAppRoot from '@/stores/useAppRoot'
 import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError } from '@/utils/axios' 
 import Loading from '@/components/01_atoms/Loading'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 
@@ -21,7 +21,6 @@ const Index: FC = () => {
 
   const [loading, setLoading] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
-  const [email, setEmail] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 
   const {
