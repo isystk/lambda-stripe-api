@@ -15,6 +15,7 @@ Options:
   init                     Dockerコンテナ・イメージ・生成ファイルの状態を初期化します。
   start                    すべてのDaemonを起動します。
   stop                     すべてのDaemonを停止します。
+  console login            コンソールにログインします。
   --version, -v     バージョンを表示します。
   --help, -h        ヘルプを表示します。
 EOF
@@ -45,10 +46,10 @@ case ${1} in
         popd
     ;;
 
-    aws)
+    console)
       case ${2} in
-          local)
-              $DOCKER_COMPOSE exec awscli /bin/bash
+          login)
+              $DOCKER_COMPOSE exec console /bin/bash
           ;;
           *)
               usage
