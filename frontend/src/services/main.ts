@@ -26,7 +26,6 @@ export default class MainService {
   }
 
   async loginCheck() {
-    console.log('main.loginCheck')
     try {
       const result = await axios.post(Api.LoginCheck)
       this.user = { ...result.data } as User

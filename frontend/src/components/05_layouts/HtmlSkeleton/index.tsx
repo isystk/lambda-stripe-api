@@ -13,13 +13,12 @@ export type HtmlSkeletonProps = WithChildren & {
 }
 /** Presenter Props */
 export type PresenterProps = HtmlSkeletonProps & {
-  title?: TitleProps['children']
+  title?: string
   description: string
 }
 
 /** Presenter Component */
 const HtmlSkeletonPresenter: FC<PresenterProps> = ({
-  showSideMenu,
   main,
   title,
   description,
@@ -49,8 +48,6 @@ const HtmlSkeletonPresenter: FC<PresenterProps> = ({
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       {/* manifest.json */}
       <link rel="manifest" href="/manifest.json" />
-      {/* Tailwind UI で採用されているカスタムフォント */}
-      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
     <Context.Provider value={main}>{children}</Context.Provider>
   </>
