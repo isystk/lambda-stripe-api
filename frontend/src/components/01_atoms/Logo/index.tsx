@@ -8,15 +8,19 @@ import { Url } from '@/constants/url'
 /** LogoProps Props */
 export type LogoProps = WithChildren & {
   name?: string
+  link?: string
 }
 /** Presenter Props */
 export type PresenterProps = LogoProps
 
 /** Presenter Component */
-const LogoPresenter: FC<PresenterProps> = ({ name = APP_NAME }) => (
+const LogoPresenter: FC<PresenterProps> = ({
+  name = APP_NAME,
+  link = Url.Top,
+}) => (
   <>
-    <a href={Url.Top} className={`${styles.logo} w-20 md:w-40`}>
-      <img src="/images/logo.png" alt={name}></img>
+    <a href={link} className={styles.logo}>
+      <img src="/images/logo.png" alt={name} className="w-20 md:w-40"></img>
     </a>
   </>
 )

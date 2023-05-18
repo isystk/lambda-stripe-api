@@ -5,7 +5,7 @@ import * as styles from './styles'
 
 /** InputProps Props */
 export type InputProps = WithChildren & {
-  type: "text" | "password" | "email"
+  type: 'text' | 'password' | 'email'
   name: string
   placeholder: string
   register
@@ -16,16 +16,23 @@ export type InputProps = WithChildren & {
 export type PresenterProps = InputProps
 
 /** Presenter Component */
-const InputPresenter: FC<PresenterProps> = ({ type, name, placeholder, register, validate, errors }) => (
+const InputPresenter: FC<PresenterProps> = ({
+  type,
+  name,
+  placeholder,
+  register,
+  validate,
+  errors,
+}) => (
   <>
     <input
-        placeholder={placeholder}
-        type={type}
-        className={`${styles.input} p-3 bg-gray-200 rounded-md`}
-        {...register(name, validate[name])}
+      placeholder={placeholder}
+      type={type}
+      className={`${styles.input} p-3 bg-gray-200 rounded-md`}
+      {...register(name, validate[name])}
     />
     {errors[name] && (
-        <span className="pt-4 text-red-500">{errors[name].message}</span>
+      <span className="pt-4 text-red-500">{errors[name].message}</span>
     )}
   </>
 )

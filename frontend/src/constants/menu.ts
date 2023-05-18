@@ -50,7 +50,11 @@ export const frontFooterMenuItems: MenuItem[] = [
 
 export const adminMenuItems: MenuItem[] = [
   {
-    label: 'ログアウト',
+    label: '商品一覧',
+    href: '#',
+  },
+  {
+    label: '契約者一覧',
     href: '#',
   },
 ]

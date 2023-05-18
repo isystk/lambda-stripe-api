@@ -5,10 +5,11 @@ exports[`Header Match Snapshot 1`] = `
   className="css-0 flex justify-between items-center px-4 py-4 sm:px-8 bg-main w-full"
 >
   <a
-    className="css-0 w-20 md:w-40"
+    className="css-0"
     href="/"
   >
     <img
+      className="w-20 md:w-40"
       src="/images/logo.png"
     />
   </a>

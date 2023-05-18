@@ -1,15 +1,15 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
-import useAppRoot from '@/stores/useAppRoot'
 import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
-import axios, { AxiosError } from '@/utils/axios'
 import Loading from '@/components/01_atoms/Loading'
 import Input from '@/components/01_atoms/Input'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Url } from '@/constants/url'
+import axios from '@/utils/axios'
+import useAppRoot from '@/stores/useAppRoot'
 
 type FormInputs = {
   user: string
@@ -19,9 +19,22 @@ type FormInputs = {
 const Index: FC = () => {
   const router = useRouter()
   const main = useAppRoot()
-
+  const [checkLoading, setCheckLoading] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        await axios.post(Api.LoginCheck)
+        // 認証済みの場合は、ホーム画面にリダイレクト
+        await router.replace(Url.AdminHome)
+      } catch (e: unknown) {
+        // 未ログイン状態なので何もしない
+      }
+      setCheckLoading(false)
+    })()
+  }, [])
 
   const {
     register,
@@ -38,6 +51,8 @@ const Index: FC = () => {
       required: 'パスワードを入力してください',
     },
   }
+
+  if (checkLoading) return <></>
 
   // フォーム送信ボタンを押された時の処理
   const onsubmit: SubmitHandler<FormInputs> = async ({
@@ -56,7 +71,7 @@ const Index: FC = () => {
 
       if (user) {
         // 認証に成功したらHOME画面にリダイレクト
-        router.replace(Url.AdminHome)
+        location.href = Url.AdminHome
       }
     } catch (e: unknown) {
       console.log(e)
@@ -71,8 +86,6 @@ const Index: FC = () => {
     }
   }
 
-  if (!main) return <></>
-
   const props: AdminTemplateProps = { main, title: 'ログイン' }
   return (
     <AdminTemplate {...props}>
@@ -82,10 +95,28 @@ const Index: FC = () => {
           <p className="mb-4 leading-6"></p>
           <form onSubmit={handleSubmit(onsubmit)}>
             <div className="flex flex-col mb-4">
-              <Input {...{placeholder: "ユーザー名", type: "text", name: "userName", register, validate, errors,}}/>
+              <Input
+                {...{
+                  placeholder: 'ユーザー名',
+                  type: 'text',
+                  name: 'userName',
+                  register,
+                  validate,
+                  errors,
+                }}
+              />
             </div>
             <div className="flex flex-col mb-4">
-              <Input {...{placeholder: "パスワード", type: "password", name: "password", register, validate, errors,}}/>
+              <Input
+                {...{
+                  placeholder: 'パスワード',
+                  type: 'password',
+                  name: 'password',
+                  register,
+                  validate,
+                  errors,
+                }}
+              />
             </div>
             <div>
               <button

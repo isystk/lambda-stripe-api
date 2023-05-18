@@ -2,11 +2,12 @@
 
 exports[`Logo Match Snapshot 1`] = `
 <a
-  className="css-0 w-20 md:w-40"
+  className="css-0"
   href="/"
 >
   <img
     alt="sample"
+    className="w-20 md:w-40"
     src="/images/logo.png"
   />
 </a>

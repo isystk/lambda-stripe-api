@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MainService from '@/services/main'
 import { forceRender, setAppRoot } from '.'
@@ -20,15 +19,13 @@ const useAppRoot = () => {
     await dispatch(forceRender())
   }
 
-  useEffect(() => {
-    const init = async () => {
-      const _appRoot = new MainService(_setAppRoot)
-      await _appRoot.setAppRoot()
-    }
-    if (!root) {
-      init()
-    }
-  }, [])
+  const init = async () => {
+    const _appRoot = new MainService(_setAppRoot)
+    await _appRoot.setAppRoot()
+  }
+  if (!root) {
+    init()
+  }
 
   return root
 }

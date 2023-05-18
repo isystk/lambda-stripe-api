@@ -110,10 +110,28 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
             )}
           </div>
           <div className="flex flex-col mb-4">
-            <Input {...{placeholder: "お名前", type: "text", name: "name", register, validate, errors,}}/>
+            <Input
+              {...{
+                placeholder: 'お名前',
+                type: 'text',
+                name: 'name',
+                register,
+                validate,
+                errors,
+              }}
+            />
           </div>
           <div className="flex flex-col mb-4">
-            <Input {...{placeholder: "メールアドレス", type: "email", name: "email", register, validate, errors,}}/>
+            <Input
+              {...{
+                placeholder: 'メールアドレス',
+                type: 'email',
+                name: 'email',
+                register,
+                validate,
+                errors,
+              }}
+            />
           </div>
           <div className="p-4 bg-gray-200 rounded-md">
             <CardElement options={CARD_ELEMENT_OPTIONS} />

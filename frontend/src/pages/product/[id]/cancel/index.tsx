@@ -83,7 +83,16 @@ const Index: FC = () => {
               </p>
               <form onSubmit={handleSubmit(onsubmit)}>
                 <div className="flex flex-col mb-4">
-                  <Input {...{placeholder: "メールアドレス", type: "email", name: "email", register, validate, errors,}}/>
+                  <Input
+                    {...{
+                      placeholder: 'メールアドレス',
+                      type: 'email',
+                      name: 'email',
+                      register,
+                      validate,
+                      errors,
+                    }}
+                  />
                 </div>
                 <div>
                   <button

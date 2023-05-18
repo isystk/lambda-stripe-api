@@ -62,8 +62,8 @@ const HtmlSkeletonContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   let title: TitleProps['children'] | undefined = undefined
   const main = useAppRoot()
-
   if (!main) return <></>
+  console.log('HtmlSkeletonContainer', main)
 
   children = Children.map(children, (child) =>
     isReactElement(child) && child.type === Title
