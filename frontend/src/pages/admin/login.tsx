@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
 import axios, { AxiosError } from '@/utils/axios'
 import Loading from '@/components/01_atoms/Loading'
+import Input from '@/components/01_atoms/Input'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Url } from '@/constants/url'
 
@@ -81,30 +82,10 @@ const Index: FC = () => {
           <p className="mb-4 leading-6"></p>
           <form onSubmit={handleSubmit(onsubmit)}>
             <div className="flex flex-col mb-4">
-              <input
-                placeholder="ユーザー名"
-                type="text"
-                className="p-3 bg-gray-200 rounded-md"
-                {...register('userName', validate['userName'])}
-              />
-              {errors.userName && (
-                <span className="pt-4 text-red-500">
-                  {errors.userName.message}
-                </span>
-              )}
+              <Input {...{placeholder: "ユーザー名", type: "text", name: "userName", register, validate, errors,}}/>
             </div>
             <div className="flex flex-col mb-4">
-              <input
-                placeholder="パスワード"
-                type="password"
-                className="p-3 bg-gray-200 rounded-md"
-                {...register('password', validate['password'])}
-              />
-              {errors.password && (
-                <span className="pt-4 text-red-500">
-                  {errors.password.message}
-                </span>
-              )}
+              <Input {...{placeholder: "パスワード", type: "password", name: "password", register, validate, errors,}}/>
             </div>
             <div>
               <button

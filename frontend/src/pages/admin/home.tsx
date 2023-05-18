@@ -25,7 +25,7 @@ const Index: FC = () => {
 
   if (isLoading) return <div>Loading...</div>
 
-  if (!user.userName) {
+  if (!user || !user.userName) {
     // 認証が確認できない場合はログイン画面にリダイレクト
     router.replace(Url.AdminLogin)
     return

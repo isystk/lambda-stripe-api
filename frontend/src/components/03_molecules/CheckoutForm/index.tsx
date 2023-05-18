@@ -5,6 +5,7 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import Loading from '@/components/01_atoms/Loading'
+import Input from '@/components/01_atoms/Input'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import axios, { AxiosError } from '@/utils/axios'
@@ -109,26 +110,10 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
             )}
           </div>
           <div className="flex flex-col mb-4">
-            <input
-              placeholder="お名前"
-              type="text"
-              className="p-3 bg-gray-200 rounded-md"
-              {...register('name', validate['name'])}
-            />
-            {errors.name && (
-              <span className="pt-4 text-red-500">{errors.name.message}</span>
-            )}
+            <Input {...{placeholder: "お名前", type: "text", name: "name", register, validate, errors,}}/>
           </div>
           <div className="flex flex-col mb-4">
-            <input
-              placeholder="メールアドレス"
-              type="email"
-              className="p-3 bg-gray-200 rounded-md"
-              {...register('email', validate['email'])}
-            />
-            {errors.email && (
-              <span className="pt-4 text-red-500">{errors.email.message}</span>
-            )}
+            <Input {...{placeholder: "メールアドレス", type: "email", name: "email", register, validate, errors,}}/>
           </div>
           <div className="p-4 bg-gray-200 rounded-md">
             <CardElement options={CARD_ELEMENT_OPTIONS} />
