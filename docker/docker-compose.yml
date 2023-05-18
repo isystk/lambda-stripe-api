@@ -90,7 +90,7 @@ services:
       - 3000:3000
     networks: 
       - lambda-local
-    command: /bin/bash -c "npm run build && npm run start"
+    command: /bin/bash -c "npm run dev"
 
   mailhog:
     image: mailhog/mailhog:latest
