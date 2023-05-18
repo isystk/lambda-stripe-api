@@ -3,7 +3,7 @@ import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
 import useAppRoot from '@/stores/useAppRoot'
-import { withAuth } from './auth'
+import { withAuth } from '@/components/auth'
 
 const Index: FC = () => {
   const main = useAppRoot()

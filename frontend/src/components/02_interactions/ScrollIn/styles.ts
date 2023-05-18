@@ -19,3 +19,7 @@ transform: translate(0, 0);
 export const scrollin = css`
   animation: ${fadein} 0.5s both;
 `
+
+export const delay = (props) => css`
+  animation-delay: ${props.delay || '0s'};
+`;

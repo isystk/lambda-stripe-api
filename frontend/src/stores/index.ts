@@ -32,7 +32,7 @@ export const forceRender =
 export const setAppRoot =
   (appRoot: MainService) =>
   async (dispatch: Dispatch<PayloadAction<MainService>>) => {
-    // @ts-ignore
+    // @ts-inore
     dispatch(setState(appRoot))
   }
 

@@ -4,7 +4,10 @@ import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** ScrollInProps Props */
-export type ScrollInProps = WithChildren & { className?: string }
+export type ScrollInProps = WithChildren & { 
+  className?: string
+  delay?: string
+}
 /** Presenter Props */
 export type PresenterProps = ScrollInProps
 
@@ -12,13 +15,14 @@ export type PresenterProps = ScrollInProps
 const ScrollInPresenter: FC<PresenterProps> = ({
   children,
   className,
+  delay,
   myRef,
   isVisible,
   ...props
 }) => (
   <div
     ref={myRef}
-    className={`${className} ${isVisible ? styles.scrollin : styles.fadeIn}`}
+    className={`${className} ${isVisible ? styles.scrollin : styles.fadeIn} ${styles.delay({ delay })}`}
   >
     {children}
   </div>
@@ -40,6 +44,7 @@ const ScrollInContainer: React.FC<
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll)
+    onScroll()
   }, [])
 
   if (
@@ -47,7 +52,6 @@ const ScrollInContainer: React.FC<
     myRef.current &&
     scroll > myRef.current.offsetTop - windowHeight + 100
   ) {
-    console.log(scroll, myRef.current.offsetTop)
     setIsVisible(true)
     // 表示が完了したらスクロールイベントを削除
     window.removeEventListener('scroll', onScroll)

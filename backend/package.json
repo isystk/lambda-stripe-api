@@ -5,7 +5,7 @@
   "author": "isystk",
   "license": "MIT",
   "scripts": {
-    "start": "IS_LOCAL=true node dist/local-app",
+    "start": "IS_LOCAL=true node --watch dist/local-app",
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest",

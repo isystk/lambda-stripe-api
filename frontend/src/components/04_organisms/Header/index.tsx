@@ -29,7 +29,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <header
-      className={`${styles.header} flex justify-between items-center px-4 py-4 sm:px-8 bg-main w-full`}
+      className={`${styles.header} flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full`}
     >
       <Logo />
       <div

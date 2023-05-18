@@ -6,7 +6,7 @@ const Index: FC = () => {
   const router = useRouter()
 
   useEffect(() => {
-    router.replace(Url.Product) // ここでリダイレクト
+    router.replace(Url.Product)
   }, [])
 
   return null

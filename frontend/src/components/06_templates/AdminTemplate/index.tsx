@@ -60,12 +60,10 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
           </div>
         </div>
         <div className="col-span-12 md:col-span-10">
-          <div className="h-screen">
-            <div className="flex items-center justify-center">
-              <Circles>
-                <div className="p-1 md:p-8 w-full">{children}</div>
-              </Circles>
-            </div>
+          <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 4rem)' }}>
+            <Circles>
+              <div className="p-1 md:p-8 w-full">{children}</div>
+            </Circles>
           </div>
         </div>
       </div>
