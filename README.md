@@ -138,16 +138,17 @@ $ docker network create lambda-local
 $ ./dc.sh start
 ```
 
-| デーモン | 概要  | URL |
-|:-----|:-----|:-----|
+| デーモン | 概要                                                 | URL |
+|:-----|:---------------------------------------------------|:-----|
 | DynamoDB | AWSが提供するNoSQLデータベースサービスで、高可用性・可変性が特徴的なクラウドデータベースです | |
 | DynamoDBAdmin | DynamoDBのWebベースの管理ツールで、データの可視化や簡単な操作が可能です          | http://localhost:8001/ |
-| console | AWS-CLIコマンドが利用できます  | |
-| mailhog  | ダミーのメールサーバーです。実際にはメールは送信されず、送信されたメールはブラウザで閲覧できます  | http://localhost:8025/  |
+| console | node.jsのランタイム環境です。AWS-CLIコマンドも利用できます               | |
+| mailhog  | ダミーのメールサーバーです。実際にはメールは送信されず、送信されたメールはブラウザで閲覧できます   | http://localhost:8025/  |
 
 
-### バックエンド（Lambda）
+### バックエンド（Lambda）の開発環境
 
+事前準備
 ```
 # コンソールにログインする
 $ ./dc.sh console login
@@ -163,11 +164,17 @@ $ cd backend
 # Envファイルをコピーして必要に応じて変更する
 $ cp .env.example .env
 $ npm install
-# ビルドして起動する
+```
+
+動作確認
+```
+# コンソールにログインする
+$ ./dc.sh backend login
+
+# ビルドして起動する（docker-composeで実行しているので手動で起動したい場合）
 $ npm run build
 $ npm run start
 
-# 動作確認
 # 製品(サブクスリプション)と含まれるプランの一覧を取得する
 $ curl http://127.0.0.1:3000/product
 $ curl "http://127.0.0.1:3000/product?productId=prod_xxxxx"
@@ -182,15 +189,26 @@ $ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel-
 $ curl -X POST -H "Content-Type: application/json" http://127.0.0.1:3000/cancel -d '{ "productId": "prod_xxxxxx" ,"cancelToken": "xxxxxxxxxx" }'
 ```
 
-### フロントエンド（Next.js）
+### フロントエンド（Next.js）の開発環境
 
+事前準備
 ```
+# コンソールにログインする
+$ ./dc.sh console login
+
 $ cd frontend
 # Envファイルをコピーして必要に応じて変更する
 $ cp .env.example .env
 
 $ npm install
-# ビルドして起動する
+```
+
+動作確認
+```
+# コンソールにログインする
+$ ./dc.sh frontend login
+
+# ビルドして起動する（docker-composeで実行しているので手動で起動したい場合）
 $ npm run dev
 
 # テストの実行
@@ -199,8 +217,11 @@ $ npm run test
 # コードチェック
 $ npm run fix
 
-# Storybookの起動
-$ npm run storybook
+# ブラウザで動作を確認
+http://localhost:9000/
+
+# Storybookの確認
+http://localhost:6006/
 ```
 
 
@@ -233,7 +254,11 @@ SAMを利用してローカルでAPIを起動する
 ```
 # ビルドを実行する（.aws-samディレクトリに生成される）
 $ sam build
+# Envファイルをコピーして必要に応じて変更する
+$ cp task/env.json.example task/env.json
 $ sam local start-api --env-vars task/env.json --docker-network lambda-local
+# 動作確認
+$ curl http://127.0.0.1:3000/product
 ```
 
 本番環境（AWS） にデプロイする

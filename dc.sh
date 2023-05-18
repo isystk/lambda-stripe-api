@@ -16,6 +16,8 @@ Options:
   start                    すべてのDaemonを起動します。
   stop                     すべてのDaemonを停止します。
   console login            コンソールにログインします。
+  frontend login           frontendにログインします。
+  backend login            backendにログインします。
   --version, -v     バージョンを表示します。
   --help, -h        ヘルプを表示します。
 EOF
@@ -50,6 +52,28 @@ case ${1} in
       case ${2} in
           login)
               $DOCKER_COMPOSE exec console /bin/bash
+          ;;
+          *)
+              usage
+          ;;
+      esac
+    ;;
+
+    frontend)
+      case ${2} in
+          login)
+              $DOCKER_COMPOSE exec frontend /bin/bash
+          ;;
+          *)
+              usage
+          ;;
+      esac
+    ;;
+
+    backend)
+      case ${2} in
+          login)
+              $DOCKER_COMPOSE exec backend /bin/bash
           ;;
           *)
               usage

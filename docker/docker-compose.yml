@@ -41,11 +41,56 @@ services:
       AWS_DEFAULT_OUTPUT: json
     volumes:
       - ../:/app
+    networks:
+      - lambda-local
+
+  frontend:
+    image: stripe-subscription-api/console
+    container_name: stripe-subscription-api-frontend
+    build:
+      context: ./console
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - ../frontend/:/app
+    ports:
+      - 9000:9000
+    networks:
+      - lambda-local
+    command: /bin/bash -c "npm run dev"
+
+  frontend-sb:
+    image: stripe-subscription-api/console
+    container_name: stripe-subscription-api-frontend-sb
+    build:
+      context: ./console
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - ../frontend/:/app
+    ports:
+      - 6006:6006
+    networks:
+      - lambda-local
+    command: /bin/bash -c "npm run storybook"
+
+  backend:
+    image: stripe-subscription-api/console
+    container_name: stripe-subscription-api-backend
+    build:
+      context: ./console
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - ../backend/:/app
     ports:
       - 3000:3000
-      - 9000:9000
     networks: 
       - lambda-local
+    command: /bin/bash -c "npm run build && npm run start"
 
   mailhog:
     image: mailhog/mailhog:latest
