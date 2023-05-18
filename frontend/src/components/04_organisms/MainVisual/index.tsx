@@ -5,16 +5,18 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
+import { useI18n } from '@/components/i18n'
 
 /** MainVisualProps Props */
 export type MainVisualProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = MainVisualProps & {
   main
+  t
 }
 
 /** Presenter Component */
-const MainVisualPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
   <>
     <section className={`${styles.mainVisual} h-screen`}>
       <div className="flex flex-wrap items-center h-full bg-main justify-center">
@@ -24,14 +26,15 @@ const MainVisualPresenter: FC<PresenterProps> = ({ main, ...props }) => (
         <div className="flex w-full md:w-1/2 justify-center md:justify-start pb-8">
           <div className="px-8">
             <p className="text-accent text-xl md:text-3xl font-bold mb-6 ">
-              リリース1ヶ月で100万人登録！
+              {t('One million registered within one month of release!')}
             </p>
             <h1 className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 ">
-              話題の○○が
-              <br />
-              LINEで使える！
+              {t('The topic of ________. Available on line!')}
             </h1>
-            <LineButton link="#" label="友達に追加して質問してみる" />
+            <LineButton
+              link="#"
+              label={t('Add me as a friend and ask me a question')}
+            />
           </div>
         </div>
       </div>
@@ -44,11 +47,14 @@ const MainVisualContainer: React.FC<
   ContainerProps<MainVisualProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
   const main = useContext<MainService | null>(Context)
+  const { t } = useI18n('Common')
+
   if (!main) return <></>
 
   return presenter({
     children,
     main,
+    t,
     ...props,
   })
 }

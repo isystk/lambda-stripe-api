@@ -24,14 +24,12 @@ exports[`MainVisual Match Snapshot 1`] = `
         <p
           className="text-accent text-xl md:text-3xl font-bold mb-6 "
         >
-          リリース1ヶ月で100万人登録！
+          One million registered within one month of release!
         </p>
         <h1
           className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 "
         >
-          話題の○○が
-          <br />
-          LINEで使える！
+          The topic of ________. Available on line!
         </h1>
         <a
           className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
@@ -45,7 +43,7 @@ exports[`MainVisual Match Snapshot 1`] = `
           <span
             className="text-white font-bold"
           >
-            友達に追加して質問してみる
+            Add me as a friend and ask me a question
           </span>
         </a>
       </div>

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import React from 'react'
 import { store } from '@/stores'
 import type { AppProps } from 'next/app'
+import '@/utils/i18n'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (

@@ -6,16 +6,18 @@ import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
+import { useI18n } from '@/components/i18n'
 
 /** PriceProps Props */
 export type PriceProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = PriceProps & {
   main
+  t
 }
 
 /** Presenter Component */
-const PricePresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const PricePresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
   <>
     <section className={`${styles.price}`}>
       <div className="flex items-center bg-black justify-center w-full">
@@ -30,10 +32,10 @@ const PricePresenter: FC<PresenterProps> = ({ main, ...props }) => (
               <ScrollIn className="w-full md:w-72 md:mr-8">
                 <div className="bg-white bg-opacity-20 rounded-lg py-16 h-64 mb-8 md:mb-0">
                   <p className="text-white text-center mb-8">
-                    チャット回数制限あり
+                    {t('Limited number of chats')}
                   </p>
                   <p className="text-white font-bold text-center text-5xl">
-                    無料
+                    {t('free')}
                   </p>
                 </div>
               </ScrollIn>
@@ -41,13 +43,20 @@ const PricePresenter: FC<PresenterProps> = ({ main, ...props }) => (
             <div className="flex w-full md:w-1/2 justify-start items-center">
               <ScrollIn className="w-full md:w-72 md:ml-8">
                 <div className="bg-white bg-opacity-20 rounded-lg py-16 h-64 ">
-                  <p className="text-white text-center mb-8">チャット無制限</p>
-                  <div className="px-12">
+                  <p className="text-white text-center mb-8">
+                    {t('Unlimited Chat')}
+                  </p>
+                  <div className="px-8">
                     <p className="text-white font-bold text-left text-4xl">
-                      <span className="text-white text-xl mr-4">月額</span>¥980
+                      <span className="text-white text-xl mr-4">
+                        {t('monthly amount')}
+                      </span>
+                      ¥980
                     </p>
                     <p className="text-white font-bold text-left text-4xl">
-                      <span className="text-white text-xl mr-4">年額</span>
+                      <span className="text-white text-xl mr-4">
+                        {t('yearly amount')}
+                      </span>
                       ¥9,800
                     </p>
                   </div>
@@ -56,7 +65,10 @@ const PricePresenter: FC<PresenterProps> = ({ main, ...props }) => (
             </div>
           </div>
           <div className="flex items-center justify-center px-8">
-            <LineButton link="#" label="友達に追加して質問してみる" />
+            <LineButton
+              link="#"
+              label={t('Add me as a friend and ask me a question')}
+            />
           </div>
         </div>
       </div>
@@ -71,11 +83,14 @@ const PriceContainer: React.FC<ContainerProps<PriceProps, PresenterProps>> = ({
   ...props
 }) => {
   const main = useContext<MainService | null>(Context)
+  const { t } = useI18n('Common')
+
   if (!main) return <></>
 
   return presenter({
     children,
     main,
+    t,
     ...props,
   })
 }

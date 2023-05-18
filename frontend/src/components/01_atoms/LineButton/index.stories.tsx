@@ -8,7 +8,12 @@ export default {
 } as Meta
 
 const Template: Story = (props) => {
-  return <LineButton link="#" label="友達に追加して質問してみる" />
+  return (
+    <LineButton
+      link="#"
+      label={t('Add me as a friend and ask me a question')}
+    />
+  )
 }
 
 export const Primary = Template.bind({})

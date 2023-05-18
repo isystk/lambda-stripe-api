@@ -11,15 +11,15 @@ type MenuItem = {
  */
 export const frontMenuItems: MenuItem[] = [
   {
-    label: 'ホーム',
+    label: 'Home',
     href: Url.Top,
   },
   {
-    label: '料金',
+    label: 'Rates',
     href: Url.Payment,
   },
   {
-    label: 'お問い合わせ',
+    label: 'Contact Us',
     href: 'https://blog.isystk.com/contact/',
     target: '_blank',
   },
@@ -27,17 +27,17 @@ export const frontMenuItems: MenuItem[] = [
 
 export const frontFooterMenuItems: MenuItem[] = [
   {
-    label: '運営会社',
+    label: 'Company',
     href: 'https://blog.isystk.com/company/',
     target: '_blank',
   },
   {
-    label: 'プライバシーポリシー',
+    label: 'Privacy Policy',
     href: 'https://blog.isystk.com/privacy-poricy/',
     target: '_blank',
   },
   {
-    label: 'お問い合わせ',
+    label: 'Contact Us',
     href: 'https://blog.isystk.com/contact/',
     target: '_blank',
   },

@@ -6,6 +6,7 @@ import Hamburger from '@/components/01_atoms/Hamburger'
 import * as styles from './styles'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
+import { useI18n } from '@/components/i18n'
 
 /** HeaderProps Props */
 export type HeaderProps = WithChildren & {
@@ -15,11 +16,13 @@ export type HeaderProps = WithChildren & {
   menuItems
 }
 /** Presenter Props */
-export type PresenterProps = HeaderProps
+export type PresenterProps = HeaderProps & {
+  t
+}
 
 /** Presenter Component */
 const HeaderPresenter: FC<PresenterProps> = ({
-  main,
+  t,
   isMenuOpen,
   setMenuOpen,
   menuItems = [],
@@ -41,7 +44,7 @@ const HeaderPresenter: FC<PresenterProps> = ({
           {menuItems.map(({ label, href, target }, idx) => (
             <li key={idx}>
               <a href={href} target={target} rel={target ? 'noreferrer' : ''}>
-                {label}
+                {t(label)}
               </a>
             </li>
           ))}
@@ -55,11 +58,10 @@ const HeaderPresenter: FC<PresenterProps> = ({
 const HeaderContainer: React.FC<
   ContainerProps<HeaderProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
-  const main = useContext<MainService | null>(Context)
-  if (!main) return <></>
+  const { t } = useI18n('Common')
   return presenter({
     children,
-    main,
+    t,
     ...props,
   })
 }

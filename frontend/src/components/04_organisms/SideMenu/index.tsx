@@ -4,6 +4,7 @@ import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
+import { useI18n } from '@/components/i18n'
 
 /** SideMenuProps Props */
 export type SideMenuProps = WithChildren & {
@@ -13,7 +14,6 @@ export type SideMenuProps = WithChildren & {
 }
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
-  main
   menu
   setMenuOpen
   isMenuOpen
@@ -21,7 +21,7 @@ export type PresenterProps = SideMenuProps & {
 
 /** Presenter Component */
 const SideMenuPresenter: FC<PresenterProps> = ({
-  main,
+  t,
   menu,
   setMenuOpen,
   isMenuOpen,
@@ -46,7 +46,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
               rel={target ? 'noreferrer' : ''}
               className="block text-gray-700 font-bold whitespace-nowrap px-4"
             >
-              {label}
+              {t(label)}
             </a>
           </li>
         ))}
@@ -65,12 +65,11 @@ const SideMenuPresenter: FC<PresenterProps> = ({
 const SideMenuContainer: React.FC<
   ContainerProps<SideMenuProps, PresenterProps>
 > = ({ presenter, children, setMenuOpen, isMenuOpen, ...props }) => {
-  const main = useContext<MainService | null>(Context)
-  if (!main) return <></>
+  const { t } = useI18n('Common')
 
   return presenter({
     children,
-    main,
+    t,
     setMenuOpen,
     isMenuOpen,
     ...props,

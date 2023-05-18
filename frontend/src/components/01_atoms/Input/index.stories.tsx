@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import Input from './index'
-import {useForm} from "react-hook-form";
+import { useForm } from 'react-hook-form'
 
 export default {
   title: '01_atoms/Input',
@@ -26,7 +26,16 @@ const Template: Story = (props) => {
       },
     },
   }
-  return <Input type="email" name="email" placeholder="メールアドレス" register={register} validate={validate} errors={errors} />
+  return (
+    <Input
+      type="email"
+      name="email"
+      placeholder="メールアドレス"
+      register={register}
+      validate={validate}
+      errors={errors}
+    />
+  )
 }
 
 export const Primary = Template.bind({})

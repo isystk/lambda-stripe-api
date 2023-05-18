@@ -34,7 +34,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
     <div className="h-screen">
       <div className="h-16 bg-base p-4 md:p-0 flex">
         <Logo link={Url.AdminHome} />
-        <div className={`ml-auto p-3 md:p-6 ${(main.user) ? "": "hidden"}`}>
+        <div className={`ml-auto p-3 md:p-6 ${main.user ? '' : 'hidden'}`}>
           <a href="#" onClick={() => logout()}>
             ログアウト
           </a>
@@ -81,7 +81,7 @@ const AdminTemplateContainer: React.FC<
     await main.logout()
     location.reload()
   }
-  
+
   return presenter({
     children,
     main,

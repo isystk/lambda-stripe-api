@@ -31,16 +31,7 @@ exports[`Footer Match Snapshot 1`] = `
             <p
               className="text-accent text-xl md:text-3xl font-bold mb-6 "
             >
-              どうして空は青いの？美味しいレシピ教えて！などなど
-            </p>
-            <p
-              className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 "
-            >
-              さっそく
-              <br />
-              気になることを
-              <br />
-              質問してみよう
+              Why is the sky blue? Tell me a delicious recipe! and more!
             </p>
             <a
               className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
@@ -54,7 +45,7 @@ exports[`Footer Match Snapshot 1`] = `
               <span
                 className="text-white font-bold"
               >
-                友達に追加して質問してみる
+                Add me as a friend and ask me a question
               </span>
             </a>
           </div>

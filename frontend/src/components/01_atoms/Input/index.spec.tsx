@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import Input from './index'
-import {useForm} from "react-hook-form";
+import { useForm } from 'react-hook-form'
 // import { renderHook } from '@testing-library/react-hooks';
 
 type FormInputs = {
@@ -10,7 +10,6 @@ type FormInputs = {
 
 describe('Input', () => {
   it('Match Snapshot', () => {
-
     // const { result } = renderHook(() =>
     //   useForm<FormInputs>({
     //     defaultValues: { email: '' },
