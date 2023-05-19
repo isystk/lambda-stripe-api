@@ -11,7 +11,7 @@ exports[`News Match Snapshot 1`] = `
       className="py-32 w-full"
     >
       <div
-        className="undefined css-pjt9eq"
+        className="undefined css-pjt9eq css-1exhw58"
       >
         <p
           className="text-black font-bold text-3xl md:mb-16 text-center"
@@ -23,7 +23,7 @@ exports[`News Match Snapshot 1`] = `
         className="md:px-64"
       >
         <div
-          className="undefined css-pjt9eq"
+          className="undefined css-pjt9eq css-1exhw58"
         >
           <div
             className="flex flex-wrap items-center p-8 md:mb-16"
@@ -62,7 +62,7 @@ exports[`News Match Snapshot 1`] = `
           </div>
         </div>
         <div
-          className="undefined css-pjt9eq"
+          className="undefined css-pjt9eq css-1exhw58"
         >
           <div
             className="bg-gray-300 flex-none h-px"

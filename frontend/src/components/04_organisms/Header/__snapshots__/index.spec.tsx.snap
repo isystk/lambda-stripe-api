@@ -2,7 +2,7 @@
 
 exports[`Header Match Snapshot 1`] = `
 <header
-  className="css-0 flex justify-between items-center px-4 py-4 sm:px-8 bg-main w-full"
+  className="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
 >
   <a
     className="css-0"

@@ -4,7 +4,7 @@ import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** ScrollInProps Props */
-export type ScrollInProps = WithChildren & { 
+export type ScrollInProps = WithChildren & {
   className?: string
   delay?: string
 }
@@ -22,7 +22,9 @@ const ScrollInPresenter: FC<PresenterProps> = ({
 }) => (
   <div
     ref={myRef}
-    className={`${className} ${isVisible ? styles.scrollin : styles.fadeIn} ${styles.delay({ delay })}`}
+    className={`${className} ${
+      isVisible ? styles.scrollin : styles.fadeIn
+    } ${styles.delay({ delay })}`}
   >
     {children}
   </div>

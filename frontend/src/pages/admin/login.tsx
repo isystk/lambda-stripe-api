@@ -10,6 +10,8 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Url } from '@/constants/url'
 import axios from '@/utils/axios'
 import useAppRoot from '@/stores/useAppRoot'
+import { useI18n } from '@/components/i18n'
+import { AxiosError } from 'axios'
 
 type FormInputs = {
   user: string
@@ -19,6 +21,7 @@ type FormInputs = {
 const Index: FC = () => {
   const router = useRouter()
   const main = useAppRoot()
+  const { t } = useI18n('Admin')
   const [checkLoading, setCheckLoading] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
@@ -45,10 +48,10 @@ const Index: FC = () => {
 
   const validate = {
     userName: {
-      required: 'ユーザー名を入力してください',
+      required: t('Please enter your user name'),
     },
     password: {
-      required: 'パスワードを入力してください',
+      required: t('Please enter your password'),
     },
   }
 
@@ -77,7 +80,7 @@ const Index: FC = () => {
       console.log(e)
       if (e instanceof AxiosError) {
         const { response } = e
-        setErrorMsg(response?.data?.message)
+        setErrorMsg(t(response?.data?.message))
       } else if (e instanceof Error) {
         setErrorMsg(e.message)
       }
@@ -86,18 +89,18 @@ const Index: FC = () => {
     }
   }
 
-  const props: AdminTemplateProps = { main, title: 'ログイン' }
+  const props: AdminTemplateProps = { main, title: t('Login') }
   return (
     <AdminTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">
-        <h2 className="text-2xl mb-8 md:mb-10">ログイン</h2>
+        <h2 className="text-2xl mb-8 md:mb-10">{t('Login')}</h2>
         <div>
           <p className="mb-4 leading-6"></p>
           <form onSubmit={handleSubmit(onsubmit)}>
             <div className="flex flex-col mb-4">
               <Input
                 {...{
-                  placeholder: 'ユーザー名',
+                  placeholder: t('username'),
                   type: 'text',
                   name: 'userName',
                   register,
@@ -109,7 +112,7 @@ const Index: FC = () => {
             <div className="flex flex-col mb-4">
               <Input
                 {...{
-                  placeholder: 'パスワード',
+                  placeholder: t('password'),
                   type: 'password',
                   name: 'password',
                   register,
@@ -123,7 +126,7 @@ const Index: FC = () => {
                 className="bg-blue-500 rounded-md text-white border-none rounded-5 px-20 py-4 text-18 cursor-pointer mt-10"
                 type="submit"
               >
-                ログインする
+                {t('Log in')}
               </button>
             </div>
             {errorMsg && <p className="pt-4 text-red-500">{errorMsg}</p>}

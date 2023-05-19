@@ -50,11 +50,11 @@ export const frontFooterMenuItems: MenuItem[] = [
 
 export const adminMenuItems: MenuItem[] = [
   {
-    label: '商品一覧',
+    label: 'Product List',
     href: '#',
   },
   {
-    label: '契約者一覧',
+    label: 'Subscriber List',
     href: '#',
   },
 ]

@@ -1,3 +1,2 @@
-interface Window {
-}
+interface Window {}
 declare const window: Window

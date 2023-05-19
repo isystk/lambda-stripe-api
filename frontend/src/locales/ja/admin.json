@@ -1,0 +1,16 @@
+{
+  "Login": "ログイン",
+  "username": "ユーザー名",
+  "Please enter your user name": "ユーザー名を入力してください",
+  "password": "パスワード",
+  "Please enter your password": "パスワードを入力してください",
+  "Log in": "ログインする",
+  "Authentication failed.": "認証に失敗しました。",
+  "Logout": "ログアウト",
+  "Product List": "商品一覧",
+  "Subscriber List": "契約者一覧",
+  
+  "Hello.": "こんにちわ。",
+ 
+  "": ""
+}

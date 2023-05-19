@@ -1,5 +1,5 @@
 import Circles from '@/components/02_interactions/Circles'
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
@@ -7,9 +7,7 @@ import MainService from '@/services/main'
 import { adminMenuItems } from '@/constants/menu'
 import Logo from '@/components/01_atoms/Logo'
 import { Url } from '@/constants/url'
-import useAppRoot from '@/stores/useAppRoot'
-import axios from '@/utils/axios'
-import { Api } from '@/constants/api'
+import { useI18n } from '@/components/i18n'
 
 /** AdminTemplateProps Props */
 export type AdminTemplateProps = WithChildren & {
@@ -18,6 +16,7 @@ export type AdminTemplateProps = WithChildren & {
 }
 /** Presenter Props */
 export type PresenterProps = AdminTemplateProps & {
+  t
   logout
 }
 
@@ -25,6 +24,7 @@ export type PresenterProps = AdminTemplateProps & {
 const AdminTemplatePresenter: FC<PresenterProps> = ({
   children,
   main,
+  t,
   title,
   logout,
   ...props
@@ -36,7 +36,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
         <Logo link={Url.AdminHome} />
         <div className={`ml-auto p-3 md:p-6 ${main.user ? '' : 'hidden'}`}>
           <a href="#" onClick={() => logout()}>
-            ログアウト
+            {t('Logout')}
           </a>
         </div>
       </div>
@@ -52,7 +52,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
                     rel={target ? 'noreferrer' : ''}
                     className="break-words whitespace-pre-wrap text-gray-700 font-bold whitespace-nowrap"
                   >
-                    {label}
+                    {t(label)}
                   </a>
                 </li>
               ))}
@@ -60,7 +60,10 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
           </div>
         </div>
         <div className="col-span-12 md:col-span-10">
-          <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 4rem)' }}>
+          <div
+            className="flex items-center justify-center"
+            style={{ height: 'calc(100vh - 4rem)' }}
+          >
             <Circles>
               <div className="p-1 md:p-8 w-full">{children}</div>
             </Circles>
@@ -75,6 +78,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
 const AdminTemplateContainer: React.FC<
   ContainerProps<AdminTemplateProps, PresenterProps>
 > = ({ presenter, main, children, ...props }) => {
+  const { t } = useI18n('Admin')
   const logout = async () => {
     await main.logout()
     location.reload()
@@ -83,6 +87,7 @@ const AdminTemplateContainer: React.FC<
   return presenter({
     children,
     main,
+    t,
     logout,
     ...props,
   })

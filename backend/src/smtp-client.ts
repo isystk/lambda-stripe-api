@@ -1,8 +1,8 @@
 import nodemailer, { type TransportOptions } from 'nodemailer'
 
-const SMTP_SERVER = process.env.SMTP_SERVER ?? ''
-const SMTP_PORT = process.env.SMTP_PORT ?? ''
-const SMTP_SECURE = process.env.SMTP_SECURE ?? ''
+const SMTP_SERVER = process.env.SMTP_SERVER ?? 'localhost'
+const SMTP_PORT = process.env.SMTP_PORT ?? '25'
+const SMTP_SECURE = process.env.SMTP_SECURE ?? 'false'
 const SMTP_USER = process.env.SMTP_USER ?? ''
 const SMTP_PASS = process.env.SMTP_PASS ?? ''
 const MAIL_FROM_ADDRESS = process.env.MAIL_FROM_ADDRESS ?? ''

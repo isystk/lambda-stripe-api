@@ -6,7 +6,7 @@ import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import { useI18n } from '@/components/i18n'
-import ScrollIn from "@/components/02_interactions/ScrollIn";
+import ScrollIn from '@/components/02_interactions/ScrollIn'
 
 /** MainVisualProps Props */
 export type MainVisualProps = WithChildren
@@ -19,7 +19,10 @@ export type PresenterProps = MainVisualProps & {
 /** Presenter Component */
 const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
   <>
-    <section className={`${styles.mainVisual}`} style={{ height: 'calc(100vh - 4rem)' }}>
+    <section
+      className={`${styles.mainVisual}`}
+      style={{ height: 'calc(100vh - 4rem)' }}
+    >
       <div className="flex flex-wrap items-center h-full bg-main justify-center">
         <div className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16">
           <img src="/images/iphone.png" className="w-36 md:w-72"></img>

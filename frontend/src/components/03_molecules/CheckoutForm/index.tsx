@@ -12,6 +12,7 @@ import axios, { AxiosError } from '@/utils/axios'
 import { PaymentMethodResult } from '@stripe/stripe-js'
 import { Api } from '@/constants/api'
 import * as stripe from 'stripe'
+import { useI18n } from '@/components/i18n'
 
 const CARD_ELEMENT_OPTIONS = {
   hidePostalCode: true, // 郵便番号を非表示
@@ -48,6 +49,7 @@ export type CheckoutFormProps = WithChildren & {
 /** Presenter Props */
 export type PresenterProps = CheckoutFormProps & {
   main
+  t
   onsubmit
   product
   isComplete
@@ -63,6 +65,7 @@ export type PresenterProps = CheckoutFormProps & {
 /** Presenter Component */
 const CheckoutFormPresenter: FC<PresenterProps> = ({
   main,
+  t,
   onsubmit,
   product,
   isComplete,
@@ -82,8 +85,9 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
         <form onSubmit={handleSubmit(onsubmit)}>
           <div className="flex flex-wrap items-center md:mb-8">
             {product.plans.map(({ id, amount, currency }, idx) => {
+              const locale = navigator.language
               const amountFmt = amount
-                ? new Intl.NumberFormat('ja-JP', {
+                ? new Intl.NumberFormat(locale, {
                     style: 'currency',
                     currency,
                   }).format(amount)
@@ -91,7 +95,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
               return (
                 <div key={id} className="w-full md:w-1/2">
                   <div className="bg-black rounded-lg md:mr-4 py-12 h-72 mb-8">
-                    <p className="text-white text-center mb-12">プラン</p>
+                    <p className="text-white text-center mb-12">{t('Plan')}</p>
                     <p className="text-white font-bold text-center text-5xl mb-12">
                       {amountFmt}
                     </p>
@@ -112,7 +116,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
           <div className="flex flex-col mb-4">
             <Input
               {...{
-                placeholder: 'お名前',
+                placeholder: t('your name'),
                 type: 'text',
                 name: 'name',
                 register,
@@ -124,7 +128,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
           <div className="flex flex-col mb-4">
             <Input
               {...{
-                placeholder: 'メールアドレス',
+                placeholder: t('Email address'),
                 type: 'email',
                 name: 'email',
                 register,
@@ -145,13 +149,15 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
               type="submit"
               disabled={!stripe}
             >
-              購入する
+              {t('Buy Now')}
             </button>
           </div>
           {errorMsg && <p className="pt-4 text-red-500">{errorMsg}</p>}
         </form>
       ) : (
-        <p className="text-18 text-left mb-20">購入が完了しました。</p>
+        <p className="text-18 text-left mb-20">
+          {t('The purchase has been completed.')}
+        </p>
       )}
       <Loading loading={loading} />
     </div>
@@ -163,6 +169,7 @@ const CheckoutFormContainer: React.FC<
   ContainerProps<CheckoutFormProps, PresenterProps>
 > = ({ presenter, children, product, userKey, ...props }) => {
   const main = useContext<MainService | null>(Context)
+  const { t } = useI18n('Common')
   if (!main) return <></>
 
   const [isComplete, setIsComplete] = useState(false)
@@ -181,17 +188,20 @@ const CheckoutFormContainer: React.FC<
 
   const validate = {
     planId: {
-      required: 'プランを選択してください',
+      required: t('Plan Required'),
     },
     name: {
-      required: 'お名前を入力してください',
-      max: { value: 30, message: 'お名前は３０文字以内で入力してください' },
+      required: t('Please enter your name'),
+      max: {
+        value: 30,
+        message: t('Please enter your name in 30 characters or less'),
+      },
     },
     email: {
-      required: 'メールアドレスを入力してください',
+      required: t('Please enter your email address'),
       pattern: {
         value: /[\w\-\\._]+@[\w\-\\._]+\.[A-Za-z]+/,
-        message: 'メールアドレスを正しく入力してください',
+        message: t('Email address is correct'),
       },
     },
   }
@@ -213,11 +223,11 @@ const CheckoutFormContainer: React.FC<
           },
         })
       if (!payment) {
-        setCardErrorMsg('カード情報を入力してください')
+        setCardErrorMsg(t('Please enter your card information'))
         return
       }
       if (payment.error) {
-        setCardErrorMsg(payment.error.message ?? 'カード情報が不正です')
+        setCardErrorMsg(payment.error.message ?? t('Invalid card information'))
         return
       }
       setLoading(true)
@@ -237,7 +247,7 @@ const CheckoutFormContainer: React.FC<
       console.log(e)
       if (e instanceof AxiosError) {
         const { response } = e
-        setErrorMsg(response?.data?.message)
+        setErrorMsg(t(response?.data?.message))
       } else if (e instanceof Error) {
         setErrorMsg(e.message)
       }
@@ -249,6 +259,7 @@ const CheckoutFormContainer: React.FC<
   return presenter({
     children,
     main,
+    t,
     onsubmit,
     product,
     isComplete,

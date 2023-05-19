@@ -11,7 +11,7 @@ exports[`Price Match Snapshot 1`] = `
       className="py-32 w-full"
     >
       <div
-        className="undefined css-pjt9eq"
+        className="undefined css-pjt9eq css-1exhw58"
       >
         <p
           className="text-white font-bold text-3xl md:mb-16 text-center"
@@ -26,7 +26,7 @@ exports[`Price Match Snapshot 1`] = `
           className="flex w-full md:w-1/2 justify-end items-center"
         >
           <div
-            className="w-full md:w-72 md:mr-8 css-pjt9eq"
+            className="w-full md:w-72 md:mr-8 css-pjt9eq css-1exhw58"
           >
             <div
               className="bg-white bg-opacity-20 rounded-lg py-16 h-64 mb-8 md:mb-0"
@@ -48,7 +48,7 @@ exports[`Price Match Snapshot 1`] = `
           className="flex w-full md:w-1/2 justify-start items-center"
         >
           <div
-            className="w-full md:w-72 md:ml-8 css-pjt9eq"
+            className="w-full md:w-72 md:ml-8 css-pjt9eq css-1exhw58"
           >
             <div
               className="bg-white bg-opacity-20 rounded-lg py-16 h-64 "

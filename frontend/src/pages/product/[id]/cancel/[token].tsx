@@ -12,12 +12,14 @@ import ErrorTemplate, {
   ErrorTemplateProps,
 } from '@/components/06_templates/ErrorTemplate'
 import Modal from '@/components/02_interactions/Modal'
+import { useI18n } from '@/components/i18n'
 
 const Index: FC = () => {
   const {
     query: { id: productId, token: cancelToken },
   } = useRouter()
   const main = useAppRoot()
+  const { t } = useI18n('Common')
 
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -83,21 +85,28 @@ const Index: FC = () => {
 
   if (!main) return <></>
 
-  const props: InputFormTemplateProps = { main, title: '商品の解約ページ' }
+  const props: InputFormTemplateProps = {
+    main,
+    title: t('Product Cancellation Page'),
+  }
   return (
     <InputFormTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">
-        <h2 className="text-2xl mb-8 md:mb-10">商品の解約ページ</h2>
+        <h2 className="text-2xl mb-8 md:mb-10">
+          {t('Product Cancellation Page')}
+        </h2>
         <div>
           {!isComplete ? (
             <>
-              <p className="mb-4 leading-6">{`解約すると${currentPeriodEnd}以降はご利用できなくなります。宜しければ「解約する」を押してください。`}</p>
+              <p className="mb-4 leading-6">{`${currentPeriodEnd} ${t(
+                'After that, you will not be able to use the service. If you like, please click Cancel'
+              )}`}</p>
               <div>
                 <button
                   className="bg-blue-500 rounded-md text-white border-none rounded-5 px-20 py-4 text-18 cursor-pointer mt-10"
                   onClick={() => setShowModal(true)}
                 >
-                  解約する
+                  {t('Cancel')}
                 </button>
                 {errorMsg && <p className="pt-4 text-red-500">{errorMsg}</p>}
                 <Loading loading={loading} />
@@ -105,9 +114,10 @@ const Index: FC = () => {
             </>
           ) : (
             <p className="mb-4 leading-6">
-              解約が完了しました。
-              <br />
-              またのご利用をお待ちしております。
+              $
+              {t(
+                'The cancellation has been completed. We look forward to serving you again.'
+              )}
             </p>
           )}
         </div>
@@ -116,6 +126,8 @@ const Index: FC = () => {
         isOpen={showModal}
         handleCancel={() => setShowModal(false)}
         handleAccept={() => cancelSubscription()}
+        acceptLabel={t('Yes')}
+        cancelLabel={t('No')}
       >
         <svg
           aria-hidden="true"
@@ -133,7 +145,7 @@ const Index: FC = () => {
           ></path>
         </svg>
         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-          解約します。よろしいですか？
+          {t('I will cancel the contract. May I?')}
         </h3>
       </Modal>
     </InputFormTemplate>

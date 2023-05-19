@@ -98,6 +98,8 @@ services:
     ports:
       - 8025:8025
       - 25:1025
+    networks:
+      - lambda-local
 
 volumes:
   stripe-subscription-api-dynamodb-store:

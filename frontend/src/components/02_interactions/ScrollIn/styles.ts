@@ -22,4 +22,4 @@ export const scrollin = css`
 
 export const delay = (props) => css`
   animation-delay: ${props.delay || '0s'};
-`;
+`
