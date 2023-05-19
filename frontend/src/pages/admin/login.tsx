@@ -80,7 +80,7 @@ const Index: FC = () => {
       console.log(e)
       if (e instanceof AxiosError) {
         const { response } = e
-        setErrorMsg(t(response?.data?.message))
+        setErrorMsg(t(response?.data?.message) as string)
       } else if (e instanceof Error) {
         setErrorMsg(e.message)
       }
@@ -89,7 +89,7 @@ const Index: FC = () => {
     }
   }
 
-  const props: AdminTemplateProps = { main, title: t('Login') }
+  const props: AdminTemplateProps = { main, title: t('Login') as string }
   return (
     <AdminTemplate {...props}>
       <section className="max-w-800 mx-auto bg-white px-3 md:px-20 py-12 md:py-20 shadow-md text-center">

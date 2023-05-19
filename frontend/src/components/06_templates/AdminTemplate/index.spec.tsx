@@ -9,7 +9,7 @@ import { store } from '@/stores'
 describe('AdminTemplate', () => {
   it('Match Snapshot', () => {
     const main = new MainService(() => ({}))
-    const props: AdminTemplateProps = { main }
+    const props: { main: MainService } = { main }
     const component = renderer.create(
       <Provider store={store}>
         <AdminTemplate {...props} />

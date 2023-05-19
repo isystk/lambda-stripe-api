@@ -2,7 +2,10 @@ import Circles from '@/components/02_interactions/Circles'
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
-import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
+import HtmlSkeleton, {
+  NoIndex,
+  Title,
+} from '@/components/05_layouts/HtmlSkeleton'
 import MainService from '@/services/main'
 import { adminMenuItems } from '@/constants/menu'
 import Logo from '@/components/01_atoms/Logo'
@@ -31,6 +34,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
 }) => (
   <HtmlSkeleton>
     <Title>{title}</Title>
+    <NoIndex />
     <div className="h-screen">
       <div className="h-16 bg-base p-4 md:p-0 flex">
         <Logo link={Url.AdminHome} />
@@ -65,7 +69,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
             style={{ height: 'calc(100vh - 4rem)' }}
           >
             <Circles>
-              <div className="p-1 md:p-8 w-full">{children}</div>
+              <div className="py-8 md:p-8 w-full">{children}</div>
             </Circles>
           </div>
         </div>

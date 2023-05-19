@@ -26,6 +26,9 @@ const ENDPOINT_URL = process.env.NEXT_PUBLIC_ENDPOINT_URL
 /** Stripe 公開鍵 */
 const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY
 
+/** Google Analytics トラッキングID */
+const GA_TRAKING_ID = process.env.NEXT_PUBLIC_GA_TRAKING_ID
+
 type LOCALSTORAGE = {
   User
 }
@@ -40,4 +43,5 @@ export {
   DATE_FORMAT,
   ENDPOINT_URL,
   STRIPE_KEY,
+  GA_TRAKING_ID,
 }

@@ -74,7 +74,7 @@ const Index: FC = () => {
 
   const props: InputFormTemplateProps = {
     main,
-    title: t('Product Cancellation Page'),
+    title: t('Product Cancellation Page') as string,
   }
   return (
     <InputFormTemplate {...props}>

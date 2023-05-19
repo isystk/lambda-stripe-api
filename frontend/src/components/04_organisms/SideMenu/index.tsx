@@ -1,9 +1,7 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import MainService from '@/services/main'
 import { useI18n } from '@/components/i18n'
 
 /** SideMenuProps Props */

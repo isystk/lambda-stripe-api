@@ -1,16 +1,15 @@
-import React, { Children, FC, useState } from 'react'
+import React, { Children, FC } from 'react'
 import { connect } from '@/components/hoc'
 import { ContainerProps, WithChildren } from 'types'
 import useAppRoot from '@/stores/useAppRoot'
 import Title, { TitleProps } from './Title'
+import NoIndex, { NoIndexProps } from './NoIndex'
 import Head from 'next/head'
 import { isReactElement } from '@/utils/general/object'
 import { APP_NAME, APP_DESCRIPTION } from '@/constants'
 
 /** HtmlSkeleton Props */
-export type HtmlSkeletonProps = WithChildren & {
-  showSideMenu?: boolean
-}
+export type HtmlSkeletonProps = WithChildren
 /** Presenter Props */
 export type PresenterProps = HtmlSkeletonProps & {
   title?: string
@@ -21,6 +20,7 @@ export type PresenterProps = HtmlSkeletonProps & {
 const HtmlSkeletonPresenter: FC<PresenterProps> = ({
   main,
   title,
+  noIndex,
   description,
   children,
 }) => (
@@ -28,6 +28,8 @@ const HtmlSkeletonPresenter: FC<PresenterProps> = ({
     <Head>
       {/* タイトル */}
       <title>{title}</title>
+      {/* Index or Noindex */}
+      <meta name="robots" content={noIndex ? 'noindex' : 'index'} />
       {/* favicon */}
       <link rel="icon" href="/favicon.ico" />
       {/* PCやモバイル（スマホ、タブレット）などのデバイスごとのコンテンツの表示領域 */}
@@ -58,21 +60,29 @@ const HtmlSkeletonContainer: React.FC<
   ContainerProps<HtmlSkeletonProps, PresenterProps>
 > = ({ presenter, children, ...props }) => {
   let title: TitleProps['children'] | undefined = undefined
+  let noIndex = false
   const main = useAppRoot()
   if (!main) return <></>
   console.log('HtmlSkeletonContainer', main)
 
-  children = Children.map(children, (child) =>
-    isReactElement(child) && child.type === Title
-      ? (title = `${child.props.children} | ${APP_NAME}`) && undefined
-      : child
-  )
+  children = Children.map(children, (child) => {
+    if (isReactElement(child) && child.type === Title) {
+      // Titleタグが含まれる場合
+      return (title = `${child.props.children} | ${APP_NAME}`) && undefined
+    }
+    if (isReactElement(child) && child.type === NoIndex) {
+      // NoIndexタグが含まれる場合
+      return (noIndex = true) && undefined
+    }
+    return child
+  })
   if (!title) title = APP_NAME
 
   const description = APP_DESCRIPTION
   return presenter({
     main,
     title,
+    noIndex,
     description,
     children,
     ...props,
@@ -90,3 +100,5 @@ export default connect<HtmlSkeletonProps, PresenterProps>(
 // Sub Component
 export type { TitleProps }
 export { Title }
+export type { NoIndexProps }
+export { NoIndex }

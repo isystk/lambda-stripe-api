@@ -82,7 +82,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
   <>
     <div>
       {!isComplete ? (
-        <form onSubmit={handleSubmit(onsubmit)}>
+        <form onSubmit={handleSubmit(onsubmit)} className={styles.checkoutForm}>
           <div className="flex flex-wrap items-center md:mb-8">
             {product.plans.map(({ id, amount, currency }, idx) => {
               const locale = navigator.language
@@ -223,11 +223,13 @@ const CheckoutFormContainer: React.FC<
           },
         })
       if (!payment) {
-        setCardErrorMsg(t('Please enter your card information'))
+        setCardErrorMsg(t('Please enter your card information') as string)
         return
       }
       if (payment.error) {
-        setCardErrorMsg(payment.error.message ?? t('Invalid card information'))
+        setCardErrorMsg(
+          payment.error.message ?? (t('Invalid card information') as string)
+        )
         return
       }
       setLoading(true)
@@ -247,7 +249,7 @@ const CheckoutFormContainer: React.FC<
       console.log(e)
       if (e instanceof AxiosError) {
         const { response } = e
-        setErrorMsg(t(response?.data?.message))
+        setErrorMsg(t(response?.data?.message) as string)
       } else if (e instanceof Error) {
         setErrorMsg(e.message)
       }

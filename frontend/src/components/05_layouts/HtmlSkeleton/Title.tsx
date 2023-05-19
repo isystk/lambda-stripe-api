@@ -1,9 +1,9 @@
 import { connect } from '@/components/hoc'
-import React, { Fragment, ReactText } from 'react'
+import React, { Fragment } from 'react'
 import { ContainerProps } from 'types'
 
 /** Title Props */
-export type TitleProps = { children: ReactText }
+export type TitleProps = { children }
 export type PresenterProps = TitleProps
 
 /** Presenter Component */

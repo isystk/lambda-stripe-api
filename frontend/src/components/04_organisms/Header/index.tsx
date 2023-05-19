@@ -1,11 +1,9 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
 import Logo from '@/components/01_atoms/Logo'
 import Hamburger from '@/components/01_atoms/Hamburger'
 import * as styles from './styles'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import MainService from '@/services/main'
 import { useI18n } from '@/components/i18n'
 
 /** HeaderProps Props */

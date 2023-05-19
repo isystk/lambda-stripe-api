@@ -1,8 +1,11 @@
 import Circles from '@/components/02_interactions/Circles'
-import React, { useEffect, FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
-import HtmlSkeleton, { Title } from '@/components/05_layouts/HtmlSkeleton'
+import HtmlSkeleton, {
+  NoIndex,
+  Title,
+} from '@/components/05_layouts/HtmlSkeleton'
 import Header from '@/components/04_organisms/Header'
 import SideMenu from '@/components/04_organisms/SideMenu'
 import MainService from '@/services/main'
@@ -27,6 +30,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
 }) => (
   <HtmlSkeleton>
     <Title>{title}</Title>
+    <NoIndex />
     <Header
       isMenuOpen={isMenuOpen}
       setMenuOpen={setMenuOpen}
