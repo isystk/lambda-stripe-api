@@ -9,6 +9,7 @@ import ErrorTemplate, {
   ErrorTemplateProps,
 } from '@/components/06_templates/ErrorTemplate'
 const Index: FC = () => {
+  const main = useAppRoot()
   const {
     query: { id: productId },
   } = useRouter()
@@ -18,7 +19,6 @@ const Index: FC = () => {
     return <ErrorTemplate {...props} />
   }
 
-  const main = useAppRoot()
   if (!main) return <></>
   const props: LandingPageTemplateProps = { main }
   return <LandingPageTemplate {...props} />

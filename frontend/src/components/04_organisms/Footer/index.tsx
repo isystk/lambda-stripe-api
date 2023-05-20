@@ -6,6 +6,7 @@ import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import ScrollTop from '@/components/01_atoms/ScrollTop'
+import Image from '@/components/01_atoms/Image'
 import { useI18n } from '@/components/i18n'
 
 /** FooterProps Props */
@@ -29,9 +30,9 @@ const FooterPresenter: FC<PresenterProps> = ({
         <div className="flex w-full md:w-4/5 bg-main rounded-tr-full py-24 px-8 pb-16"></div>
         <div className="flex flex-wrap w-full md:w-4/5 bg-main md:px-40 pb-16">
           <div className="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8">
-            <img
+            <Image
               src="https://qr-official.line.me/gs/M_618ecvqb_GW.png"
-              width="250px"
+              alt="line-me"
             />
           </div>
           <div className="flex w-full md:w-1/2 justify-center md:justify-start items-center md:pl-8">

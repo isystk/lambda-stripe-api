@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import { ContainerProps } from 'types'
 import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** InputProps Props */
-export type InputProps = WithChildren & {
+export type InputProps = {
   type: 'text' | 'password' | 'email'
   name: string
   placeholder: string
@@ -40,11 +40,9 @@ const InputPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const InputContainer: React.FC<ContainerProps<InputProps, PresenterProps>> = ({
   presenter,
-  children,
   ...props
 }) => {
   return presenter({
-    children,
     ...props,
   })
 }

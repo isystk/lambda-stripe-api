@@ -26,7 +26,7 @@ const LandingPageTemplatePresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <HtmlSkeleton>
-    <Title>商品名</Title>
+    <Title>サンプル商品</Title>
     <Header
       isMenuOpen={isMenuOpen}
       setMenuOpen={setMenuOpen}

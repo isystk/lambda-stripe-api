@@ -63,7 +63,6 @@ const HtmlSkeletonContainer: React.FC<
   let noIndex = false
   const main = useAppRoot()
   if (!main) return <></>
-  console.log('HtmlSkeletonContainer', main)
 
   children = Children.map(children, (child) => {
     if (isReactElement(child) && child.type === Title) {

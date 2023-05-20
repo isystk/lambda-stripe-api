@@ -17,10 +17,14 @@ exports[`Footer Match Snapshot 1`] = `
         <div
           className="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8"
         >
-          <img
-            src="https://qr-official.line.me/gs/M_618ecvqb_GW.png"
-            width="250px"
-          />
+          <div>
+            <img
+              alt="line-me"
+              className="css-s08p0c "
+              loading="lazy"
+              src="https://qr-official.line.me/gs/M_618ecvqb_GW.png"
+            />
+          </div>
         </div>
         <div
           className="flex w-full md:w-1/2 justify-center md:justify-start items-center md:pl-8"
@@ -38,6 +42,7 @@ exports[`Footer Match Snapshot 1`] = `
               href="#"
             >
               <img
+                alt="Add me as a friend and ask me a question"
                 height="50px"
                 src="/images/icon-line.png"
                 width="50px"

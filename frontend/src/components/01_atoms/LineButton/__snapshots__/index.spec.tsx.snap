@@ -6,6 +6,7 @@ exports[`LineButton Match Snapshot 1`] = `
   href="#"
 >
   <img
+    alt=""
     height="50px"
     src="/images/icon-line.png"
     width="50px"

@@ -8,10 +8,14 @@ exports[`Header Match Snapshot 1`] = `
     className="css-0"
     href="/"
   >
-    <img
+    <div
       className="w-20 md:w-40"
-      src="/images/logo.png"
-    />
+    >
+      <img
+        className="css-s08p0c "
+        src="/images/logo.png"
+      />
+    </div>
   </a>
   <div
     className="flex pr-3 z-50 md:hidden "

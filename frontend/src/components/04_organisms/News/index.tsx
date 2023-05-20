@@ -5,6 +5,7 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
+import Image from '@/components/01_atoms/Image'
 
 /** NewsProps Props */
 export type NewsProps = WithChildren
@@ -39,10 +40,11 @@ const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
                 </div>
                 <div className="flex w-full md:w-1/2 justify-center md:justify-start items-center">
                   <div className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src="/images/dummy_480x320.png"
-                      width="100%"
-                      className="zoom"
+                      alt="dummy"
+                      lazy={false}
+                      zoom={true}
                     />
                   </div>
                 </div>
@@ -63,10 +65,11 @@ const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
                 </div>
                 <div className="flex w-full md:w-1/2 justify-center md:justify-start items-center">
                   <div className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src="/images/dummy_480x320.png"
-                      width="100%"
-                      className="zoom"
+                      alt="dummy"
+                      lazy={false}
+                      zoom={true}
                     />
                   </div>
                 </div>

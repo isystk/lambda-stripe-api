@@ -15,10 +15,15 @@ exports[`MainVisual Match Snapshot 1`] = `
     <div
       className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16"
     >
-      <img
+      <div
         className="w-36 md:w-72"
-        src="/images/iphone.png"
-      />
+      >
+        <img
+          alt="iphone"
+          className="css-s08p0c "
+          src="/images/iphone.png"
+        />
+      </div>
     </div>
     <div
       className="flex w-full md:w-1/2 justify-center md:justify-start pb-8"
@@ -52,6 +57,7 @@ exports[`MainVisual Match Snapshot 1`] = `
             href="#"
           >
             <img
+              alt="Add me as a friend and ask me a question"
               height="50px"
               src="/images/icon-line.png"
               width="50px"

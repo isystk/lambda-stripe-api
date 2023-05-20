@@ -5,6 +5,7 @@ import { connect } from '@/components/hoc'
 import MainService from '@/services/main'
 import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
+import Image from '@/components/01_atoms/Image'
 import { useI18n } from '@/components/i18n'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
 
@@ -25,7 +26,12 @@ const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
     >
       <div className="flex flex-wrap items-center h-full bg-main justify-center">
         <div className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16">
-          <img src="/images/iphone.png" className="w-36 md:w-72"></img>
+          <Image
+            src="/images/iphone.png"
+            className="w-36 md:w-72"
+            alt="iphone"
+            lazy={false}
+          />
         </div>
         <div className="flex w-full md:w-1/2 justify-center md:justify-start pb-8">
           <div className="px-8">

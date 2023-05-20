@@ -52,11 +52,13 @@ exports[`News Match Snapshot 1`] = `
               <div
                 className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
               >
-                <img
-                  className="zoom"
-                  src="/images/dummy_480x320.png"
-                  width="100%"
-                />
+                <div>
+                  <img
+                    alt="dummy"
+                    className="css-s08p0c zoom"
+                    src="/images/dummy_480x320.png"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -94,11 +96,13 @@ exports[`News Match Snapshot 1`] = `
               <div
                 className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
               >
-                <img
-                  className="zoom"
-                  src="/images/dummy_480x320.png"
-                  width="100%"
-                />
+                <div>
+                  <img
+                    alt="dummy"
+                    className="css-s08p0c zoom"
+                    src="/images/dummy_480x320.png"
+                  />
+                </div>
               </div>
             </div>
           </div>

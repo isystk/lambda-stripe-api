@@ -4,6 +4,9 @@ import { connect } from '@/components/hoc'
 import * as styles from './styles'
 import { APP_NAME } from '@/constants'
 import { Url } from '@/constants/url'
+import Image, {
+  PresenterProps as ImagePresenterProps,
+} from '@/components/01_atoms/Image'
 
 /** LogoProps Props */
 export type LogoProps = WithChildren & {
@@ -17,13 +20,21 @@ export type PresenterProps = LogoProps
 const LogoPresenter: FC<PresenterProps> = ({
   name = APP_NAME,
   link = Url.Top,
-}) => (
-  <>
-    <a href={link} className={styles.logo}>
-      <img src="/images/logo.png" alt={name} className="w-20 md:w-40"></img>
-    </a>
-  </>
-)
+}) => {
+  const props: ImagePresenterProps = {
+    src: '/images/logo.png',
+    alt: name,
+    className: 'w-20 md:w-40',
+    lazy: false,
+  }
+  return (
+    <>
+      <a href={link} className={styles.logo}>
+        <Image {...props} />
+      </a>
+    </>
+  )
+}
 
 /** Container Component */
 const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
