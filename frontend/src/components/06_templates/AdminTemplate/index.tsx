@@ -33,7 +33,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <HtmlSkeleton>
-    <Title>{title}</Title>
+    <Title>{`${title}－Admin`}</Title>
     <NoIndex />
     <div className="h-screen">
       <div className="h-16 bg-base p-4 md:p-0 flex">

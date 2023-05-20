@@ -2,14 +2,18 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'react'
 import MainService from '@/services/main'
 
-type App = {
+export type RootState = {
+  app: App
+}
+
+export type App = {
   bool?: boolean
-  root: MainService | null
+  root?: MainService
 }
 
 const AppSlice = createSlice({
   name: 'app',
-  initialState: {} as App,
+  initialState: {},
   reducers: {
     toggleState(state?) {
       state.bool = !state.bool

@@ -1,34 +1,24 @@
-import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MainService from '@/services/main'
-import { forceRender, setAppRoot } from '.'
-
-interface IRootState {
-  app: App
-}
-
-type App = {
-  root: MainService
-}
+import { forceRender, setAppRoot, type RootState, type App } from './appSlice'
 
 const useAppRoot = () => {
   const dispatch = useDispatch()
-  const { root } = useSelector<IRootState, App>((state) => state.app)
+  const { root } = useSelector<RootState, App>((state) => state.app)
 
-  const _setAppRoot = async (appRoot: MainService) => {
-    await dispatch(setAppRoot(appRoot))
-    await dispatch(forceRender())
+  const _setAppRoot = (appRoot: MainService) => {
+    dispatch(setAppRoot(appRoot))
+    dispatch(forceRender())
   }
 
-  useEffect(() => {
-    const init = async () => {
-      const _appRoot = new MainService(_setAppRoot)
-      await _appRoot.setAppRoot()
-    }
-    if (!root) {
-      init()
-    }
-  }, [])
+  const init = () => {
+    const _appRoot = new MainService(_setAppRoot)
+    _appRoot.setAppRoot()
+    return _appRoot
+  }
+  if (!root) {
+    return init()
+  }
 
   return root
 }

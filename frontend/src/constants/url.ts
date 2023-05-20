@@ -13,4 +13,5 @@ export const Url = {
   /* 管理画面 */
   AdminLogin: [APP_URL, '/admin/login'].join(''),
   AdminHome: [APP_URL, '/admin/home'].join(''),
+  AdminProduct: [APP_URL, '/admin/product'].join(''),
 }

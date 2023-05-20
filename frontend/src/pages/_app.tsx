@@ -1,7 +1,7 @@
 import '@/assets/sass/app.scss'
 import { Provider } from 'react-redux'
 import React, { useEffect } from 'react'
-import { store } from '@/stores'
+import { store } from '@/stores/appSlice'
 import type { AppProps } from 'next/app'
 import '@/utils/i18n'
 import { initGA, logPageView } from '@/utils/analytics'

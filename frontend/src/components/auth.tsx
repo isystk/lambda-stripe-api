@@ -6,9 +6,8 @@ import useAppRoot from '@/stores/useAppRoot'
 function withAuth(Component: FC) {
   return function AuthenticatedComponent(props) {
     const router = useRouter()
-    const [loading, setLoading] = useState(true)
-
     const main = useAppRoot()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
       // 認証チェック
@@ -22,9 +21,7 @@ function withAuth(Component: FC) {
         }
       })()
     }, [])
-
     if (loading) return <></>
-    if (!main.user) return <></>
 
     return <Component {...props} />
   }

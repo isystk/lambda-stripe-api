@@ -29,7 +29,7 @@ const Index: FC = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        await axios.post(Api.LoginCheck)
+        await main.loginCheck()
         // 認証済みの場合は、ホーム画面にリダイレクト
         await router.replace(Url.AdminHome)
       } catch (e: unknown) {

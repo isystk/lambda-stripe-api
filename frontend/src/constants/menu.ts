@@ -51,7 +51,7 @@ export const frontFooterMenuItems: MenuItem[] = [
 export const adminMenuItems: MenuItem[] = [
   {
     label: 'Product List',
-    href: '#',
+    href: Url.AdminProduct,
   },
   {
     label: 'Subscriber List',
