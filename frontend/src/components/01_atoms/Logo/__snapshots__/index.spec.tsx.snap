@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Logo Match Snapshot 1`] = `
-<a
-  className="css-0"
-  href="#"
->
-  <div
-    className="w-20 md:w-40"
+exports[`LandingPageTemplate Match Snapshot 1`] = `
+<DocumentFragment>
+  <a
+    class="css-0"
+    href="#"
   >
-    <img
-      alt="sample"
-      className="css-s08p0c "
-      src="/images/logo.png"
-    />
-  </div>
-</a>
+    <div
+      class="w-20 md:w-40"
+    >
+      <img
+        alt="sample"
+        class="css-s08p0c "
+        src="/images/logo.png"
+      />
+    </div>
+  </a>
+</DocumentFragment>
 `;

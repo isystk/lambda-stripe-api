@@ -7,6 +7,7 @@ import { Url } from '@/constants/url'
 import Image, {
   PresenterProps as ImagePresenterProps,
 } from '@/components/01_atoms/Image'
+import { useRouter } from 'next/router'
 
 /** LogoProps Props */
 export type LogoProps = WithChildren & {
@@ -14,12 +15,15 @@ export type LogoProps = WithChildren & {
   link?: string
 }
 /** Presenter Props */
-export type PresenterProps = LogoProps
+export type PresenterProps = LogoProps & {
+  router
+}
 
 /** Presenter Component */
 const LogoPresenter: FC<PresenterProps> = ({
   name = APP_NAME,
   link = Url.Top,
+  router,
 }) => {
   const props: ImagePresenterProps = {
     src: '/images/logo.png',
@@ -29,7 +33,14 @@ const LogoPresenter: FC<PresenterProps> = ({
   }
   return (
     <>
-      <a href={link} className={styles.logo}>
+      <a
+        href="#"
+        className={styles.logo}
+        onClick={(e) => {
+          e.preventDefault()
+          router.push(link)
+        }}
+      >
         <Image {...props} />
       </a>
     </>
@@ -42,8 +53,10 @@ const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
   children,
   ...props
 }) => {
+  const router = useRouter()
   return presenter({
     children,
+    router,
     ...props,
   })
 }

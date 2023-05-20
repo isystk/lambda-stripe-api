@@ -1,16 +1,26 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import AdminTemplate, { AdminTemplateProps } from './index'
-
 import MainService from '@/services/main'
 
-describe('AdminTemplate', () => {
+import { useRouter } from 'next/router'
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
+
+describe('LandingPageTemplate', () => {
   it('Match Snapshot', () => {
+    useRouter.mockImplementationOnce(() => ({
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    }))
     const main = new MainService(() => ({}))
     const props: AdminTemplateProps = { main, title: 'サンプル' }
-    const component = renderer.create(<AdminTemplate {...props} />)
-    const tree = component.toJSON()
-
-    expect(tree).toMatchSnapshot()
+    const { asFragment } = render(<AdminTemplate {...props} />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

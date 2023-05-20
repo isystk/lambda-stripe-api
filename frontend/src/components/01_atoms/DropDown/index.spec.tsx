@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import InputFormTemplate, { InputFormTemplateProps } from './index'
+import DropDown, { DropDownProps } from './index'
 
 import { useRouter } from 'next/router'
 
@@ -17,8 +17,15 @@ describe('LandingPageTemplate', () => {
       query: {},
       asPath: '/',
     }))
-    const props: InputFormTemplateProps = { title: 'サンプル' }
-    const { asFragment } = render(<InputFormTemplate {...props} />)
+    const props: DropDownProps = {
+      label: 'サンプル太郎',
+      items: [
+        { label: 'リンク1', link: 'http://link1' },
+        { label: 'リンク2', link: 'http://link2' },
+        { label: 'リンク3', link: 'http://link3' },
+      ],
+    }
+    const { asFragment } = render(<DropDown {...props} />)
     expect(asFragment()).toMatchSnapshot()
   })
 })

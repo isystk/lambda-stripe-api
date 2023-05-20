@@ -1,72 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Match Snapshot 1`] = `
-<header
-  className="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
->
-  <a
-    className="css-0"
-    href="http://localhost:9000/"
+exports[`LandingPageTemplate Match Snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
   >
+    <a
+      class="css-0"
+      href="#"
+    >
+      <div
+        class="w-20 md:w-40"
+      >
+        <img
+          class="css-s08p0c "
+          src="/images/logo.png"
+        />
+      </div>
+    </a>
     <div
-      className="w-20 md:w-40"
+      class="flex pr-3 z-50 md:hidden fixed right-5"
     >
-      <img
-        className="css-s08p0c "
-        src="/images/logo.png"
-      />
+      <button
+        class="space-y-2 css-jgxxba"
+      >
+        <div
+          class="w-6 h-0.5 bg-black translate-y-2.5 rotate-45"
+        />
+        <div
+          class="w-6 h-0.5 bg-black -rotate-45"
+        />
+        <div
+          class="opacity-0"
+        />
+      </button>
     </div>
-  </a>
-  <div
-    className="flex pr-3 z-50 md:hidden fixed right-5"
-  >
-    <button
-      className="space-y-2 css-jgxxba"
-      onClick={[Function]}
+    <nav
+      class="hidden sm:block"
     >
-      <div
-        className="w-6 h-0.5 bg-black translate-y-2.5 rotate-45"
-      />
-      <div
-        className="w-6 h-0.5 bg-black -rotate-45"
-      />
-      <div
-        className="opacity-0"
-      />
-    </button>
-  </div>
-  <nav
-    className="hidden sm:block"
-  >
-    <ul
-      className="flex gap-6"
-    >
-      <li>
-        <a
-          href="https://menu1"
-          rel=""
-        >
-          Menu1
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://menu2"
-          rel=""
-        >
-          Menu2
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://menu3"
-          rel="noreferrer"
-          target="_blank"
-        >
-          Menu3
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
+      <ul
+        class="flex gap-6"
+      >
+        <li>
+          <a
+            href="https://menu1"
+            rel=""
+          >
+            Menu1
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://menu2"
+            rel=""
+          >
+            Menu2
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://menu3"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Menu3
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</DocumentFragment>
 `;

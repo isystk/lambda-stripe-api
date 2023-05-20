@@ -1,50 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LandingPageTemplate Match Snapshot 1`] = `
-[
+<DocumentFragment>
   <header
-    className="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
+    class="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
   >
     <a
-      className="css-0"
-      href="http://localhost:9000/"
+      class="css-0"
+      href="#"
     >
       <div
-        className="w-20 md:w-40"
+        class="w-20 md:w-40"
       >
         <img
-          className="css-s08p0c "
+          class="css-s08p0c "
           src="/images/logo.png"
         />
       </div>
     </a>
     <div
-      className="flex pr-3 z-50 md:hidden "
+      class="flex pr-3 z-50 md:hidden "
     >
       <button
-        className="space-y-2 css-jgxxba"
-        onClick={[Function]}
+        class="space-y-2 css-jgxxba"
       >
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
       </button>
     </div>
     <nav
-      className="hidden sm:block"
+      class="hidden sm:block"
     >
       <ul
-        className="flex gap-6"
+        class="flex gap-6"
       >
         <li>
           <a
-            href="http://localhost:9000/"
+            href="/"
             rel=""
           >
             Home
@@ -52,7 +51,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </li>
         <li>
           <a
-            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
+            href="/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
@@ -69,60 +68,56 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </li>
       </ul>
     </nav>
-  </header>,
+  </header>
   <section
-    className="css-0"
-    style={
-      {
-        "height": "calc(100vh - 4rem)",
-      }
-    }
+    class="css-0"
+    style="height: calc(100vh - 4rem);"
   >
     <div
-      className="flex flex-wrap items-center h-full bg-main justify-center"
+      class="flex flex-wrap items-center h-full bg-main justify-center"
     >
       <div
-        className="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16"
+        class="flex w-full md:w-1/2 justify-center md:justify-end md:pr-16"
       >
         <div
-          className="w-36 md:w-72"
+          class="w-36 md:w-72"
         >
           <img
             alt="Line App"
-            className="css-s08p0c "
+            class="css-s08p0c "
             src="/images/iphone.png"
           />
         </div>
       </div>
       <div
-        className="flex w-full md:w-1/2 justify-center md:justify-start pb-8"
+        class="flex w-full md:w-1/2 justify-center md:justify-start pb-8"
       >
         <div
-          className="px-8"
+          class="px-8"
         >
           <div
-            className="undefined css-pjt9eq css-1exhw58"
+            class="undefined css-1atwhfb css-1exhw58"
           >
             <p
-              className="text-accent text-xl md:text-3xl font-bold mb-6 "
+              class="text-accent text-xl md:text-3xl font-bold mb-6 "
             >
               One million registered within one month of release!
             </p>
           </div>
           <div
-            className="undefined css-pjt9eq css-xrumgy"
+            class="undefined css-1atwhfb css-xrumgy"
           >
             <h1
-              className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 "
+              class="text-gray-700 text-2xl md:text-4xl font-bold mb-6 "
             >
               The topic of ________. Available on line!
             </h1>
           </div>
           <div
-            className="undefined css-pjt9eq css-6y95dw"
+            class="undefined css-1atwhfb css-6y95dw"
           >
             <a
-              className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
+              class="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
               href="#"
             >
               <img
@@ -132,7 +127,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
                 width="50px"
               />
               <span
-                className="text-white font-bold"
+                class="text-white font-bold"
               >
                 Add me as a friend and ask me a question
               </span>
@@ -141,44 +136,44 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </div>
       </div>
     </div>
-  </section>,
+  </section>
   <section
-    className="css-0"
+    class="css-0"
   >
     <div
-      className="flex items-center bg-black justify-center w-full"
+      class="flex items-center bg-black justify-center w-full"
     >
       <div
-        className="py-32 w-full"
+        class="py-32 w-full"
       >
         <div
-          className="undefined css-pjt9eq css-1exhw58"
+          class="undefined css-1atwhfb css-1exhw58"
         >
           <p
-            className="text-white font-bold text-3xl md:mb-16 text-center"
+            class="text-white font-bold text-3xl md:mb-16 text-center"
           >
             PRICE
           </p>
         </div>
         <div
-          className="flex flex-wrap items-center p-8 md:mb-16"
+          class="flex flex-wrap items-center p-8 md:mb-16"
         >
           <div
-            className="flex w-full md:w-1/2 justify-end items-center"
+            class="flex w-full md:w-1/2 justify-end items-center"
           >
             <div
-              className="w-full md:w-72 md:mr-8 css-pjt9eq css-1exhw58"
+              class="w-full md:w-72 md:mr-8 css-1atwhfb css-1exhw58"
             >
               <div
-                className="bg-white bg-opacity-20 rounded-lg py-16 h-64 mb-8 md:mb-0"
+                class="bg-white bg-opacity-20 rounded-lg py-16 h-64 mb-8 md:mb-0"
               >
                 <p
-                  className="text-white text-center mb-8"
+                  class="text-white text-center mb-8"
                 >
                   Limited number of chats
                 </p>
                 <p
-                  className="text-white font-bold text-center text-5xl"
+                  class="text-white font-bold text-center text-5xl"
                 >
                   free
                 </p>
@@ -186,37 +181,37 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
             </div>
           </div>
           <div
-            className="flex w-full md:w-1/2 justify-start items-center"
+            class="flex w-full md:w-1/2 justify-start items-center"
           >
             <div
-              className="w-full md:w-72 md:ml-8 css-pjt9eq css-1exhw58"
+              class="w-full md:w-72 md:ml-8 css-1atwhfb css-1exhw58"
             >
               <div
-                className="bg-white bg-opacity-20 rounded-lg py-16 h-64 "
+                class="bg-white bg-opacity-20 rounded-lg py-16 h-64 "
               >
                 <p
-                  className="text-white text-center mb-8"
+                  class="text-white text-center mb-8"
                 >
                   Unlimited Chat
                 </p>
                 <div
-                  className="px-8"
+                  class="px-8"
                 >
                   <p
-                    className="text-white font-bold text-left text-4xl"
+                    class="text-white font-bold text-left text-4xl"
                   >
                     <span
-                      className="text-white text-xl mr-4"
+                      class="text-white text-xl mr-4"
                     >
                       monthly amount
                     </span>
                     ¥980
                   </p>
                   <p
-                    className="text-white font-bold text-left text-4xl"
+                    class="text-white font-bold text-left text-4xl"
                   >
                     <span
-                      className="text-white text-xl mr-4"
+                      class="text-white text-xl mr-4"
                     >
                       yearly amount
                     </span>
@@ -228,10 +223,10 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
           </div>
         </div>
         <div
-          className="flex items-center justify-center px-8"
+          class="flex items-center justify-center px-8"
         >
           <a
-            className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
+            class="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
             href="#"
           >
             <img
@@ -241,7 +236,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
               width="50px"
             />
             <span
-              className="text-white font-bold"
+              class="text-white font-bold"
             >
               Add me as a friend and ask me a question
             </span>
@@ -249,65 +244,65 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </div>
       </div>
     </div>
-  </section>,
+  </section>
   <div
-    className="h-96"
-  />,
+    class="h-96"
+  />
   <section
-    className="css-0"
+    class="css-0"
   >
     <div
-      className="flex items-center bg-base justify-center w-full"
+      class="flex items-center bg-base justify-center w-full"
     >
       <div
-        className="py-32 w-full"
+        class="py-32 w-full"
       >
         <div
-          className="undefined css-pjt9eq css-1exhw58"
+          class="undefined css-1atwhfb css-1exhw58"
         >
           <p
-            className="text-black font-bold text-3xl md:mb-16 text-center"
+            class="text-black font-bold text-3xl md:mb-16 text-center"
           >
             NEWS
           </p>
         </div>
         <div
-          className="md:px-64"
+          class="md:px-64"
         >
           <div
-            className="undefined css-pjt9eq css-1exhw58"
+            class="undefined css-1atwhfb css-1exhw58"
           >
             <div
-              className="flex flex-wrap items-center p-8 md:mb-16"
+              class="flex flex-wrap items-center p-8 md:mb-16"
             >
               <div
-                className="flex w-full md:w-1/2 justify-end items-center"
+                class="flex w-full md:w-1/2 justify-end items-center"
               >
                 <div
-                  className="w-full"
+                  class="w-full"
                 >
                   <p
-                    className="text-accent font-bold text-xl mb-4"
+                    class="text-accent font-bold text-xl mb-4"
                   >
                     2022.04.22
                   </p>
                   <p
-                    className="font-bold break-words mb-4"
+                    class="font-bold break-words mb-4"
                   >
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </p>
                 </div>
               </div>
               <div
-                className="flex w-full md:w-1/2 justify-center md:justify-start items-center"
+                class="flex w-full md:w-1/2 justify-center md:justify-start items-center"
               >
                 <div
-                  className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
+                  class="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
                 >
                   <div>
                     <img
                       alt="dummy"
-                      className="css-s08p0c zoom"
+                      class="css-s08p0c zoom"
                       src="/images/dummy_480x320.png"
                     />
                   </div>
@@ -316,42 +311,42 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
             </div>
           </div>
           <div
-            className="undefined css-pjt9eq css-1exhw58"
+            class="undefined css-1atwhfb css-1exhw58"
           >
             <div
-              className="bg-gray-300 flex-none h-px"
+              class="bg-gray-300 flex-none h-px"
             />
             <div
-              className="flex flex-wrap items-center p-8 md:mb-16"
+              class="flex flex-wrap items-center p-8 md:mb-16"
             >
               <div
-                className="flex w-full md:w-1/2 justify-end items-center"
+                class="flex w-full md:w-1/2 justify-end items-center"
               >
                 <div
-                  className="w-full"
+                  class="w-full"
                 >
                   <p
-                    className="text-accent font-bold text-xl mb-4"
+                    class="text-accent font-bold text-xl mb-4"
                   >
                     2022.04.22
                   </p>
                   <p
-                    className="font-bold break-words mb-4"
+                    class="font-bold break-words mb-4"
                   >
                     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                   </p>
                 </div>
               </div>
               <div
-                className="flex w-full md:w-1/2 justify-center md:justify-start items-center"
+                class="flex w-full md:w-1/2 justify-center md:justify-start items-center"
               >
                 <div
-                  className="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
+                  class="mx-4 md:mx-0 md:ml-16 rounded-lg overflow-hidden"
                 >
                   <div>
                     <img
                       alt="dummy"
-                      className="css-s08p0c zoom"
+                      class="css-s08p0c zoom"
                       src="/images/dummy_480x320.png"
                     />
                   </div>
@@ -360,49 +355,49 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
             </div>
           </div>
           <div
-            className="mb-36"
+            class="mb-36"
           />
         </div>
       </div>
     </div>
-  </section>,
+  </section>
   <footer
-    className="css-0 relative"
+    class="css-0 relative"
   >
     <div
-      className="absolute left-0 right-0 -mt-64 md:-mt-32"
+      class="absolute left-0 right-0 -mt-64 md:-mt-32"
     >
       <div
-        className="flex w-full md:w-4/5 bg-main rounded-tr-full py-24 px-8 pb-16"
+        class="flex w-full md:w-4/5 bg-main rounded-tr-full py-24 px-8 pb-16"
       />
       <div
-        className="flex flex-wrap w-full md:w-4/5 bg-main md:px-40 pb-16"
+        class="flex flex-wrap w-full md:w-4/5 bg-main md:px-40 pb-16"
       >
         <div
-          className="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8"
+          class="flex w-full md:w-1/2 justify-center md:justify-end items-center md:pr-8 mb-8"
         >
           <div>
             <img
               alt="line-me"
-              className="css-s08p0c "
+              class="css-s08p0c "
               loading="lazy"
               src="https://qr-official.line.me/gs/M_618ecvqb_GW.png"
             />
           </div>
         </div>
         <div
-          className="flex w-full md:w-1/2 justify-center md:justify-start items-center md:pl-8"
+          class="flex w-full md:w-1/2 justify-center md:justify-start items-center md:pl-8"
         >
           <div
-            className="px-8 md:px-0"
+            class="px-8 md:px-0"
           >
             <p
-              className="text-accent text-xl md:text-3xl font-bold mb-6 "
+              class="text-accent text-xl md:text-3xl font-bold mb-6 "
             >
               Why is the sky blue? Tell me a delicious recipe! and more!
             </p>
             <a
-              className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
+              class="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"
               href="#"
             >
               <img
@@ -412,7 +407,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
                 width="50px"
               />
               <span
-                className="text-white font-bold"
+                class="text-white font-bold"
               >
                 Add me as a friend and ask me a question
               </span>
@@ -422,61 +417,61 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
       </div>
     </div>
     <div
-      className="bg-accent rounded-tl-full py-36 px-8 pb-16"
+      class="bg-accent rounded-tl-full py-36 px-8 pb-16"
     />
     <div
-      className="bg-accent py-96 px-8 pb-16"
+      class="bg-accent py-96 px-8 pb-16"
     >
       <nav
-        className="flex flex-wrap items-center justify-center"
+        class="flex flex-wrap items-center justify-center"
       >
         <a
-          className="w-full mb-6 md:w-48"
+          class="w-full mb-6 md:w-48"
           href="https://blog.isystk.com/company/"
           rel="noreferrer"
           target="_blank"
         >
           <p
-            className="text-white text-center font-bold"
+            class="text-white text-center font-bold"
           >
             Company
           </p>
         </a>
         <a
-          className="w-full mb-6 md:w-48"
+          class="w-full mb-6 md:w-48"
           href="https://blog.isystk.com/privacy-poricy/"
           rel="noreferrer"
           target="_blank"
         >
           <p
-            className="text-white text-center font-bold"
+            class="text-white text-center font-bold"
           >
             Privacy Policy
           </p>
         </a>
         <a
-          className="w-full mb-6 md:w-48"
+          class="w-full mb-6 md:w-48"
           href="https://blog.isystk.com/contact/"
           rel="noreferrer"
           target="_blank"
         >
           <p
-            className="text-white text-center font-bold"
+            class="text-white text-center font-bold"
           >
             Contact Us
           </p>
         </a>
         <a
-          className="w-full mb-6 md:w-48"
+          class="w-full mb-6 md:w-48"
           href="https://twitter.com/ise0615"
           rel="noreferrer"
           target="_blank"
         >
           <p
-            className="text-white text-center font-bold"
+            class="text-white text-center font-bold"
           >
             <svg
-              className="text-white h-6 w-6 m-auto"
+              class="text-white h-6 w-6 m-auto"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -488,65 +483,64 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </a>
       </nav>
       <div
-        className="flex items-center justify-center "
+        class="flex items-center justify-center "
       >
         <p
-          className="text-white text-center text-sm"
+          class="text-white text-center text-sm"
         >
           © 2023 Ise Inc. All Right Reserved. Illustration by Yoshitaka Ise
         </p>
       </div>
     </div>
-  </footer>,
+  </footer>
   <button
-    className="css-0 fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-main rounded-full cursor-pointer transition-opacity duration-200 ease-in-out css-14nb29t"
-    onClick={[Function]}
+    class="css-0 fixed bottom-6 md:bottom-20 right-6 md:right-20 w-12 md:w-16 h-12 md:h-16 border-none bg-main rounded-full cursor-pointer transition-opacity duration-200 ease-in-out css-14nb29t"
   >
     <span
-      className="text-bold text-gray-600"
+      class="text-bold text-gray-600"
     >
       ^
     </span>
-  </button>,
+  </button>
   <div
-    className="md:hidden"
+    class="md:hidden"
   >
     <div
-      className="css-0 fixed top-0 right-0 z-30 bg-base h-screen w-64 css-hc9ocb"
+      class="css-0 fixed top-0 right-0 z-30 bg-base h-screen w-64 css-hc9ocb"
     >
       <div
-        className="mt-24"
+        class="mt-24"
       />
       <ul
-        className="list-none"
+        class="list-none"
       >
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="http://localhost:9000/"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
+            href="/"
             rel=""
           >
             Home
           </a>
         </li>
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
+            href="/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
           </a>
         </li>
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
             href="https://blog.isystk.com/contact/"
             rel="noreferrer"
             target="_blank"
@@ -557,17 +551,13 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
       </ul>
     </div>
     <div
-      className="hidden z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
-      onClick={[Function]}
+      class="hidden z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
     />
-  </div>,
+  </div>
   <script
-    dangerouslySetInnerHTML={
-      {
-        "__html": "{"@context":"https://schema.org/","@type":"Article","image":["http://localhost:9000/images/logo.png"],"datePublished":"2023-05-20T00:00:00Z","author":{"@type":"Person","name":"Yoshitaka Ise","url":"https://profile.isystk.com"},"publisher":{"@type":"Organization","name":"サンプル商品","logo":{"@type":"ImageObject","url":"http://localhost:9000/images/iphone.png","width":430,"height":861}},"description":"ここに商品の説明を記載します。"}",
-      }
-    }
     type="application/ld+json"
-  />,
-]
+  >
+    {"@context":"https://schema.org/","@type":"Article","image":["undefined/images/logo.png"],"datePublished":"2023-05-20T00:00:00Z","author":{"@type":"Person","name":"Yoshitaka Ise","url":"https://profile.isystk.com"},"publisher":{"@type":"Organization","name":"サンプル商品","logo":{"@type":"ImageObject","url":"undefined/images/iphone.png","width":430,"height":861}},"description":"ここに商品の説明を記載します。"}
+  </script>
+</DocumentFragment>
 `;

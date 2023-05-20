@@ -12,13 +12,13 @@ const Index: FC = () => {
 
   const props: AdminTemplateProps = {
     main,
-    title: '商品一覧',
-    breadcrumb: [{ label: '商品一覧' }],
+    title: '契約者一覧',
+    breadcrumb: [{ label: '契約者一覧' }],
   }
   return (
     <AdminTemplate {...props}>
       <section className="bg-white p-6 md:p-12 shadow-md">
-        <h2 className="text-2xl mb-8 md:mb-10">商品一覧</h2>
+        <h2 className="text-2xl mb-8 md:mb-10">契約者一覧</h2>
         <div></div>
       </section>
     </AdminTemplate>

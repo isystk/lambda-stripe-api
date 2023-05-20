@@ -1,12 +1,23 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import LandingPageTemplate from './index'
+
+import { useRouter } from 'next/router'
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
 
 describe('LandingPageTemplate', () => {
   it('Match Snapshot', () => {
-    const component = renderer.create(<LandingPageTemplate />)
-    const tree = component.toJSON()
-
-    expect(tree).toMatchSnapshot()
+    useRouter.mockImplementationOnce(() => ({
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    }))
+    const { asFragment } = render(<LandingPageTemplate />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

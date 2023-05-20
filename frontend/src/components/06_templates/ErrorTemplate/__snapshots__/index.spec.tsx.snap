@@ -1,50 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorTemplate Match Snapshot 1`] = `
-[
+exports[`LandingPageTemplate Match Snapshot 1`] = `
+<DocumentFragment>
   <header
-    className="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
+    class="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
   >
     <a
-      className="css-0"
-      href="http://localhost:9000/"
+      class="css-0"
+      href="#"
     >
       <div
-        className="w-20 md:w-40"
+        class="w-20 md:w-40"
       >
         <img
-          className="css-s08p0c "
+          class="css-s08p0c "
           src="/images/logo.png"
         />
       </div>
     </a>
     <div
-      className="flex pr-3 z-50 md:hidden "
+      class="flex pr-3 z-50 md:hidden "
     >
       <button
-        className="space-y-2 css-jgxxba"
-        onClick={[Function]}
+        class="space-y-2 css-jgxxba"
       >
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
         <div
-          className="w-6 h-0.5 bg-black"
+          class="w-6 h-0.5 bg-black"
         />
       </button>
     </div>
     <nav
-      className="hidden sm:block"
+      class="hidden sm:block"
     >
       <ul
-        className="flex gap-6"
+        class="flex gap-6"
       >
         <li>
           <a
-            href="http://localhost:9000/"
+            href="/"
             rel=""
           >
             Home
@@ -52,7 +51,7 @@ exports[`ErrorTemplate Match Snapshot 1`] = `
         </li>
         <li>
           <a
-            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
+            href="/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
@@ -69,31 +68,29 @@ exports[`ErrorTemplate Match Snapshot 1`] = `
         </li>
       </ul>
     </nav>
-  </header>,
+  </header>
   <div
-    className="flex items-center justify-center"
+    class="flex items-center justify-center"
   >
     <div
-      className="p-3 md:p-32 w-full "
+      class="p-3 md:p-32 w-full "
     >
       <div
-        className="py-8"
+        class="py-8"
       >
         <p
-          className="font-bold text-3xl md:mb-16 text-center"
+          class="font-bold text-3xl md:mb-16 text-center"
         >
-          404
-           
-          Error
+          404 Error
         </p>
         <div
-          className="flex flex-wrap items-center p-8 md:mb-16"
+          class="flex flex-wrap items-center p-8 md:mb-16"
         >
           <div
-            className="flex w-full justify-center items-center"
+            class="flex w-full justify-center items-center"
           >
             <p
-              className="text-2xl "
+              class="text-2xl "
             >
               The page could not be displayed properly. Please check the information you entered and try again in a few minutes.
             </p>
@@ -101,46 +98,46 @@ exports[`ErrorTemplate Match Snapshot 1`] = `
         </div>
       </div>
     </div>
-  </div>,
+  </div>
   <div
-    className="md:hidden"
+    class="md:hidden"
   >
     <div
-      className="css-0 fixed top-0 right-0 z-30 bg-base h-screen w-64 css-hc9ocb"
+      class="css-0 fixed top-0 right-0 z-30 bg-base h-screen w-64 css-hc9ocb"
     >
       <div
-        className="mt-24"
+        class="mt-24"
       />
       <ul
-        className="list-none"
+        class="list-none"
       >
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="http://localhost:9000/"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
+            href="/"
             rel=""
           >
             Home
           </a>
         </li>
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
+            href="/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
           </a>
         </li>
         <li
-          className="py-4"
+          class="py-4"
         >
           <a
-            className="block text-gray-700 font-bold whitespace-nowrap px-4"
+            class="block text-gray-700 font-bold whitespace-nowrap px-4"
             href="https://blog.isystk.com/contact/"
             rel="noreferrer"
             target="_blank"
@@ -151,9 +148,8 @@ exports[`ErrorTemplate Match Snapshot 1`] = `
       </ul>
     </div>
     <div
-      className="hidden z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
-      onClick={[Function]}
+      class="hidden z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
     />
-  </div>,
-]
+  </div>
+</DocumentFragment>
 `;

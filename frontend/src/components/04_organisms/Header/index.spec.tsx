@@ -1,13 +1,22 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import Header, { HeaderProps } from './index'
 
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
-import MainService from '@/services/main'
+import { useRouter } from 'next/router'
 
-describe('Header', () => {
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
+
+describe('LandingPageTemplate', () => {
   it('Match Snapshot', () => {
-    const main = new MainService(() => ({}))
+    useRouter.mockImplementationOnce(() => ({
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    }))
     const props: HeaderProps = {
       isMenuOpen: true,
       setMenuOpen: () => ({}),
@@ -27,13 +36,7 @@ describe('Header', () => {
         },
       ],
     }
-    const component = renderer.create(
-      <Context.Provider value={main}>
-        <Header {...props} />
-      </Context.Provider>
-    )
-    const tree = component.toJSON()
-
-    expect(tree).toMatchSnapshot()
+    const { asFragment } = render(<Header {...props} />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

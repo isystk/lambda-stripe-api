@@ -14,4 +14,5 @@ export const Url = {
   AdminLogin: [APP_URL, '/admin/login'].join(''),
   AdminHome: [APP_URL, '/admin/home'].join(''),
   AdminProduct: [APP_URL, '/admin/product'].join(''),
+  AdminSubscriber: [APP_URL, '/admin/subscriber'].join(''),
 }

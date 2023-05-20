@@ -1,13 +1,24 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
 import ErrorTemplate, { ErrorTemplateProps } from './index'
 
-describe('ErrorTemplate', () => {
-  it('Match Snapshot', () => {
-    const props: ErrorTemplateProps = { statusCode: 404 }
-    const component = renderer.create(<ErrorTemplate {...props} />)
-    const tree = component.toJSON()
+import { useRouter } from 'next/router'
 
-    expect(tree).toMatchSnapshot()
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
+
+describe('LandingPageTemplate', () => {
+  it('Match Snapshot', () => {
+    useRouter.mockImplementationOnce(() => ({
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    }))
+    const props: ErrorTemplateProps = { statusCode: 404 }
+    const { asFragment } = render(<ErrorTemplate {...props} />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })
