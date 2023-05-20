@@ -29,7 +29,7 @@ const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
           <Image
             src="/images/iphone.png"
             className="w-36 md:w-72"
-            alt="iphone"
+            alt="Line App"
             lazy={false}
           />
         </div>

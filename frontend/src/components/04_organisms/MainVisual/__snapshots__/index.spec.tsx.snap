@@ -19,7 +19,7 @@ exports[`MainVisual Match Snapshot 1`] = `
         className="w-36 md:w-72"
       >
         <img
-          alt="iphone"
+          alt="Line App"
           className="css-s08p0c "
           src="/images/iphone.png"
         />
