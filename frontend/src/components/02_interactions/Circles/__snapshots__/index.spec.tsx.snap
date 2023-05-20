@@ -40,6 +40,14 @@ exports[`Circles Match Snapshot 1`] = `
   </ul>
   <div
     className="relative"
-  />
+  >
+    <div
+      style={
+        {
+          "height": "600px",
+        }
+      }
+    />
+  </div>
 </div>
 `;

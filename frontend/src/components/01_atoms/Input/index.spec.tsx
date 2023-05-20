@@ -26,7 +26,15 @@ describe('Input', () => {
     //     },
     //   },
     // }
-    // const component = renderer.create(<Input type="email" name="email" placeholder="メールアドレス" register={register} validate={validate} errors={errors} />)
+    // const props: InputProps = {
+    //   type: "email",
+    //   name: "email",
+    //   placeholder: "メールアドレス",
+    //   register,
+    //   validate,
+    //   errors,
+    // }
+    // const component = renderer.create(<Input {...props}/>)
     // const tree = component.toJSON()
     //
     // expect(tree).toMatchSnapshot()

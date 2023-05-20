@@ -1,7 +1,6 @@
 import React, { Children, FC } from 'react'
 import { connect } from '@/components/hoc'
 import { ContainerProps, WithChildren } from 'types'
-import useAppRoot from '@/stores/useAppRoot'
 import Title, { TitleProps } from './Title'
 import NoIndex, { NoIndexProps } from './NoIndex'
 import Head from 'next/head'
@@ -18,7 +17,6 @@ export type PresenterProps = HtmlSkeletonProps & {
 
 /** Presenter Component */
 const HtmlSkeletonPresenter: FC<PresenterProps> = ({
-  main,
   title,
   noIndex,
   description,
@@ -51,7 +49,7 @@ const HtmlSkeletonPresenter: FC<PresenterProps> = ({
       {/* manifest.json */}
       <link rel="manifest" href="/manifest.json" />
     </Head>
-    <Context.Provider value={main}>{children}</Context.Provider>
+    {children}
   </>
 )
 
@@ -61,8 +59,6 @@ const HtmlSkeletonContainer: React.FC<
 > = ({ presenter, children, ...props }) => {
   let title: TitleProps['children'] | undefined = undefined
   let noIndex = false
-  const main = useAppRoot()
-  if (!main) return <></>
 
   children = Children.map(children, (child) => {
     if (isReactElement(child) && child.type === Title) {
@@ -79,7 +75,6 @@ const HtmlSkeletonContainer: React.FC<
 
   const description = APP_DESCRIPTION
   return presenter({
-    main,
     title,
     noIndex,
     description,
@@ -88,7 +83,7 @@ const HtmlSkeletonContainer: React.FC<
   })
 }
 
-export const Context = React.createContext(null)
+export const Context = React.createContext()
 
 export default connect<HtmlSkeletonProps, PresenterProps>(
   'HtmlSkeleton',

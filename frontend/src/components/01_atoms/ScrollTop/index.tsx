@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import { ContainerProps } from 'types'
 import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** ScrollTopProps Props */
-export type ScrollTopProps = WithChildren & { scrollY }
+export type ScrollTopProps = { scrollY }
 /** Presenter Props */
 export type PresenterProps = ScrollTopProps & {
   isVisible: boolean
@@ -30,7 +30,7 @@ const ScrollTopPresenter: FC<PresenterProps> = ({ isVisible, scrollToTop }) => (
 /** Container Component */
 const ScrollTopContainer: React.FC<
   ContainerProps<ScrollTopProps, PresenterProps>
-> = ({ presenter, children, scrollY = 500, ...props }) => {
+> = ({ presenter, scrollY = 500, ...props }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -55,7 +55,6 @@ const ScrollTopContainer: React.FC<
   }
 
   return presenter({
-    children,
     isVisible,
     scrollToTop,
     ...props,

@@ -8,12 +8,10 @@ import HtmlSkeleton, {
 } from '@/components/05_layouts/HtmlSkeleton'
 import Header from '@/components/04_organisms/Header'
 import SideMenu from '@/components/04_organisms/SideMenu'
-import MainService from '@/services/main'
 import { frontMenuItems } from '@/constants/menu'
 
 /** InputFormTemplateProps Props */
 export type InputFormTemplateProps = WithChildren & {
-  main: MainService
   title: string
 }
 /** Presenter Props */
@@ -22,7 +20,6 @@ export type PresenterProps = InputFormTemplateProps
 /** Presenter Component */
 const InputFormTemplatePresenter: FC<PresenterProps> = ({
   children,
-  main,
   title,
   isMenuOpen,
   setMenuOpen,

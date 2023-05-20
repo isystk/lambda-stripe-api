@@ -1,21 +1,17 @@
-import React, { FC, useContext } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import React, { FC } from 'react'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
 import Image from '@/components/01_atoms/Image'
 
 /** NewsProps Props */
-export type NewsProps = WithChildren
+export type NewsProps = Record<never, never>
 /** Presenter Props */
-export type PresenterProps = NewsProps & {
-  main
-}
+export type PresenterProps = NewsProps
 
 /** Presenter Component */
-const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const NewsPresenter: FC<PresenterProps> = ({ ...props }) => (
   <>
     <section className={`${styles.news}`}>
       <div className="flex items-center bg-base justify-center w-full">
@@ -86,15 +82,9 @@ const NewsPresenter: FC<PresenterProps> = ({ main, ...props }) => (
 /** Container Component */
 const NewsContainer: React.FC<ContainerProps<NewsProps, PresenterProps>> = ({
   presenter,
-  children,
   ...props
 }) => {
-  const main = useContext<MainService | null>(Context)
-  if (!main) return <></>
-
   return presenter({
-    children,
-    main,
     ...props,
   })
 }

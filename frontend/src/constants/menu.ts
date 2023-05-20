@@ -1,6 +1,6 @@
 import { Url } from './url'
 
-type MenuItem = {
+export type MenuItem = {
   label: string
   href: string
   target?: '_blank'

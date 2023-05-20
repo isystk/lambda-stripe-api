@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import InputFormTemplate from './index'
+import InputFormTemplate, { InputFormTemplateProps } from './index'
 import MainService from '@/services/main'
 
 export default {
@@ -9,8 +9,7 @@ export default {
 } as Meta
 
 const Template: Story = () => {
-  const main = new MainService(() => ({}))
-  const props: InputFormTemplate = { main }
+  const props: InputFormTemplateProps = { title: 'サンプル' }
   return <InputFormTemplate {...props} />
 }
 

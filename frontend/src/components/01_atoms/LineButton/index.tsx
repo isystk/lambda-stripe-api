@@ -4,7 +4,7 @@ import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** LineButtonProps Props */
-export type LineButtonProps = WithChildren & { link; label }
+export type LineButtonProps = { link; label }
 /** Presenter Props */
 export type PresenterProps = LineButtonProps
 
@@ -32,9 +32,8 @@ const LineButtonPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const LineButtonContainer: React.FC<
   ContainerProps<LineButtonProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+> = ({ presenter, ...props }) => {
   return presenter({
-    children,
     ...props,
   })
 }

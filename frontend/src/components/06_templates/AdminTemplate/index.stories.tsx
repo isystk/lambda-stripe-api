@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import AdminTemplate from './index'
+import AdminTemplate, { AdminTemplateProps } from './index'
 import MainService from '@/services/main'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
 const Template: Story = () => {
   const main = new MainService(() => ({}))
-  const props: AdminTemplate = { main }
+  const props: AdminTemplateProps = { main, title: 'サンプル' }
   return <AdminTemplate {...props} />
 }
 

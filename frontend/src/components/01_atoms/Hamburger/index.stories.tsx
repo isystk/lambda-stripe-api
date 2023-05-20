@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import Hamburger from './index'
+import Hamburger, { HamburgerProps } from './index'
 
 export default {
   title: '01_atoms/Hamburger',
@@ -8,12 +8,11 @@ export default {
 } as Meta
 
 const Template: Story = ({ isMenuOpen }) => {
-  return (
-    <Hamburger
-      isMenuOpen={isMenuOpen}
-      setMenuOpen={(isMenuOpen) => console.log(isMenuOpen)}
-    />
-  )
+  const props: HamburgerProps = {
+    isMenuOpen,
+    setMenuOpen: (isMenuOpen) => console.log(isMenuOpen),
+  }
+  return <Hamburger {...props} />
 }
 
 export const Close = Template.bind()

@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import Input from './index'
+import Input, { InputProps } from './index'
 import { useForm } from 'react-hook-form'
 
 export default {
@@ -12,7 +12,7 @@ type FormInputs = {
   email: string
 }
 
-const Template: Story = (props) => {
+const Template: Story = () => {
   const {
     register,
     formState: { errors },
@@ -26,16 +26,15 @@ const Template: Story = (props) => {
       },
     },
   }
-  return (
-    <Input
-      type="email"
-      name="email"
-      placeholder="メールアドレス"
-      register={register}
-      validate={validate}
-      errors={errors}
-    />
-  )
+  const props: InputProps = {
+    type: 'email',
+    name: 'email',
+    placeholder: 'メールアドレス',
+    register,
+    validate,
+    errors,
+  }
+  return <Input {...props} />
 }
 
 export const Primary = Template.bind({})

@@ -39,8 +39,9 @@
 
 #### テンプレート
 ```
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
+import useAppRoot from '@/stores/useAppRoot'
 import * as styles from './styles'
 import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
@@ -61,7 +62,7 @@ const XxxxContainer: React.FC<ContainerProps<XxxxProps, PresenterProps>> = ({
   children,
   ...props
 }) => {
-  const main = useContext<MainService|null>(Context)
+  const main = useAppRoot()
   if (!main) return <></>
   
   return presenter({

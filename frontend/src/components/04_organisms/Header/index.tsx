@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import { ContainerProps } from 'types'
 import { connect } from '@/components/hoc'
 import Logo from '@/components/01_atoms/Logo'
 import Hamburger from '@/components/01_atoms/Hamburger'
 import * as styles from './styles'
 import { useI18n } from '@/components/i18n'
+import { MenuItem } from '@/constants/menu'
 
 /** HeaderProps Props */
-export type HeaderProps = WithChildren & {
-  isMenuOpen
-  isPcSize
-  setMenuOpen
-  menuItems
+export type HeaderProps = {
+  isMenuOpen: boolean
+  setMenuOpen: () => void
+  menuItems: MenuItem[]
 }
 /** Presenter Props */
 export type PresenterProps = HeaderProps & {
@@ -55,10 +55,9 @@ const HeaderPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const HeaderContainer: React.FC<
   ContainerProps<HeaderProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+> = ({ presenter, ...props }) => {
   const { t } = useI18n('Common')
   return presenter({
-    children,
     t,
     ...props,
   })

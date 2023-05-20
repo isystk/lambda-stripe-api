@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
 import { useI18n } from '@/components/i18n'
+import { MenuItem } from '@/constants/menu'
 
 /** SideMenuProps Props */
-export type SideMenuProps = WithChildren & {
-  setMenuOpen
-  isMenuOpen
-  menuItems
+export type SideMenuProps = {
+  setMenuOpen: () => void
+  isMenuOpen: boolean
+  menuItems: MenuItem[]
 }
 /** Presenter Props */
 export type PresenterProps = SideMenuProps & {
-  menu
   setMenuOpen
   isMenuOpen
 }
@@ -20,7 +20,6 @@ export type PresenterProps = SideMenuProps & {
 /** Presenter Component */
 const SideMenuPresenter: FC<PresenterProps> = ({
   t,
-  menu,
   setMenuOpen,
   isMenuOpen,
   menuItems = [],
@@ -62,11 +61,10 @@ const SideMenuPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const SideMenuContainer: React.FC<
   ContainerProps<SideMenuProps, PresenterProps>
-> = ({ presenter, children, setMenuOpen, isMenuOpen, ...props }) => {
+> = ({ presenter, setMenuOpen, isMenuOpen, ...props }) => {
   const { t } = useI18n('Common')
 
   return presenter({
-    children,
     t,
     setMenuOpen,
     isMenuOpen,

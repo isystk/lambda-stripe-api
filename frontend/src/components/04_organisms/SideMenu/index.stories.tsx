@@ -1,25 +1,33 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import SideMenu from './index'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
+import SideMenu, { SideMenuProps } from './index'
 
 export default {
   title: '04_organisms/SideMenu',
   component: SideMenu,
 } as Meta
 
-const Template: Story = (props) => {
-  const main = new MainService(() => ({}))
-
-  return (
-    <Context.Provider value={main}>
-      <SideMenu
-        setMenuOpen={(isOpen) => console.log(isOpen)}
-        isMenuOpen={true}
-      />
-    </Context.Provider>
-  )
+const Template: Story = () => {
+  const props: SideMenuProps = {
+    isMenuOpen: true,
+    setMenuOpen: () => ({}),
+    menuItems: [
+      {
+        label: 'Menu1',
+        href: 'https://menu1',
+      },
+      {
+        label: 'Menu2',
+        href: 'https://menu2',
+      },
+      {
+        label: 'Menu3',
+        href: 'https://menu3',
+        target: '_blank',
+      },
+    ],
+  }
+  return <SideMenu {...props} />
 }
 
 export const Primary = Template.bind({})

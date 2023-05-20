@@ -171,9 +171,8 @@ $ npm install
 # コンソールにログインする
 $ ./dc.sh backend login
 
-# ビルドして起動する（docker-composeで実行しているので手動で起動したい場合）
-$ npm run build
-$ npm run start
+# ビルドして起動する（docker-composeで自動で実行しているので手動で起動したい場合）
+$ npm run dev
 
 # 製品(サブクスリプション)と含まれるプランの一覧を取得する
 $ curl http://127.0.0.1:3000/product

@@ -1,9 +1,7 @@
-import React, { FC, useContext, useState } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import React, { FC, useState } from 'react'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import Loading from '@/components/01_atoms/Loading'
 import Input from '@/components/01_atoms/Input'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
@@ -42,13 +40,12 @@ export type ProductData = {
 } & stripe.Product
 
 /** CheckoutFormProps Props */
-export type CheckoutFormProps = WithChildren & {
+export type CheckoutFormProps = {
   product: ProductData
   userKey?: string
 }
 /** Presenter Props */
 export type PresenterProps = CheckoutFormProps & {
-  main
   t
   onsubmit
   product
@@ -64,7 +61,6 @@ export type PresenterProps = CheckoutFormProps & {
 
 /** Presenter Component */
 const CheckoutFormPresenter: FC<PresenterProps> = ({
-  main,
   t,
   onsubmit,
   product,
@@ -167,10 +163,8 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const CheckoutFormContainer: React.FC<
   ContainerProps<CheckoutFormProps, PresenterProps>
-> = ({ presenter, children, product, userKey, ...props }) => {
-  const main = useContext<MainService | null>(Context)
+> = ({ presenter, product, userKey, ...props }) => {
   const { t } = useI18n('Common')
-  if (!main) return <></>
 
   const [isComplete, setIsComplete] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -259,8 +253,6 @@ const CheckoutFormContainer: React.FC<
   }
 
   return presenter({
-    children,
-    main,
     t,
     onsubmit,
     product,

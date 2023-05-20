@@ -7,8 +7,8 @@ import { connect } from '@/components/hoc'
 /** ModalProps Props */
 export type ModalProps = WithChildren & {
   isOpen: boolean
-  acceptLabel: string
-  cancelLabel: string
+  acceptLabel?: string
+  cancelLabel?: string
   handleAccept?: () => void
   handleCancel?: () => void
 }

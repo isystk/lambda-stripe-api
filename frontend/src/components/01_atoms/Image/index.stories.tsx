@@ -1,21 +1,21 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import Image from './index'
+import Image, { ImageProps } from './index'
 
 export default {
   title: '01_atoms/Image',
   component: Image,
 } as Meta
 
-const Template: Story = (props) => {
+const Template: Story = () => {
+  const props: ImageProps = {
+    src: '/images/dummy_480x320.png',
+    alt: 'dummy',
+    zoom: true,
+  }
   return (
     <div className="w-64 rounded-lg overflow-hidden">
-      <Image
-        src="/images/dummy_480x320.png"
-        className="zoom"
-        alt="dummy"
-        zoom={true}
-      />
+      <Image {...props} />
     </div>
   )
 }

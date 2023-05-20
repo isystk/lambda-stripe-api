@@ -65,7 +65,42 @@ exports[`Footer Match Snapshot 1`] = `
     >
       <nav
         className="flex flex-wrap items-center justify-center"
-      />
+      >
+        <a
+          className="w-full mb-6 md:w-48"
+          href="https://menu1"
+          rel=""
+        >
+          <p
+            className="text-white text-center font-bold"
+          >
+            Menu1
+          </p>
+        </a>
+        <a
+          className="w-full mb-6 md:w-48"
+          href="https://menu2"
+          rel=""
+        >
+          <p
+            className="text-white text-center font-bold"
+          >
+            Menu2
+          </p>
+        </a>
+        <a
+          className="w-full mb-6 md:w-48"
+          href="https://menu3"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <p
+            className="text-white text-center font-bold"
+          >
+            Menu3
+          </p>
+        </a>
+      </nav>
       <div
         className="flex items-center justify-center "
       >

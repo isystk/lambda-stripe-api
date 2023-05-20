@@ -1,24 +1,21 @@
-import React, { FC, useContext } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import React, { FC } from 'react'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import Image from '@/components/01_atoms/Image'
 import { useI18n } from '@/components/i18n'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
 
 /** MainVisualProps Props */
-export type MainVisualProps = WithChildren
+export type MainVisualProps = Record<never, never>
 /** Presenter Props */
 export type PresenterProps = MainVisualProps & {
-  main
   t
 }
 
 /** Presenter Component */
-const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
+const MainVisualPresenter: FC<PresenterProps> = ({ t, ...props }) => (
   <>
     <section
       className={`${styles.mainVisual}`}
@@ -61,15 +58,9 @@ const MainVisualPresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
 /** Container Component */
 const MainVisualContainer: React.FC<
   ContainerProps<MainVisualProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
-  const main = useContext<MainService | null>(Context)
+> = ({ presenter, ...props }) => {
   const { t } = useI18n('Common')
-
-  if (!main) return <></>
-
   return presenter({
-    children,
-    main,
     t,
     ...props,
   })

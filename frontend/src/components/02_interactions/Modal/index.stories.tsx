@@ -1,14 +1,17 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import Modal from './index'
+import Modal, { ModalProps } from './index'
 export default {
   title: '02_interactions/Modal',
   component: Modal,
 } as Meta
 
-const Template: Story = (props) => {
+const Template: Story = () => {
+  const props: ModalProps = {
+    isOpen: true,
+  }
   return (
-    <Modal isOpen={true} handleClose={() => ({})} handleAcept={() => ({})}>
+    <Modal {...props}>
       <svg
         aria-hidden="true"
         className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"

@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import LandingPageTemplate, { LandingPageTemplateProps } from './index'
+import LandingPageTemplate from './index'
 import MainService from '@/services/main'
 
 export default {
@@ -9,9 +9,7 @@ export default {
 } as Meta
 
 const Template: Story = () => {
-  const main = new MainService(() => ({}))
-  const props: LandingPageTemplateProps = { main }
-  return <LandingPageTemplate {...props} />
+  return <LandingPageTemplate />
 }
 
 export const Primary = Template.bind({})

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import { ContainerProps } from 'types'
 import { connect } from '@/components/hoc'
 import * as styles from './styles'
 
 /** HamburgerProps Props */
-export type HamburgerProps = WithChildren & {
+export type HamburgerProps = {
   isMenuOpen: boolean
   setMenuOpen: (isMenuOpen: boolean) => void
 }
@@ -41,9 +41,8 @@ const HamburgerPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const HamburgerContainer: React.FC<
   ContainerProps<HamburgerProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
+> = ({ presenter, ...props }) => {
   return presenter({
-    children,
     ...props,
   })
 }

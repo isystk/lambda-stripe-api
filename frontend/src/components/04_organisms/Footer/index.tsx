@@ -1,25 +1,22 @@
-import React, { FC, useContext } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import React, { FC } from 'react'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import ScrollTop from '@/components/01_atoms/ScrollTop'
 import Image from '@/components/01_atoms/Image'
 import { useI18n } from '@/components/i18n'
+import { type MenuItem } from '@/constants/menu'
 
 /** FooterProps Props */
-export type FooterProps = WithChildren & { menuItems }
+export type FooterProps = { menuItems: MenuItem[] }
 /** Presenter Props */
 export type PresenterProps = FooterProps & {
-  main
   t
 }
 
 /** Presenter Component */
 const FooterPresenter: FC<PresenterProps> = ({
-  main,
   t,
   menuItems = [],
   ...props
@@ -91,15 +88,10 @@ const FooterPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const FooterContainer: React.FC<
   ContainerProps<FooterProps, PresenterProps>
-> = ({ presenter, children, ...props }) => {
-  const main = useContext<MainService | null>(Context)
+> = ({ presenter, ...props }) => {
   const { t } = useI18n('Common')
 
-  if (!main) return <></>
-
   return presenter({
-    children,
-    main,
     t,
     ...props,
   })

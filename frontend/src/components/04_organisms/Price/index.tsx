@@ -1,23 +1,20 @@
-import React, { FC, useContext } from 'react'
-import { ContainerProps, WithChildren } from 'types'
+import React, { FC } from 'react'
+import { ContainerProps } from 'types'
 import * as styles from './styles'
 import { connect } from '@/components/hoc'
-import MainService from '@/services/main'
-import { Context } from '@/components/05_layouts/HtmlSkeleton'
 import LineButton from '@/components/01_atoms/LineButton'
 import ScrollIn from '@/components/02_interactions/ScrollIn'
 import { useI18n } from '@/components/i18n'
 
 /** PriceProps Props */
-export type PriceProps = WithChildren
+export type PriceProps = Record<never, never>
 /** Presenter Props */
 export type PresenterProps = PriceProps & {
-  main
   t
 }
 
 /** Presenter Component */
-const PricePresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
+const PricePresenter: FC<PresenterProps> = ({ t, ...props }) => (
   <>
     <section className={`${styles.price}`}>
       <div className="flex items-center bg-black justify-center w-full">
@@ -79,17 +76,11 @@ const PricePresenter: FC<PresenterProps> = ({ main, t, ...props }) => (
 /** Container Component */
 const PriceContainer: React.FC<ContainerProps<PriceProps, PresenterProps>> = ({
   presenter,
-  children,
   ...props
 }) => {
-  const main = useContext<MainService | null>(Context)
   const { t } = useI18n('Common')
 
-  if (!main) return <></>
-
   return presenter({
-    children,
-    main,
     t,
     ...props,
   })

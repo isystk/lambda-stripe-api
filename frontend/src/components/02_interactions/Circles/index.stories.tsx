@@ -7,7 +7,7 @@ export default {
   component: Circles,
 } as Meta
 
-const Template: Story = (props) => {
+const Template: Story = () => {
   return (
     <Circles>
       <div
