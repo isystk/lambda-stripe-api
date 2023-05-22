@@ -2,20 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import DropDown, { DropDownProps } from './index'
 
-import { useRouter } from 'next/router'
-
-jest.mock('next/router', () => ({
-  useRouter: jest.fn(),
-}))
-
 describe('LandingPageTemplate', () => {
   it('Match Snapshot', () => {
-    useRouter.mockImplementationOnce(() => ({
-      route: '/',
-      pathname: '/',
-      query: {},
-      asPath: '/',
-    }))
     const props: DropDownProps = {
       label: 'サンプル太郎',
       items: [
