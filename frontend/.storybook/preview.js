@@ -1,6 +1,6 @@
 import '../src/assets/sass/app.scss';
 import {Provider} from "react-redux";
-import {store} from '../src/stores'
+import {store} from '../src/stores/appSlice'
 import { RouterContext } from "next/dist/shared/lib/router-context"
 
 export const parameters = {

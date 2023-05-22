@@ -1,6 +1,10 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
 import CheckoutForm, { CheckoutFormProps } from './index'
+import { Elements } from '@stripe/react-stripe-js'
+import { STRIPE_KEY } from '@/constants'
+import { loadStripe } from '@stripe/stripe-js'
+const stripePromise = loadStripe(STRIPE_KEY)
 
 export default {
   title: '03_molecules/CheckoutForm',
@@ -8,19 +12,24 @@ export default {
 } as Meta
 
 const Template: Story = () => {
-  // const props: CheckoutFormProps = {
-  //   product: {
-  //     plans: [
-  //       {
-  //         id: 1, amount: 999, currency: 'jpy'
-  //       }
-  //     ]
-  //   }
-  // }
-  // return (
-  //     <CheckoutForm {...props} />
-  // )
-  return <></>
+  const props: CheckoutFormProps = {
+    product: {
+      plans: [
+        {
+          id: 1,
+          amount: 999,
+          currency: 'jpy',
+        },
+      ],
+    },
+  }
+  return (
+    <div className="text-center">
+      <Elements stripe={stripePromise}>
+        <CheckoutForm {...props} />
+      </Elements>
+    </div>
+  )
 }
 
 export const Primary = Template.bind({})
