@@ -3,7 +3,7 @@
 exports[`LandingPageTemplate Match Snapshot 1`] = `
 <DocumentFragment>
   <header
-    class="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
+    class="css-0 bg-main z-50 flex justify-between items-center h-16 px-4 py-4 sm:px-8 w-full"
   >
     <a
       class="css-0"
@@ -43,7 +43,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
       >
         <li>
           <a
-            href="/"
+            href="http://localhost:9000/"
             rel=""
           >
             Home
@@ -51,7 +51,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         </li>
         <li>
           <a
-            href="/product/prod_NpvV9ohJIlgElI/payment"
+            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
@@ -519,7 +519,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         >
           <a
             class="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="/"
+            href="http://localhost:9000/"
             rel=""
           >
             Home
@@ -530,7 +530,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
         >
           <a
             class="block text-gray-700 font-bold whitespace-nowrap px-4"
-            href="/product/prod_NpvV9ohJIlgElI/payment"
+            href="http://localhost:9000/product/prod_NpvV9ohJIlgElI/payment"
             rel=""
           >
             Rates
@@ -557,7 +557,7 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
   <script
     type="application/ld+json"
   >
-    {"@context":"https://schema.org/","@type":"Article","image":["undefined/images/logo.png"],"datePublished":"2023-05-20T00:00:00Z","author":{"@type":"Person","name":"Yoshitaka Ise","url":"https://profile.isystk.com"},"publisher":{"@type":"Organization","name":"サンプル商品","logo":{"@type":"ImageObject","url":"undefined/images/iphone.png","width":430,"height":861}},"description":"ここに商品の説明を記載します。"}
+    {"@context":"https://schema.org/","@type":"Article","image":["http://localhost:9000/images/logo.png"],"datePublished":"2023-05-20T00:00:00Z","author":{"@type":"Person","name":"Yoshitaka Ise","url":"https://profile.isystk.com"},"publisher":{"@type":"Organization","name":"サンプル商品","logo":{"@type":"ImageObject","url":"http://localhost:9000/images/iphone.png","width":430,"height":861}},"description":"ここに商品の説明を記載します。"}
   </script>
 </DocumentFragment>
 `;

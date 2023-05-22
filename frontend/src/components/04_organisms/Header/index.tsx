@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { ContainerProps } from 'types'
 import { connect } from '@/components/hoc'
 import Logo from '@/components/01_atoms/Logo'
@@ -20,14 +20,17 @@ export type PresenterProps = HeaderProps & {
 
 /** Presenter Component */
 const HeaderPresenter: FC<PresenterProps> = ({
-  t,
   isMenuOpen,
   setMenuOpen,
   menuItems = [],
+  t,
+  isVisible,
 }) => (
   <>
     <header
-      className={`${styles.header} flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full`}
+      className={`${styles.header} ${
+        isVisible ? 'fixed' : 'bg-main'
+      } z-50 flex justify-between items-center h-16 px-4 py-4 sm:px-8 w-full`}
     >
       <Logo />
       <div
@@ -55,10 +58,27 @@ const HeaderPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const HeaderContainer: React.FC<
   ContainerProps<HeaderProps, PresenterProps>
-> = ({ presenter, ...props }) => {
+> = ({ presenter, scrollY = 500, ...props }) => {
   const { t } = useI18n('Common')
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > scrollY) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener('scroll', toggleVisibility)
+
+    return () => window.removeEventListener('scroll', toggleVisibility)
+  }, [scrollY])
+
   return presenter({
     t,
+    isVisible,
     ...props,
   })
 }

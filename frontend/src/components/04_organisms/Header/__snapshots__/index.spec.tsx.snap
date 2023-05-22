@@ -3,7 +3,7 @@
 exports[`LandingPageTemplate Match Snapshot 1`] = `
 <DocumentFragment>
   <header
-    class="css-0 flex justify-between items-center h-16 px-4 py-4 sm:px-8 bg-main w-full"
+    class="css-0 bg-main z-50 flex justify-between items-center h-16 px-4 py-4 sm:px-8 w-full"
   >
     <a
       class="css-0"

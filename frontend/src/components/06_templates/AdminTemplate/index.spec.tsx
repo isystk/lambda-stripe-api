@@ -9,7 +9,6 @@ jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }))
 
-
 describe('LandingPageTemplate', () => {
   it('Match Snapshot', () => {
     useRouter.mockImplementationOnce(() => ({

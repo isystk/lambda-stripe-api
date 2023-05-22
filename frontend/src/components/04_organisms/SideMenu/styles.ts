@@ -7,5 +7,5 @@ export const menuClose = css`
   transition: 0.5s;
 `
 export const menuOpen = css`
-  width: 80%;
+  width: 70%;
 `

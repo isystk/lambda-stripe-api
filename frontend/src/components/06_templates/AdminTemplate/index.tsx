@@ -48,7 +48,7 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
       <div className="h-16 bg-base p-4 md:p-0 flex">
         <Logo link={Url.AdminHome} />
         {main.user && (
-          <div className="ml-auto p-3 md:p-6">
+          <div className="ml-auto p-3">
             <DropDown
               label={main.user.userName}
               items={[{ label: 'ログアウト', link: () => logout() }]}
