@@ -23,6 +23,7 @@ const option: InitOptions = {
       Admin: jaAdmin,
     },
   },
+  fallbackLng: 'ja', // デフォルトのLocaleを英語に設定
 }
 
 i18next.use(detector).use(initReactI18next).init(option)

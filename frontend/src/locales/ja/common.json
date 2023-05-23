@@ -39,6 +39,7 @@
   "Product Cancellation Page": "商品の解約ページ",
   "We will send an e-mail with the URL of the cancellation page to the e-mail address you entered.": "入力して頂いたメールアドレス宛に解約ページのURLを記載したメールをお送りさせて頂きます。",
   "A link to the cancellation page has been sent to your e-mail address. Please follow the cancellation procedure from the URL provided in the email.": "解約ページのリンクをメールアドレス宛に送信しました。\nメールに記載のURLから解約の手続きを行ってください。",
+  "Already cancelled.": "既に解約済みです",
   
   "After that, you will not be able to use the service. If you like, please click Cancel": "以降はご利用できなくなります。宜しければ「解約する」を押してください。",
   "The cancellation has been completed. We look forward to serving you again.": "解約が完了しました。\nまたのご利用をお待ちしております。",

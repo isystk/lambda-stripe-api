@@ -14,7 +14,7 @@ const nextConfig = {
   typescript: {
     // ビルド時のTypescriptエラーを無視する
     ignoreBuildErrors: true,
-  },
+  }
 }
 
 module.exports = nextConfig

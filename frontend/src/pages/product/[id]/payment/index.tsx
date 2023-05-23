@@ -60,11 +60,11 @@ const Index: FC = () => {
         <p className="text-18 text-left mb-12 md:mb-20">
           {product.description}
         </p>
-        <div className="text-center">
+        <>
           <Elements stripe={stripePromise}>
             <CheckoutForm product={product} userKey={userKey} />
           </Elements>
-        </div>
+        </>
       </section>
     </InputFormTemplate>
   )

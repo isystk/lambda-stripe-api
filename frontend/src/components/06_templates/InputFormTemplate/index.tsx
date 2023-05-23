@@ -9,9 +9,11 @@ import HtmlSkeleton, {
 import Header from '@/components/04_organisms/Header'
 import SideMenu from '@/components/04_organisms/SideMenu'
 import { frontMenuItems } from '@/constants/menu'
+import MainService from '@/services/main'
 
 /** InputFormTemplateProps Props */
 export type InputFormTemplateProps = WithChildren & {
+  main: MainService
   title: string
 }
 /** Presenter Props */

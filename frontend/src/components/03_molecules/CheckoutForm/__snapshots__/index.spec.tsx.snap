@@ -13,15 +13,15 @@ exports[`CheckoutForm Match Snapshot 1`] = `
         className="w-full md:w-1/2"
       >
         <div
-          className="bg-black rounded-lg md:mr-4 py-12 h-72 mb-8"
+          className="bg-black text-center rounded-lg md:mr-4 py-12 h-72 mb-8"
         >
           <p
-            className="text-white text-center mb-12"
+            className="text-white mb-12"
           >
             Plan
           </p>
           <p
-            className="text-white font-bold text-center text-5xl mb-12"
+            className="text-white font-bold text-5xl mb-12"
           >
             ¥999
           </p>

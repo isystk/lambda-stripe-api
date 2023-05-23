@@ -262,6 +262,9 @@ app.post('/cancel-request', async (req: Request, res: Response) => {
     if (!post) {
       throw new Error('No valid Post found.')
     }
+    if (post.status === Status.cancelled) {
+      throw new Error('Already cancelled.')
+    }
     const params = {
       ...post,
       cancel_token: uuid.v4(),
@@ -403,7 +406,8 @@ app.post('/cancel', async (req: Request, res: Response) => {
     const text = [
       `${customer.name}様`,
       '解約手続きが完了しましたのでご案内申し上げます。',
-      '是迄、ご利用頂きまして誠にありがとうございました。',
+      '期間満了までは引き続きご利用頂けます。',
+      'またのご利用をお待ちしております。',
     ].join('\n\n')
 
     // メールを送信します。
@@ -520,6 +524,7 @@ app.post('/login', async (req: Request, res: Response) => {
     throw new Error('An unexpected error has occurred.')
   }
   req.session.user = user
+  // res.redirect(`${ORIGIN_URL}/admin/home`)
   res.json({ user })
 })
 
@@ -527,6 +532,7 @@ app.post('/login', async (req: Request, res: Response) => {
 app.post('/login-check', async (req: Request, res: Response) => {
   if (!req.session || !req.session.user) {
     res.status(401).json({ message: 'Authentication failed.' })
+    // res.redirect(`${ORIGIN_URL}/admin/login`)
     return
   }
   const user = { userName: req.session.user }
@@ -540,6 +546,7 @@ app.post('/logout', async (req: Request, res: Response) => {
     return
   }
   req.session.user = undefined
+  // res.redirect(`${ORIGIN_URL}/admin/login`)
   res.sendStatus(200)
 })
 

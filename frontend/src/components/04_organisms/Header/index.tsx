@@ -12,6 +12,7 @@ export type HeaderProps = {
   isMenuOpen: boolean
   setMenuOpen: () => void
   menuItems: MenuItem[]
+  scrollY: number
 }
 /** Presenter Props */
 export type PresenterProps = HeaderProps & {

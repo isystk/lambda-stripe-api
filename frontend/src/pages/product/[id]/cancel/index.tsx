@@ -61,7 +61,7 @@ const Index: FC = () => {
       console.log(e)
       if (e instanceof AxiosError) {
         const { response } = e
-        setErrorMsg(response?.data?.message)
+        setErrorMsg(t(response?.data?.message))
       } else if (e instanceof Error) {
         setErrorMsg(e.message)
       }
@@ -74,7 +74,7 @@ const Index: FC = () => {
 
   const props: InputFormTemplateProps = {
     main,
-    title: t('Product Cancellation Page') as string,
+    title: 'Product Cancellation Page',
   }
   return (
     <InputFormTemplate {...props}>

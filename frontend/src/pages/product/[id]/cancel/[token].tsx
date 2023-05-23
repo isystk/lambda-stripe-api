@@ -114,7 +114,6 @@ const Index: FC = () => {
             </>
           ) : (
             <p className="mb-4 leading-6">
-              $
               {t(
                 'The cancellation has been completed. We look forward to serving you again.'
               )}

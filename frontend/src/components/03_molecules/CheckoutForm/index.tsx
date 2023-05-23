@@ -90,9 +90,9 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
                 : ''
               return (
                 <div key={id} className="w-full md:w-1/2">
-                  <div className="bg-black rounded-lg md:mr-4 py-12 h-72 mb-8">
-                    <p className="text-white text-center mb-12">{t('Plan')}</p>
-                    <p className="text-white font-bold text-center text-5xl mb-12">
+                  <div className="bg-black text-center rounded-lg md:mr-4 py-12 h-72 mb-8">
+                    <p className="text-white mb-12">{t('Plan')}</p>
+                    <p className="text-white font-bold text-5xl mb-12">
                       {amountFmt}
                     </p>
                     <input

@@ -24,11 +24,9 @@ const Template: Story = () => {
     },
   }
   return (
-    <div className="text-center">
-      <Elements stripe={stripePromise}>
-        <CheckoutForm {...props} />
-      </Elements>
-    </div>
+    <Elements stripe={stripePromise}>
+      <CheckoutForm {...props} />
+    </Elements>
   )
 }
 

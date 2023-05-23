@@ -32,6 +32,7 @@ const LandingPageTemplatePresenter: FC<PresenterProps> = ({
       isMenuOpen={isMenuOpen}
       setMenuOpen={setMenuOpen}
       menuItems={frontMenuItems}
+      scrollY={700}
     />
     <MainVisual />
     <Price />
