@@ -2,38 +2,36 @@ import React, { FC } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
+import Image from '@/components/01_atoms/Image'
 import useAppRoot from '@/stores/useAppRoot'
 import { withAuth } from '@/components/auth'
 import { useI18n } from '@/components/i18n'
-import useSWR from "swr";
-import {Api} from "@/constants/api";
-import axios from "@/utils/axios";
+import useSWR from 'swr'
+import { Api } from '@/constants/api'
+import axios from '@/utils/axios'
 
 const Index: FC = () => {
   const main = useAppRoot()
   const { t } = useI18n('Admin')
 
-  const productId = "prod_NpvV9ohJIlgElI"
   const {
-    data: customers,
+    data: products,
     error,
     isLoading,
-  } = useSWR([`${Api.Customer}`, productId], async ([url, productId]) => {
-    const result = await axios.post(url, {
-      productId,
-    })
+  } = useSWR([Api.Product], async ([url]) => {
+    const result = await axios.get(url)
     if (0 === result.data.length) {
       return undefined
     }
-    return { ...result.data[0] }
+    return result.data
   })
 
   if (isLoading) {
     // loading
     return <></>
   }
-  
-  console.log(customers)
+
+  console.log(products[0].plans)
 
   const props: AdminTemplateProps = {
     main,
@@ -62,58 +60,6 @@ const Index: FC = () => {
                 placeholder="例：ワイン"
               />
             </div>
-            <div className="w-full md:w-1/3 px-2 mb-4 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="product-category"
-              >
-                カテゴリー
-              </label>
-              <div className="relative">
-                <select
-                  className="appearance-none block w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="product-category"
-                >
-                  <option>すべてのカテゴリー</option>
-                  <option>ワイン</option>
-                  <option>ビール</option>
-                  <option>ウイスキー</option>
-                  <option>その他</option>
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M14.35 7.51l-1.9-1.9c-.2-.2-.51-.2-.71 0l-1.89 1.9c-.2.2-.2.51 0 .71l3.8 3.8c.2.2.51.2.71 0l3.8-3.8c.2-.2.2-.51 0-.71l-1.89-1.9c-.19-.19-.5-.19-.7 0z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/3 px-2 mb-4 md:mb-0">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="product-brand"
-              >
-                ブランド
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="product-brand"
-                type="text"
-                placeholder="例：山梨ワイナリー"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              検索
-            </button>
           </div>
         </form>
 
@@ -122,42 +68,44 @@ const Index: FC = () => {
           <table className="table-auto w-full">
             <thead className="bg-gray-300">
               <tr>
-                <th className="border px-4 py-2">ID</th>
                 <th className="border px-4 py-2">商品名</th>
-                <th className="border px-4 py-2">カテゴリー</th>
-                <th className="border px-4 py-2">ブランド</th>
+                <th className="border px-4 py-2">画像</th>
+                <th className="border px-4 py-2">詳細</th>
                 <th className="border px-4 py-2">価格</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">ワイン 甲州</td>
-                <td className="border px-4 py-2">ワイン</td>
-                <td className="border px-4 py-2">山梨ワイナリー</td>
-                <td className="border px-4 py-2">¥1,500</td>
-              </tr>
-              <tr>
-                <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">ワイン 甲州</td>
-                <td className="border px-4 py-2">ワイン</td>
-                <td className="border px-4 py-2">山梨ワイナリー</td>
-                <td className="border px-4 py-2">¥1,500</td>
-              </tr>
-              <tr>
-                <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">ワイン 甲州</td>
-                <td className="border px-4 py-2">ワイン</td>
-                <td className="border px-4 py-2">山梨ワイナリー</td>
-                <td className="border px-4 py-2">¥1,500</td>
-              </tr>
-              <tr>
-                <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">ワイン 甲州</td>
-                <td className="border px-4 py-2">ワイン</td>
-                <td className="border px-4 py-2">山梨ワイナリー</td>
-                <td className="border px-4 py-2">¥1,500</td>
-              </tr>
+              {products.map((e) => {
+                return (
+                  <tr key={e.id} data-id={e.id}>
+                    <td className="border px-4 py-2">{e.name}</td>
+                    <td className="border px-4 py-2">
+                      <Image src={e.images[0]} alt={e.name} className="w-16" />
+                    </td>
+                    <td className="border px-4 py-2">{e.description}</td>
+                    <td className="border px-4 py-2">
+                      {e.plans.map(({ id, amount, currency, interval }) => {
+                        const amountFmt = amount
+                          ? new Intl.NumberFormat('ja', {
+                              style: 'currency',
+                              currency,
+                            }).format(amount)
+                          : ''
+                        return (
+                          <p className="m-1" key={id}>
+                            {interval === 'month'
+                              ? t('monthly amount')
+                              : interval === 'year'
+                              ? t('yearly amount')
+                              : 'その他'}
+                            <span>{amountFmt}</span>
+                          </p>
+                        )
+                      })}
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>

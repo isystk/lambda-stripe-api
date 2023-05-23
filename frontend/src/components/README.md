@@ -37,21 +37,25 @@
  必要ではないが、スタイルの画一や改修の可能性を考慮して作成することとする。
 
 
-#### テンプレート
+#### 記述例
 ```
 import React, { FC } from 'react'
 import { ContainerProps, WithChildren } from 'types'
-import useAppRoot from '@/stores/useAppRoot'
+import MainService from '@/services/main'
+import { useI18n } from '@/components/i18n'
 import * as styles from './styles'
-import {Context} from "@/components/05_layouts/HtmlSkeleton";
 
 /** XxxxProps Props */
-export type XxxxProps = WithChildren
+export type XxxxProps = WithChildren & {
+  main: MainService
+}
 /** Presenter Props */
-export type PresenterProps = XxxxProps & { main }
+export type PresenterProps = XxxxProps & { 
+  t
+}
 
 /** Presenter Component */
-const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (
+const XxxxPresenter: FC<PresenterProps> = ({ children, main, t, ...props }) => (
   <>
   </>
 )
@@ -59,15 +63,12 @@ const XxxxPresenter: FC<PresenterProps> = ({ main, ...props }) => (
 /** Container Component */
 const XxxxContainer: React.FC<ContainerProps<XxxxProps, PresenterProps>> = ({
   presenter,
-  children,
   ...props
 }) => {
-  const main = useAppRoot()
-  if (!main) return <></>
+  const { t } = useI18n('Common')
   
   return presenter({
-    children,
-    main,
+    t,
     ...props,
   })
 }

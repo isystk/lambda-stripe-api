@@ -62,7 +62,7 @@ app.get('/product', async (req: Request, res: Response) => {
     const { data: allPlan } = await stripeInstance.plans.list()
     products = products.map((e: { id: string }) => {
       const plans = allPlan.filter(
-        (e2: { product: string }) => e2.product === e.id
+        (e2: { product: string; active: boolean; }) => e2.product === e.id && e2.active === true
       )
       return { ...e, plans }
     })

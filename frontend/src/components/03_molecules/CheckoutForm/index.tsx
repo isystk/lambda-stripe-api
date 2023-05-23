@@ -73,6 +73,8 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
   errors,
   validate,
   stripe,
+  planId,
+  setPlanId,
   ...props
 }) => (
   <>
@@ -80,7 +82,7 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
       {!isComplete ? (
         <form onSubmit={handleSubmit(onsubmit)} className={styles.checkoutForm}>
           <div className="flex flex-wrap items-center md:mb-8">
-            {product.plans.map(({ id, amount, currency }, idx) => {
+            {product.plans.map(({ id, amount, currency, interval }, idx) => {
               const locale = navigator.language
               const amountFmt = amount
                 ? new Intl.NumberFormat(locale, {
@@ -89,20 +91,29 @@ const CheckoutFormPresenter: FC<PresenterProps> = ({
                   }).format(amount)
                 : ''
               return (
-                <div key={id} className="w-full md:w-1/2">
-                  <div className="bg-black text-center rounded-lg md:mr-4 py-12 h-72 mb-8">
-                    <p className="text-white mb-12">{t('Plan')}</p>
-                    <p className="text-white font-bold text-5xl mb-12">
-                      {amountFmt}
-                    </p>
+                <label
+                  key={id}
+                  className={`${
+                    planId === id ? 'selected' : ''
+                  } w-full md:w-1/2`}
+                  onClick={() => setPlanId(id)}
+                >
+                  <div className="border text-center rounded-lg md:mr-4 py-12 h-72 mb-8">
+                    <div className="mb-12">
+                      {interval === 'month'
+                        ? t('monthly amount')
+                        : interval === 'year'
+                        ? t('yearly amount')
+                        : 'その他'}
+                    </div>
+                    <div className="font-bold text-5xl mb-12">{amountFmt}</div>
                     <input
                       type="radio"
-                      checked={idx === 0}
                       value={id}
                       {...register('planId', validate['planId'])}
                     />
                   </div>
-                </div>
+                </label>
               )
             })}
             {errors.planId && (
@@ -172,6 +183,7 @@ const CheckoutFormContainer: React.FC<
   const [errorMsg, setErrorMsg] = useState('')
   const stripe = useStripe()
   const elements = useElements()
+  const [planId, setPlanId] = useState(product.plans[0].id)
 
   const {
     register,
@@ -265,6 +277,8 @@ const CheckoutFormContainer: React.FC<
     errors,
     validate,
     stripe,
+    planId,
+    setPlanId,
     ...props,
   })
 }

@@ -3,30 +3,30 @@
 exports[`CheckoutForm Match Snapshot 1`] = `
 <div>
   <form
-    className="css-0"
+    className="css-11os301"
     onSubmit={[Function]}
   >
     <div
       className="flex flex-wrap items-center md:mb-8"
     >
-      <div
-        className="w-full md:w-1/2"
+      <label
+        className="selected w-full md:w-1/2"
+        onClick={[Function]}
       >
         <div
-          className="bg-black text-center rounded-lg md:mr-4 py-12 h-72 mb-8"
+          className="border text-center rounded-lg md:mr-4 py-12 h-72 mb-8"
         >
-          <p
-            className="text-white mb-12"
+          <div
+            className="mb-12"
           >
-            Plan
-          </p>
-          <p
-            className="text-white font-bold text-5xl mb-12"
+            その他
+          </div>
+          <div
+            className="font-bold text-5xl mb-12"
           >
             ¥999
-          </p>
+          </div>
           <input
-            checked={true}
             name="planId"
             onBlur={[Function]}
             onChange={[Function]}
@@ -34,7 +34,7 @@ exports[`CheckoutForm Match Snapshot 1`] = `
             value={1}
           />
         </div>
-      </div>
+      </label>
     </div>
     <div
       className="flex flex-col mb-4"
