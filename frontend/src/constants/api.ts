@@ -16,4 +16,7 @@ export const Api = {
   Login: [ENDPOINT_URL, '/login'].join(''),
   LoginCheck: [ENDPOINT_URL, '/login-check'].join(''),
   Logout: [ENDPOINT_URL, '/logout'].join(''),
+
+  /* 認証ずみ */
+  Customer: [ENDPOINT_URL, '/customer'].join(''),
 }

@@ -6,7 +6,7 @@ import cors from 'cors'
 import crypto from 'crypto'
 import stripe from 'stripe'
 import { isString } from 'lodash'
-import session from './session'
+import session, { checkAuth } from './session'
 
 import { SmtpClient } from './smtp-client'
 const mailClient = new SmtpClient()
@@ -507,51 +507,64 @@ app.post('/active-check', async (req: Request, res: Response) => {
   }
 })
 
-// ログイン処理
-app.post('/login', async (req: Request, res: Response) => {
-  const { user, password } = {
-    user: req.body['user'],
-    password: req.body['password'],
+// 指定した商品のすべての顧客情報を取得します。
+app.post('/customer', checkAuth, async (req: Request, res: Response) => {
+  const { productId } = {
+    productId: req.body['productId'],
   }
-  if (
-    user !== process.env.ADMIN_USER ||
-    password !== process.env.ADMIN_PASSWORD
-  ) {
-    res.status(401).json({ message: 'Authentication failed.' })
-    return
-  }
-  if (!req.session) {
-    throw new Error('An unexpected error has occurred.')
-  }
-  req.session.user = user
-  // res.redirect(`${ORIGIN_URL}/admin/home`)
-  res.json({ user })
-})
 
-// ログインチェック
-app.post('/login-check', async (req: Request, res: Response) => {
-  if (!req.session || !req.session.user) {
-    res.status(401).json({ message: 'Authentication failed.' })
-    // res.redirect(`${ORIGIN_URL}/admin/login`)
-    return
-  }
-  const user = { userName: req.session.user }
-  res.json( user )
-})
+  try {
+    if (productId === undefined) {
+      throw new Error('productId is required.')
+    }
 
-// ログアウト
-app.post('/logout', async (req: Request, res: Response) => {
-  if (!req.session || !req.session.user) {
-    res.status(401).json({ message: 'Authentication failed.' })
-    return
+    // 商品IDに紐づくにサブスクリプションを検索する
+    const { data: c } = await stripeInstance.customers.list()
+
+    const customers = await Promise.all(
+      c.map(async ({ id, email, name }) => {
+        const { data: s } = await stripeInstance.subscriptions.list({
+          customer: id,
+          status: 'active',
+        })
+        const subscriptions = s.map(
+          ({
+            id,
+            current_period_start,
+            current_period_end,
+            plan: { planId, product, interval, amount },
+          }) => {
+            const plan = { planId, product, interval, amount }
+            return { id, current_period_start, current_period_end, plan }
+          }
+        )
+        return { id, email, name, subscriptions }
+      })
+    )
+
+    const result = []
+    for (const c of customers) {
+      for (const s of c.subscriptions) {
+        if (s.plan.product === productId) {
+          result.push(c)
+          break
+        }
+      }
+    }
+
+    res.json(result)
+  } catch (e: unknown) {
+    console.error('error', e)
+    let message
+    if (e instanceof Error) {
+      message = e.message
+    }
+    res.status(500).json({ message })
   }
-  req.session.user = undefined
-  // res.redirect(`${ORIGIN_URL}/admin/login`)
-  res.sendStatus(200)
 })
 
 // 404エラーハンドリング
-app.use((_req, res, _next) => {
+app.use((_req, res) => {
   res.status(404).send('404 Not Found').end()
 })
 

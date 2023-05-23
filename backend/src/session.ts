@@ -45,4 +45,59 @@ export default (app: Application) => {
       message: req.session.message,
     })
   })
+
+  // ログイン処理
+  app.post('/login', async (req: Request, res: Response) => {
+    const { user, password } = {
+      user: req.body['user'],
+      password: req.body['password'],
+    }
+    if (
+      user !== process.env.ADMIN_USER ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
+      res.status(401).json({ message: 'Authentication failed.' })
+      return
+    }
+    if (!req.session) {
+      throw new Error('An unexpected error has occurred.')
+    }
+    req.session.user = user
+    // res.redirect(`${ORIGIN_URL}/admin/home`)
+    res.json({ user })
+  })
+
+  // ログインチェック
+  app.post('/login-check', async (req: Request, res: Response) => {
+    if (!req.session || !req.session.user) {
+      res.status(401).json({ message: 'Authentication failed.' })
+      // res.redirect(`${ORIGIN_URL}/admin/login`)
+      return
+    }
+    const user = { userName: req.session.user }
+    res.json(user)
+  })
+
+  // ログアウト
+  app.post('/logout', async (req: Request, res: Response) => {
+    if (!req.session || !req.session.user) {
+      res.status(401).json({ message: 'Authentication failed.' })
+      return
+    }
+    req.session.user = undefined
+    // res.redirect(`${ORIGIN_URL}/admin/login`)
+    res.sendStatus(200)
+  })
+}
+
+// 認証状態をチェックするミドルウェアを作成
+export const checkAuth = (req: Request, res: Response, next) => {
+  if (req.session.user) {
+    // セッションにユーザー情報がある場合は、次のミドルウェアに進む
+    return next()
+  } else {
+    // セッションにユーザー情報がない場合は、ログインページにリダイレクトする
+    res.status(401).json({ message: 'Authentication failed.' })
+    return
+  }
 }
