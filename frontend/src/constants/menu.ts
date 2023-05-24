@@ -54,7 +54,7 @@ export const adminMenuItems: MenuItem[] = [
     href: Url.AdminProduct,
   },
   {
-    label: 'Subscriber List',
+    label: 'Subscribe List',
     href: Url.AdminSubscriber,
   },
 ]

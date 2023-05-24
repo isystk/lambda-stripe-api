@@ -1,27 +1,25 @@
 import { Request, Response } from 'express'
 import { STRIPE_SECRET } from '../../constants'
 import stripe from 'stripe'
+import * as _ from 'lodash'
 
 // @ts-ignore
 const stripeInstance = stripe(STRIPE_SECRET)
 
-type Customer = {
-  id: string
-  email: string
-  name: string
-  subscriptions: Subscription[]
-}
 
 type Subscription = {
   id: string
   current_period_start: number
   current_period_end: number
-  plan: {
-    planId: string
-    product: string
-    interval: 'month' | 'year'
-    amount: number
-  }
+  planId: string
+  productId: string
+  productName: string
+  customerId: string
+  customerName: string
+  email: string
+  interval: "month"|"year"
+  currency: string
+  amount: number 
 }
 
 // 指定した商品のすべての顧客情報を取得します。
@@ -35,39 +33,35 @@ const customer = async (req: Request, res: Response) => {
       throw new Error('productId is required.')
     }
 
-    // 商品IDに紐づくにサブスクリプションを検索する
-    const { data: c }: { data: Customer[] } =
+    const { data: products } = await stripeInstance.products.list({
+      type: 'service', // サブスクリプションに限定する
+    })
+    const productMap = _.mapKeys(products, "id")
+    const { data: customers }: { data: Customer[] } =
       await stripeInstance.customers.list()
+    const customerMap = _.mapKeys(customers, "id")
+    
+    const { data: s } =
+        await stripeInstance.subscriptions.list()
 
-    const customers = await Promise.all(
-      c.map(async ({ id, email, name }) => {
-        const { data: s }: { data: Subscription[] } =
-          await stripeInstance.subscriptions.list({
-            customer: id,
-            status: 'active',
-          })
-        const subscriptions = s.map(
-          ({
+    const data: Subscription[] = s.map(({
             id,
             current_period_start,
             current_period_end,
-            plan: { planId, product, interval, amount },
-          }) => {
-            const plan = { planId, product, interval, amount }
-            return { id, current_period_start, current_period_end, plan }
-          }
-        )
-        return { id, email, name, subscriptions }
+            status,
+            cancel_at,
+            customer: customerId,
+            plan: { planId, product: productId, interval, currency, amount },
+      }) => {
+        const {name: productName} = productMap[productId];
+        const {name: customerName, email} = customerMap[customerId];
+        return { id, current_period_start, current_period_end, status, cancel_at, planId, productId, productName, customerId, customerName, email, interval, currency, amount }
       })
-    )
 
     const result = []
-    for (const c of customers) {
-      for (const s of c.subscriptions) {
-        if (s.plan.product === productId) {
-          result.push(c)
-          break
-        }
+    for (const d of data) {
+      if (d.productId === productId) {
+        result.push(d)
       }
     }
 
