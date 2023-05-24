@@ -1,10 +1,8 @@
 import express, { Application } from 'express'
 import cors from 'cors'
-import { router as post } from './routes/post'
-import { router as auth } from './routes/auth'
-import { config } from './actions/session'
-
-const ORIGIN_URL = process.env.ORIGIN_URL ?? ''
+import { router } from './routes'
+import { config } from './utils/session'
+import { ORIGIN_URL } from './constants'
 
 const app: Application = express()
 app.use(express.urlencoded({ extended: true }))
@@ -20,8 +18,7 @@ app.use(
 app.use(config)
 
 // ルーティング
-app.use(post)
-app.use(auth)
+app.use(router)
 
 // 404エラーハンドリング
 app.use((_req, res) => {

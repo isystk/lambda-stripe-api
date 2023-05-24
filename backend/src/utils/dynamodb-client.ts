@@ -1,4 +1,5 @@
 import DynamoDB from 'aws-sdk/clients/dynamodb'
+import { IS_LOCAL, DYNAMODB_ENDPOINT_URL } from '../constants'
 
 export type DynamoDBRecord = {
   created_at: string
@@ -12,14 +13,11 @@ export type KeyCondition = {
 class DynamoDBClient {
   private documentClient: DynamoDB.DocumentClient
   constructor(private readonly tableName: string) {
-    const isLocal = process.env.IS_LOCAL
     let config: Record<never, never> = { region: 'ap-northeast-1' }
-    if (isLocal) {
-      const endpoint =
-        process.env.DYNAMODB_ENDPOINT_URL ?? 'http://localhost:8000'
+    if (IS_LOCAL) {
       config = {
         ...config,
-        endpoint,
+        endpoint: DYNAMODB_ENDPOINT_URL,
         credentials: { accessKeyId: 'FAKE', secretAccessKey: 'FAKE' },
       }
     }
