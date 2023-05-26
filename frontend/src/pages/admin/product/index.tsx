@@ -57,7 +57,7 @@ const Index: FC = () => {
     {
       name: '価格',
       sortable: true,
-      cell: ({ plans }) => {
+      selector: ({ plans }) => {
         return plans.map(({ id, amount, currency, interval }) => {
           const amountFmt = amount
             ? new Intl.NumberFormat('ja', {
@@ -65,16 +65,13 @@ const Index: FC = () => {
                 currency,
               }).format(amount)
             : ''
-          return (
-            <p className="m-1" key={id}>
-              {interval === 'month'
-                ? t('monthly amount')
-                : interval === 'year'
-                ? t('yearly amount')
-                : 'その他'}
-              <span>{amountFmt}</span>
-            </p>
-          )
+          return `${
+            interval === 'month'
+              ? t('monthly amount')
+              : interval === 'year'
+              ? t('yearly amount')
+              : 'その他'
+          } ${amountFmt} `
         })
       },
     },

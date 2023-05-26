@@ -58,7 +58,11 @@ const Index: FC = () => {
     {
       name: 'プラン',
       sortable: true,
-      cell: (row: { currency: string; amount: number; interval: string }) => {
+      selector: (row: {
+        currency: string
+        amount: number
+        interval: string
+      }) => {
         const amountFmt = row.amount
           ? new Intl.NumberFormat('ja', {
               style: 'currency',
@@ -71,11 +75,7 @@ const Index: FC = () => {
             : row.interval === 'year'
             ? t('yearly amount')
             : 'その他'
-        return (
-          <span>
-            {interval} {amountFmt}
-          </span>
-        )
+        return `${interval} ${amountFmt}`
       },
     },
     {
