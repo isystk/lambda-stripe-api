@@ -9,10 +9,14 @@ import * as _ from 'lodash'
 import * as XLSX from 'xlsx'
 import * as styles from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFileCsv, faFileExcel, faFilePdf } from '@fortawesome/free-solid-svg-icons'
-import jsPDF from "jspdf";
-import "jspdf-autotable";
-import {myFont} from "@/static/fonts/mplus.ts"
+import {
+  faFileCsv,
+  faFileExcel,
+  faFilePdf,
+} from '@fortawesome/free-solid-svg-icons'
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+import { myFont } from '@/static/fonts/mplus.ts'
 
 /** TableProps Props */
 export type TableProps = {
@@ -43,8 +47,8 @@ const TablePresenter: FC<PresenterProps> = ({
       CSVダウンロード
     </button>
     <button
-        className="bg-blue-500 text-white py-2 px-4 rounded ml-4"
-        onClick={() => exportExcel()}
+      className="bg-blue-500 text-white py-2 px-4 rounded ml-4"
+      onClick={() => exportExcel()}
     >
       <FontAwesomeIcon icon={faFileExcel} className="pr-3" />
       Excelダウンロード
@@ -199,19 +203,19 @@ const TableContainer: React.FC<ContainerProps<TableProps, PresenterProps>> = ({
   const exportExcel = () => {
     //表示されている列のインデックスを取得
     const visibleColumnIndexes = columns
-        .filter((column) => column['hidden'] !== true)
-        .map((column) => columns.indexOf(column))
+      .filter((column) => column['hidden'] !== true)
+      .map((column) => columns.indexOf(column))
 
     //表示されているデータを取得
     const r = data.map((item) =>
-        visibleColumnIndexes.map(
-            (index) =>
-                typeof columns[index].selector === 'string' // プロパティ名が指定されている場合
-                    ? item[columns[index].selector]
-                    : typeof columns[index].cell === 'function'
-                        ? columns[index].cell(item) // cellを使用している場合
-                        : columns[index].selector(item) // クロージャが指定されている場合
-        )
+      visibleColumnIndexes.map(
+        (index) =>
+          typeof columns[index].selector === 'string' // プロパティ名が指定されている場合
+            ? item[columns[index].selector]
+            : typeof columns[index].cell === 'function'
+            ? columns[index].cell(item) // cellを使用している場合
+            : columns[index].selector(item) // クロージャが指定されている場合
+      )
     )
 
     const records = {
@@ -244,7 +248,6 @@ const TableContainer: React.FC<ContainerProps<TableProps, PresenterProps>> = ({
     document.body.removeChild(link)
   }
 
-
   const exportPdf = () => {
     //表示されている列のインデックスを取得
     const visibleColumnIndexes = columns
@@ -262,29 +265,29 @@ const TableContainer: React.FC<ContainerProps<TableProps, PresenterProps>> = ({
             : columns[index].selector(item) // クロージャが指定されている場合
       )
     )
-    
-    const unit = "pt";
-    const size = "A4"; // use A1, A2, A3 or A4
-    const orientation = "portrait"; // use portrait or landscape
-    const doc = new jsPDF(orientation, unit, size);
-    
+
+    const unit = 'pt'
+    const size = 'A4' // use A1, A2, A3 or A4
+    const orientation = 'portrait' // use portrait or landscape
+    const doc = new jsPDF(orientation, unit, size)
+
     // 日本語のフォントを設定
     // See https://zenn.dev/knaka0209/articles/8b4e0864d1b226
-    doc.addFileToVFS('mplus.ttf', myFont);
-    doc.addFont('mplus.ttf', 'mplus', 'normal');
-    doc.setFont('mplus', 'normal');
-    
+    doc.addFileToVFS('mplus.ttf', myFont)
+    doc.addFont('mplus.ttf', 'mplus', 'normal')
+    doc.setFont('mplus', 'normal')
+
     doc.autoTable({
       styles: {
-        font: 'mplus'
+        font: 'mplus',
       },
       columns: columns.map((col) => {
-        return { header: col.name, dataKey: col.selector };
+        return { header: col.name, dataKey: col.selector }
       }),
-      body: r
-    });
+      body: r,
+    })
 
-    doc.save("data.pdf");
+    doc.save('data.pdf')
   }
 
   return presenter({
