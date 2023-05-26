@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
@@ -9,10 +9,14 @@ import useSWR from 'swr'
 import { Api } from '@/constants/api'
 import axios from '@/utils/axios'
 import { dateFormat, unixTimeToDate } from '@/utils/general'
+import Table, { TableProps } from '@/components/01_atoms/Table'
+import { TableColumn } from 'react-data-table-component'
 
 const Index: FC = () => {
   const main = useAppRoot()
   const { t } = useI18n('Admin')
+  const [fProductName, setFProductName] = useState('')
+  const [fCustomerName, setFCustomerName] = useState('')
 
   const productId = 'prod_NpvV9ohJIlgElI'
 
@@ -33,6 +37,77 @@ const Index: FC = () => {
   if (isLoading) {
     // loading
     return <></>
+  }
+
+  const columns: TableColumn<Record<never, never>>[] = [
+    {
+      name: '商品名',
+      sortable: true,
+      selector: (row: { productName: string }) => row.productName,
+    },
+    {
+      name: '顧客名',
+      sortable: true,
+      selector: (row: { customerName: string }) => row.customerName,
+    },
+    {
+      name: 'メールアドレス',
+      sortable: true,
+      selector: (row: { email: string }) => row.email,
+    },
+    {
+      name: 'プラン',
+      sortable: true,
+      cell: (row: { currency: string; amount: number; interval: string }) => {
+        const amountFmt = row.amount
+          ? new Intl.NumberFormat('ja', {
+              style: 'currency',
+              currency: row.currency,
+            }).format(row.amount)
+          : ''
+        const interval =
+          row.interval === 'month'
+            ? t('monthly amount')
+            : row.interval === 'year'
+            ? t('yearly amount')
+            : 'その他'
+        return (
+          <span>
+            {interval} {amountFmt}
+          </span>
+        )
+      },
+    },
+    {
+      name: 'ステータス',
+      sortable: true,
+      selector: (row: { status: string }) => row.status,
+    },
+    {
+      name: '契約開始日',
+      sortable: true,
+      selector: (row: { current_period_start: number }) =>
+        row.current_period_start &&
+        dateFormat(unixTimeToDate(row.current_period_start)),
+    },
+    {
+      name: '解約予定日',
+      sortable: true,
+      selector: (row: { cancel_at: number }) =>
+        row.cancel_at && dateFormat(unixTimeToDate(row.cancel_at)),
+    },
+  ]
+  const tableProps: TableProps = {
+    columns,
+    data: customers.filter(({ productName, customerName }) => {
+      if (fProductName && productName !== fProductName) {
+        return false
+      }
+      if (fCustomerName && customerName !== fCustomerName) {
+        return false
+      }
+      return true
+    }),
   }
 
   const props: AdminTemplateProps = {
@@ -60,6 +135,7 @@ const Index: FC = () => {
                 id="product-name"
                 type="text"
                 placeholder="商品名"
+                onChange={(e) => setFProductName(e.target.value)}
               />
             </div>
             <div className="w-full md:w-1/3 px-2 mb-4 md:mb-0">
@@ -74,6 +150,7 @@ const Index: FC = () => {
                 id="product-name"
                 type="text"
                 placeholder="顧客名"
+                onChange={(e) => setFCustomerName(e.target.value)}
               />
             </div>
           </div>
@@ -81,105 +158,7 @@ const Index: FC = () => {
 
         {/* 契約一覧 */}
         <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            <thead className="bg-gray-300">
-              <tr>
-                <th className="border px-4 py-2">商品名</th>
-                <th className="border px-4 py-2">顧客名</th>
-                <th className="border px-4 py-2">メールアドレス</th>
-                <th className="border px-4 py-2">プラン</th>
-                <th className="border px-4 py-2">ステータス</th>
-                <th className="border px-4 py-2">契約開始日</th>
-                <th className="border px-4 py-2">解約予定日</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map((e) => {
-                return (
-                  <tr key={e.id} data-id={e.id}>
-                    <td className="border px-4 py-2">{e.productName}</td>
-                    <td className="border px-4 py-2">{e.customerName}</td>
-                    <td className="border px-4 py-2">{e.email}</td>
-                    <td className="border px-4 py-2">
-                      {(() => {
-                        const amountFmt = e.amount
-                          ? new Intl.NumberFormat('ja', {
-                              style: 'currency',
-                              currency: e.currency,
-                            }).format(e.amount)
-                          : ''
-                        const interval =
-                          e.interval === 'month'
-                            ? t('monthly amount')
-                            : e.interval === 'year'
-                            ? t('yearly amount')
-                            : 'その他'
-                        return (
-                          <span>
-                            {interval} {amountFmt}
-                          </span>
-                        )
-                      })()}
-                    </td>
-                    <td className="border px-4 py-2">{e.status}</td>
-                    <td className="border px-4 py-2">
-                      {e.current_period_start &&
-                        dateFormat(unixTimeToDate(e.current_period_start))}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {e.cancel_at && dateFormat(unixTimeToDate(e.cancel_at))}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* ページング */}
-        <div className="flex items-center justify-center mt-6">
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-l hover:bg-gray-300"
-          >
-            前へ
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-blue-500 text-white font-bold px-4 py-2 hover:bg-blue-700"
-          >
-            1
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            2
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            3
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            4
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            5
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-r hover:bg-gray-300"
-          >
-            次へ
-          </a>
+          <Table {...tableProps} />
         </div>
       </section>
     </AdminTemplate>

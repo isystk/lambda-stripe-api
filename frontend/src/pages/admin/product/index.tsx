@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
@@ -9,10 +9,13 @@ import { useI18n } from '@/components/i18n'
 import useSWR from 'swr'
 import { Api } from '@/constants/api'
 import axios from '@/utils/axios'
+import Table, { TableProps } from '@/components/01_atoms/Table'
+import { TableColumn } from 'react-data-table-component'
 
 const Index: FC = () => {
   const main = useAppRoot()
   const { t } = useI18n('Admin')
+  const [fProductName, setFProductName] = useState('')
 
   const {
     data: products,
@@ -31,7 +34,60 @@ const Index: FC = () => {
     return <></>
   }
 
-  console.log(products[0].plans)
+  const columns: TableColumn<Record<never, never>>[] = [
+    {
+      name: '商品名',
+      sortable: true,
+      selector: (row: { name: string }) => row.name,
+    },
+    {
+      name: '画像',
+      sortable: true,
+      cell: ({ images, name }) => (
+        <div className="p-1">
+          <Image src={images[0]} alt={name} className="w-8" />
+        </div>
+      ),
+    },
+    {
+      name: '詳細',
+      sortable: true,
+      selector: (row: { description: string }) => row.description,
+    },
+    {
+      name: '価格',
+      sortable: true,
+      cell: ({ plans }) => {
+        return plans.map(({ id, amount, currency, interval }) => {
+          const amountFmt = amount
+            ? new Intl.NumberFormat('ja', {
+                style: 'currency',
+                currency,
+              }).format(amount)
+            : ''
+          return (
+            <p className="m-1" key={id}>
+              {interval === 'month'
+                ? t('monthly amount')
+                : interval === 'year'
+                ? t('yearly amount')
+                : 'その他'}
+              <span>{amountFmt}</span>
+            </p>
+          )
+        })
+      },
+    },
+  ]
+  const tableProps: TableProps = {
+    columns,
+    data: products.filter(({ name }) => {
+      if (fProductName && name !== fProductName) {
+        return false
+      }
+      return true
+    }),
+  }
 
   const props: AdminTemplateProps = {
     main,
@@ -58,6 +114,7 @@ const Index: FC = () => {
                 id="product-name"
                 type="text"
                 placeholder="商品名"
+                onChange={(e) => setFProductName(e.target.value)}
               />
             </div>
           </div>
@@ -65,95 +122,7 @@ const Index: FC = () => {
 
         {/* 商品一覧 */}
         <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            <thead className="bg-gray-300">
-              <tr>
-                <th className="border px-4 py-2">商品名</th>
-                <th className="border px-4 py-2">画像</th>
-                <th className="border px-4 py-2">詳細</th>
-                <th className="border px-4 py-2">価格</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((e) => {
-                return (
-                  <tr key={e.id} data-id={e.id}>
-                    <td className="border px-4 py-2">{e.name}</td>
-                    <td className="border px-4 py-2">
-                      <Image src={e.images[0]} alt={e.name} className="w-16" />
-                    </td>
-                    <td className="border px-4 py-2">{e.description}</td>
-                    <td className="border px-4 py-2">
-                      {e.plans.map(({ id, amount, currency, interval }) => {
-                        const amountFmt = amount
-                          ? new Intl.NumberFormat('ja', {
-                              style: 'currency',
-                              currency,
-                            }).format(amount)
-                          : ''
-                        return (
-                          <p className="m-1" key={id}>
-                            {interval === 'month'
-                              ? t('monthly amount')
-                              : interval === 'year'
-                              ? t('yearly amount')
-                              : 'その他'}
-                            <span>{amountFmt}</span>
-                          </p>
-                        )
-                      })}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* ページング */}
-        <div className="flex items-center justify-center mt-6">
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-l hover:bg-gray-300"
-          >
-            前へ
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-blue-500 text-white font-bold px-4 py-2 hover:bg-blue-700"
-          >
-            1
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            2
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            3
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            4
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 hover:bg-gray-300"
-          >
-            5
-          </a>
-          <a
-            href="#"
-            className="inline-block bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-r hover:bg-gray-300"
-          >
-            次へ
-          </a>
+          <Table {...tableProps} />
         </div>
       </section>
     </AdminTemplate>

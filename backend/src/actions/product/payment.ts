@@ -63,14 +63,15 @@ const payment = async (req: Request, res: Response) => {
     if (!plan) {
       throw new Error('Plan not found.')
     }
+    const productId = plan.product;
 
     const postId = crypto.createHash('sha256').update(userKey).digest('hex')
-    let post = await getPostById(postId, plan.product)
+    let post = await getPostById(postId, productId)
     if (!post) {
       // 顧客が未登録の場合は新規登録する
       const params = {
         pk: postId,
-        sk: plan.product,
+        sk: productId,
         customer_id: customer.id,
         status: Status.untreated,
       } as Post
@@ -81,11 +82,10 @@ const payment = async (req: Request, res: Response) => {
     // メールアドレスを元にサブスクリプションを検索する
     const { data: subscriptions } = await stripeInstance.subscriptions.list({
       customer: customer.id,
-      plan: plan.id,
       status: 'active', // サブスクリプションの状態を指定する。active, canceled, or all.
     })
-
-    if (0 < subscriptions.length) {
+    const s = subscriptions.filter(e => e.plan.product === productId)
+    if (0 < s.length) {
       throw new Error('A valid subscription already exists for this Plan')
     }
     // サブスクリプションを作成する

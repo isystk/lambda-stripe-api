@@ -57,6 +57,6 @@ img.zoom:hover {
 }
 
 /* ボタンにホバーすると半透明にする */
-button:hover, a:hover {
+button:not(:disabled):hover, a:hover {
     opacity: 0.8;
 }
