@@ -275,6 +275,9 @@ const TableContainer: React.FC<ContainerProps<TableProps, PresenterProps>> = ({
     doc.setFont('mplus', 'normal');
     
     doc.autoTable({
+      styles: {
+        font: 'mplus'
+      },
       columns: columns.map((col) => {
         return { header: col.name, dataKey: col.selector };
       }),
