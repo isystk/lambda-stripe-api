@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
@@ -6,6 +6,7 @@ import useAppRoot from '@/stores/useAppRoot'
 import { withAuth } from '@/components/auth'
 import { useI18n } from '@/components/i18n'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
 import axios from '@/utils/axios'
 import { dateFormat, unixTimeToDate } from '@/utils/general'
@@ -15,8 +16,16 @@ import { TableColumn } from 'react-data-table-component'
 const Index: FC = () => {
   const main = useAppRoot()
   const { t } = useI18n('Admin')
+  const {
+    query: { productName, customerName },
+  } = useRouter()
   const [fProductName, setFProductName] = useState('')
   const [fCustomerName, setFCustomerName] = useState('')
+  
+  useEffect(() => {
+    setFProductName(productName) 
+    setFCustomerName(customerName) 
+  }, [productName, customerName])
 
   const productId = 'prod_NpvV9ohJIlgElI'
 
@@ -135,6 +144,7 @@ const Index: FC = () => {
                 id="product-name"
                 type="text"
                 placeholder="商品名"
+                value={fProductName}
                 onChange={(e) => setFProductName(e.target.value)}
               />
             </div>
@@ -150,6 +160,7 @@ const Index: FC = () => {
                 id="product-name"
                 type="text"
                 placeholder="顧客名"
+                value={fCustomerName}
                 onChange={(e) => setFCustomerName(e.target.value)}
               />
             </div>

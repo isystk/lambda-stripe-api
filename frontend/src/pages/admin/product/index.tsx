@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
@@ -7,7 +7,9 @@ import useAppRoot from '@/stores/useAppRoot'
 import { withAuth } from '@/components/auth'
 import { useI18n } from '@/components/i18n'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
+import { Url } from '@/constants/url'
 import axios from '@/utils/axios'
 import Table, { TableProps } from '@/components/01_atoms/Table'
 import { TableColumn } from 'react-data-table-component'
@@ -15,7 +17,15 @@ import { TableColumn } from 'react-data-table-component'
 const Index: FC = () => {
   const main = useAppRoot()
   const { t } = useI18n('Admin')
+  const {
+    push,
+    query: { productName },
+  } = useRouter()
   const [fProductName, setFProductName] = useState('')
+  
+  useEffect(() => {
+    setFProductName(productName) 
+  }, [productName])
 
   const {
     data: products,
@@ -75,6 +85,19 @@ const Index: FC = () => {
         })
       },
     },
+    {
+      name: '',
+      cell: ({name}) => {
+        return (
+            <>
+                <button 
+                    className="bg-blue-500 text-white py-2 px-4 rounded"
+                    onClick={() => {
+                        push(`${Url.AdminSubscriber}?productName=${name}`)
+                    }}>契約者一覧</button>
+            </>
+        )}
+      },
   ]
   const tableProps: TableProps = {
     columns,
