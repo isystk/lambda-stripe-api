@@ -53,6 +53,7 @@ const Index: FC = () => {
     {
       name: '画像',
       sortable: true,
+      hidden: true,
       cell: ({ images, name }) => (
         <div className="p-1">
           <Image src={images[0]} alt={name} className="w-8" />
@@ -87,6 +88,7 @@ const Index: FC = () => {
     },
     {
       name: '',
+      hidden: true,
       cell: ({name}) => {
         return (
             <>

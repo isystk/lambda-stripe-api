@@ -23,20 +23,16 @@ const Index: FC = () => {
   const [fCustomerName, setFCustomerName] = useState('')
   
   useEffect(() => {
-    setFProductName(productName) 
-    setFCustomerName(customerName) 
+    setFProductName(Array.isArray(productName) ? productName[0]: productName) 
+    setFCustomerName(Array.isArray(customerName) ? customerName[0]: customerName) 
   }, [productName, customerName])
-
-  const productId = 'prod_NpvV9ohJIlgElI'
 
   const {
     data: customers,
     error,
     isLoading,
-  } = useSWR([Api.Customer, productId], async ([url, productId]) => {
-    const result = await axios.post(url, {
-      productId,
-    })
+  } = useSWR(Api.Subscriber, async (url) => {
+    const result = await axios.post(url)
     if (0 === result.data.length) {
       return undefined
     }

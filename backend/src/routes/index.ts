@@ -6,7 +6,8 @@ import { cancelRequest } from '../actions/product/cancelRequest'
 import { cancelConfirm } from '../actions/product/cancelConfirm'
 import { cancel } from '../actions/product/cancel'
 import { activeCheck } from '../actions/product/activeCheck'
-import { customer } from '../actions/product/customer'
+import { subscriber } from '../actions/product/subscriber'
+import { subscriberTrend } from '../actions/product/subscriberTrend'
 import { login } from '../actions/auth/login'
 import { loginCheck } from '../actions/auth/loginCheck'
 import { logout } from '../actions/auth/logout'
@@ -27,6 +28,7 @@ router.post('/login-check', loginCheck)
 router.post('/logout', logout)
 
 /* Private */
-router.post('/customer', checkAuth, customer)
+router.post('/subscriber', checkAuth, subscriber)
+router.post('/subscriberTrend', checkAuth, subscriberTrend)
 
 export { router }

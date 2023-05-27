@@ -18,11 +18,20 @@ module.exports = {
       }],
       include: path.resolve(__dirname, '../src/assets/sass')
     });
-    // alias
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, '../src')
-    };
+    config.resolve = {
+        ...config.resolve,
+        fallback: {
+            ...(config.resolve || {}).fallback,
+            fs: false,
+            stream: false,
+            os: false,
+            zlib: false,
+        },
+        // alias
+        alias: {
+          '@': path.resolve(__dirname, '../src')
+        }
+    }
     return config;
   },
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -30,7 +39,7 @@ module.exports = {
   staticDirs: ['../public'],
   framework: '@storybook/react',
   core: {
-    builder: '@storybook/builder-webpack5'
+    builder: 'webpack5'
   },
   docs: {
     autodocs: true

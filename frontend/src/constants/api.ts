@@ -19,5 +19,6 @@ export const Api = {
   Logout: [ENDPOINT_URL, '/logout'].join(''),
 
   /* Private */
-  Customer: [ENDPOINT_URL, '/customer'].join(''),
+  Subscriber: [ENDPOINT_URL, '/subscriber'].join(''),
+  SubscriberTrend: [ENDPOINT_URL, '/subscriberTrend'].join(''),
 }
