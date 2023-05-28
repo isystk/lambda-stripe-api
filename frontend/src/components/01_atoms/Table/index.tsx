@@ -40,21 +40,21 @@ const TablePresenter: FC<PresenterProps> = ({
 }) => (
   <>
     <button
-      className="bg-blue-500 text-white py-2 px-4 rounded"
+      className="bg-blue-500 text-white py-2 px-4 rounded w-full md:w-72 mb-2 "
       onClick={() => exportCsv()}
     >
       <FontAwesomeIcon icon={faFileCsv} className="pr-3" />
       CSVダウンロード
     </button>
     <button
-      className="bg-blue-500 text-white py-2 px-4 rounded ml-4"
+      className="bg-blue-500 text-white py-2 px-4 rounded md:ml-4 w-full md:w-72 mb-2 "
       onClick={() => exportExcel()}
     >
       <FontAwesomeIcon icon={faFileExcel} className="pr-3" />
       Excelダウンロード
     </button>
     <button
-      className="bg-blue-500 text-white py-2 px-4 rounded ml-4"
+      className="bg-blue-500 text-white py-2 px-4 rounded md:ml-4 w-full md:w-72 mb-2 "
       onClick={() => exportPdf()}
     >
       <FontAwesomeIcon icon={faFilePdf} className="pr-3" />
@@ -104,7 +104,7 @@ const TablePresenter: FC<PresenterProps> = ({
           )
         }
         return (
-          <div className="flex items-center justify-center mt-6">
+          <div className="flex items-center justify-center mt-6 text-sm">
             <select
               className="mr-2 p-2 border rounded"
               value={rowsPerPage}

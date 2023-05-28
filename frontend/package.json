@@ -27,6 +27,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.4.0",
     "browser-image-compression": "^2.0.2",
+    "chart.js": "^4.3.0",
     "cropperjs": "^1.5.13",
     "date-fns": "^2.30.0",
     "i18next": "^22.4.15",

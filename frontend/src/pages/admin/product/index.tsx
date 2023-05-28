@@ -22,9 +22,9 @@ const Index: FC = () => {
     query: { productName },
   } = useRouter()
   const [fProductName, setFProductName] = useState('')
-  
+
   useEffect(() => {
-    setFProductName(productName) 
+    setFProductName(productName)
   }, [productName])
 
   const {
@@ -89,17 +89,21 @@ const Index: FC = () => {
     {
       name: '',
       hidden: true,
-      cell: ({name}) => {
+      cell: ({ name }) => {
         return (
-            <>
-                <button 
-                    className="bg-blue-500 text-white py-2 px-4 rounded"
-                    onClick={() => {
-                        push(`${Url.AdminSubscriber}?productName=${name}`)
-                    }}>契約者一覧</button>
-            </>
-        )}
+          <>
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+              onClick={() => {
+                push(`${Url.AdminSubscriber}?productName=${name}`)
+              }}
+            >
+              契約者一覧
+            </button>
+          </>
+        )
       },
+    },
   ]
   const tableProps: TableProps = {
     columns,

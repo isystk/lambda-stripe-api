@@ -2,7 +2,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import Input from './index'
 import { useForm } from 'react-hook-form'
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks'
 
 type FormInputs = {
   email: string
@@ -11,12 +11,12 @@ type FormInputs = {
 describe('Input', () => {
   it('Match Snapshot', () => {
     const { result } = renderHook(() => useForm<FormInputs>())
-    
+
     const {
       register,
       formState: { errors },
-    } = result.current 
-    
+    } = result.current
+
     const validate = {
       email: {
         required: 'メールアドレスを入力してください',
@@ -35,7 +35,7 @@ describe('Input', () => {
       errors,
     }
 
-    const component = renderer.create(<Input {...props}/>)
+    const component = renderer.create(<Input {...props} />)
     const tree = component.toJSON()
 
     expect(tree).toMatchSnapshot()

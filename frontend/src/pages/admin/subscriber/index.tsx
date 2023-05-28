@@ -21,10 +21,12 @@ const Index: FC = () => {
   } = useRouter()
   const [fProductName, setFProductName] = useState('')
   const [fCustomerName, setFCustomerName] = useState('')
-  
+
   useEffect(() => {
-    setFProductName(Array.isArray(productName) ? productName[0]: productName) 
-    setFCustomerName(Array.isArray(customerName) ? customerName[0]: customerName) 
+    setFProductName(Array.isArray(productName) ? productName[0] : productName)
+    setFCustomerName(
+      Array.isArray(customerName) ? customerName[0] : customerName
+    )
   }, [productName, customerName])
 
   const {

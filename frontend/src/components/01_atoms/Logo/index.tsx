@@ -10,7 +10,7 @@ import Image, {
 import { useRouter } from 'next/router'
 
 /** LogoProps Props */
-export type LogoProps = WithChildren & {
+export type LogoProps = {
   name?: string
   link?: string
 }
@@ -50,12 +50,10 @@ const LogoPresenter: FC<PresenterProps> = ({
 /** Container Component */
 const LogoContainer: React.FC<ContainerProps<LogoProps, PresenterProps>> = ({
   presenter,
-  children,
   ...props
 }) => {
   const router = useRouter()
   return presenter({
-    children,
     router,
     ...props,
   })
