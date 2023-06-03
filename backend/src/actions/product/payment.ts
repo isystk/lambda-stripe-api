@@ -84,7 +84,9 @@ const payment = async (req: Request, res: Response) => {
       customer: customer.id,
       status: 'active', // サブスクリプションの状態を指定する。active, canceled, or all.
     })
-    const s = subscriptions.filter((e: {plan: {product: string }}) => e.plan.product === productId)
+    const s = subscriptions.filter(
+      (e: { plan: { product: string } }) => e.plan.product === productId
+    )
     if (0 < s.length) {
       throw new Error('A valid subscription already exists for this Plan')
     }

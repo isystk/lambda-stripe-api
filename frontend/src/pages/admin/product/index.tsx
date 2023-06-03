@@ -24,7 +24,7 @@ const Index: FC = () => {
   const [fProductName, setFProductName] = useState('')
 
   useEffect(() => {
-    setFProductName(productName)
+    setFProductName(Array.isArray(productName) ? productName[0] : productName)
   }, [productName])
 
   const {

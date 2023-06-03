@@ -8,10 +8,14 @@ import { useI18n } from '@/components/i18n'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
+import { Url } from '@/constants/url'
 import axios from '@/utils/axios'
 import { dateFormat, unixTimeToDate } from '@/utils/general'
 import Table, { TableProps } from '@/components/01_atoms/Table'
 import { TableColumn } from 'react-data-table-component'
+import { AxiosError } from 'axios'
+import Loading from '@/components/01_atoms/Loading'
+import Modal from '@/components/02_interactions/Modal'
 
 const Index: FC = () => {
   const main = useAppRoot()
@@ -21,6 +25,9 @@ const Index: FC = () => {
   } = useRouter()
   const [fProductName, setFProductName] = useState('')
   const [fCustomerName, setFCustomerName] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [subscriptionId, setSubscriptionId] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setFProductName(Array.isArray(productName) ? productName[0] : productName)
@@ -33,7 +40,8 @@ const Index: FC = () => {
     data: customers,
     error,
     isLoading,
-  } = useSWR(Api.Subscriber, async (url) => {
+    mutate,
+  } = useSWR(Api.AdminSubscriber, async (url) => {
     const result = await axios.post(url)
     if (0 === result.data.length) {
       return undefined
@@ -44,6 +52,37 @@ const Index: FC = () => {
   if (isLoading) {
     // loading
     return <></>
+  }
+
+  const handleCancel = async () => {
+    try {
+      setLoading(true)
+
+      // call the backend to create subscription
+      const {
+        data: { message, error },
+      } = await axios.post(Api.AdminCancel, {
+        subscriptionId,
+      })
+
+      // push(generateURL(Url.AdminSubscriber, {
+      //   productName: fProductName,
+      //   customerName: fCustomerName
+      // }))
+      // 一覧を最新化
+      mutate()
+    } catch (e: unknown) {
+      console.log(e)
+      if (e instanceof AxiosError) {
+        const { response } = e
+        alert(response?.data?.message)
+      } else if (e instanceof Error) {
+        alert(e.message)
+      }
+    } finally {
+      setLoading(false)
+      setShowModal(false)
+    }
   }
 
   const columns: TableColumn<Record<never, never>>[] = [
@@ -102,6 +141,25 @@ const Index: FC = () => {
       sortable: true,
       selector: (row: { cancel_at: number }) =>
         row.cancel_at && dateFormat(unixTimeToDate(row.cancel_at)),
+    },
+    {
+      name: '',
+      hidden: true,
+      cell: ({ id }) => {
+        return (
+          <>
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+              onClick={() => {
+                setSubscriptionId(id)
+                setShowModal(true)
+              }}
+            >
+              途中解約
+            </button>
+          </>
+        )
+      },
     },
   ]
   const tableProps: TableProps = {
@@ -169,7 +227,34 @@ const Index: FC = () => {
         <div className="overflow-x-auto">
           <Table {...tableProps} />
         </div>
+        <Loading loading={loading} />
       </section>
+      <Modal
+        isOpen={showModal}
+        handleCancel={() => setShowModal(false)}
+        handleAccept={() => handleCancel()}
+        acceptLabel={t('Yes')}
+        cancelLabel={t('No')}
+      >
+        <svg
+          aria-hidden="true"
+          className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+          {t('I will cancel the contract. May I?')}
+        </h3>
+      </Modal>
     </AdminTemplate>
   )
 }

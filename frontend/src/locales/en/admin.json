@@ -9,10 +9,13 @@
   "Logout": "Logout",
   "Product List": "Product List",
   "Subscribe List": "Subscribe List",
+  "Yes": "Yes",
+  "No": "No",
 
   "Hello.": "Hello.",
   "monthly amount": "monthly",
   "yearly amount": "yearly",
+  "I will cancel the contract. May I?": "I will cancel the contract. May I?",
   
   "": ""
 }

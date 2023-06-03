@@ -23,12 +23,16 @@ const subscriberTrend = async (req: Request, res: Response) => {
       throw new Error('productId is required.')
     }
 
-    const { data: s }: {data: Array<{
-        id: string,
-        current_period_start: number,
-        current_period_end: number,
-        plan: { product: string },
-      }>} = await stripeInstance.subscriptions.list({
+    const {
+      data: s,
+    }: {
+      data: Array<{
+        id: string
+        current_period_start: number
+        current_period_end: number
+        plan: { product: string }
+      }>
+    } = await stripeInstance.subscriptions.list({
       status: 'active',
     })
 
@@ -61,8 +65,15 @@ const subscriberTrend = async (req: Request, res: Response) => {
         month,
         subscriptions: data.filter((s) => {
           const currentMonth = new Date(month).getTime()
-          const nextMonth = new Date(new Date(month).getFullYear(), new Date(month).getMonth() + 1, 1).getTime();
-          return (s.current_period_start*1000) < nextMonth && currentMonth <= (s.current_period_end*1000)
+          const nextMonth = new Date(
+            new Date(month).getFullYear(),
+            new Date(month).getMonth() + 1,
+            1
+          ).getTime()
+          return (
+            s.current_period_start * 1000 < nextMonth &&
+            currentMonth <= s.current_period_end * 1000
+          )
         }),
       }
     })

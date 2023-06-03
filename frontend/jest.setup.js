@@ -1,3 +1,5 @@
+import '@/utils/i18n'
+
 const nextRouterMock = {
     push: jest.fn(),
     prefetch: jest.fn(),

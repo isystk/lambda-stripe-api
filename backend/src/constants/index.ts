@@ -18,7 +18,7 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? ''
 const Status = {
   untreated: 0, // 処理待ち
   contract: 1, // 契約中
-  cancelled: 9, // 解約済み
+  cancelled: 9, // 解約手続き済み
 } as const
 
 type Post = {

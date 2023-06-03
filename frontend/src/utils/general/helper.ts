@@ -214,3 +214,22 @@ export const promiseSetTimeout = async <T>(
     setTimeout(() => resolve(result), delay)
   })
 }
+
+/**
+ * URLの文字列と、パラメータを保持するオブジェクトを引数に渡し、URLに変換して返す
+ *
+ * @param url - URLの文字列
+ * @param paramObj - パラメータを保持するオブジェクト
+ * @returns 変換したURL
+ */
+export const generateURL = (url: string, paramObj: Record<string, string>) => {
+  const queryStr = Object.keys(paramObj)
+    .map((key) => {
+      if (typeof paramObj[key] === 'undefined') return ''
+      return `${encodeURIComponent(key)}=${encodeURIComponent(paramObj[key])}`
+    })
+    .filter((query) => query !== '')
+    .join('&')
+
+  return queryStr ? `${url}?${queryStr}` : url
+}

@@ -46,7 +46,9 @@ exports[`MainVisual Match Snapshot 1`] = `
           <h1
             className="text-gray-700 text-2xl md:text-4xl font-bold mb-6 "
           >
-            The topic of ________. Available on line!
+            The topic of ________. 
+            <br />
+             Available on line!
           </h1>
         </div>
         <div

@@ -35,7 +35,11 @@ exports[`Footer Match Snapshot 1`] = `
             <p
               className="text-accent text-xl md:text-3xl font-bold mb-6 "
             >
-              Why is the sky blue? Tell me a delicious recipe! and more!
+              Why is the sky blue? 
+              <br />
+               Tell me a delicious recipe! 
+              <br />
+               and more!
             </p>
             <a
               className="css-0 p-2 pl-4 pr-4 flex items-center justify-center bg-accent rounded-full"

@@ -21,15 +21,18 @@ const Index: FC = () => {
     data: months,
     error,
     isLoading,
-  } = useSWR([Api.SubscriberTrend, productId], async ([url, productId]) => {
-    const result = await axios.post(url, {
-      productId,
-    })
-    if (0 === result.data.length) {
-      return undefined
+  } = useSWR(
+    [Api.AdminSubscriberTrend, productId],
+    async ([url, productId]) => {
+      const result = await axios.post(url, {
+        productId,
+      })
+      if (0 === result.data.length) {
+        return undefined
+      }
+      return result.data
     }
-    return result.data
-  })
+  )
 
   if (isLoading) {
     // loading

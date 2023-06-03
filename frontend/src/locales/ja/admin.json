@@ -9,10 +9,13 @@
   "Logout": "ログアウト",
   "Product List": "商品一覧",
   "Subscribe List": "契約一覧",
+  "Yes": "はい",
+  "No": "いいえ",
   
   "Hello.": "こんにちわ。",
   "monthly amount": "月額",
   "yearly amount": "年額",
+  "I will cancel the contract. May I?": "解約します。よろしいですか？",
  
   "": ""
 }

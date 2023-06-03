@@ -6,48 +6,43 @@ import stripe from 'stripe'
 
 import { SmtpClient } from '../../utils/smtp-client'
 const mailClient = new SmtpClient()
+
 // @ts-ignore
 const stripeInstance = stripe(STRIPE_SECRET)
 
 // 解約処理（サブスクリプションを解約します）
-const cancel = async (req: Request, res: Response) => {
-  const { productId, cancelToken } = {
-    productId: req.body['productId'],
-    cancelToken: req.body['cancelToken'],
+const adminCancel = async (req: Request, res: Response) => {
+  const { subscriptionId } = {
+    subscriptionId: req.body['subscriptionId'],
   }
   try {
-    if (productId === undefined) {
-      throw new Error('productId is required.')
-    }
-    if (cancelToken === undefined) {
-      throw new Error('cancelToken is required.')
-    }
-
-    const post = await getPostByCancelToken(productId, cancelToken)
-    if (!post) {
-      throw new Error('cancelToken not found.')
-    }
-    if (!post || !post?.cancel_token_at) {
-      throw new Error('An unexpected error has occurred.')
+    if (subscriptionId === undefined) {
+      throw new Error('subscriptionId is required.')
     }
 
     // サブスクリプションを検索する
-    const { data: subscriptions } = await stripeInstance.subscriptions.list({
-      customer: post.customer_id,
-      status: 'active',
-    })
-
-    if (0 === subscriptions.length) {
+    const subscription = await stripeInstance.subscriptions.retrieve(
+      subscriptionId
+    )
+    if (!subscription) {
       throw new Error('No valid Subscription found.')
     }
-    for (const subscription of subscriptions) {
-      // // サブスクリプションをキャンセルする
-      // await stripeInstance.subscriptions.del(subscription.id)
-      // 期間満了となったら解約させる
-      await stripeInstance.subscriptions.update(subscription.id, {
-        cancel_at_period_end: true,
-      })
+    const {
+      plan: { product: productId },
+    } = subscription
+
+    const post = await getPostByProductId(productId)
+    if (!post) {
+      throw new Error('cancelToken not found.')
     }
+
+    console.log('subscriptionId', subscriptionId)
+    // サブスクリプションをキャンセルする
+    await stripeInstance.subscriptions.del(subscriptionId)
+    // // 期間満了となったら解約させる
+    // await stripeInstance.subscriptions.update(subscriptionId, {
+    //   cancel_at_period_end: true,
+    // })
 
     // 顧客のステータスを「解約済み」にする
     await dbClient.update<Post>(
@@ -69,7 +64,6 @@ const cancel = async (req: Request, res: Response) => {
     const text = [
       `${customer.name}様`,
       '解約手続きが完了しましたのでご案内申し上げます。',
-      '期間満了までは引き続きご利用頂けます。',
       'またのご利用をお待ちしております。',
     ].join('\n\n')
 
@@ -92,22 +86,16 @@ const cancel = async (req: Request, res: Response) => {
   }
 }
 
-const getPostByCancelToken = async (
-  productId: string,
-  cancelToken: string
+const getPostByProductId = async (
+  productId: string
 ): Promise<Post | undefined> => {
-  const post = await dbClient.scan<Post>(
-    'sk = :sk and cancel_token = :cancel_token',
-    undefined,
-    {
-      ':sk': productId,
-      ':cancel_token': cancelToken,
-    }
-  )
+  const post = await dbClient.scan<Post>('sk = :sk', undefined, {
+    ':sk': productId,
+  })
   if (0 === post.length) {
     return undefined
   }
   return post[0]
 }
 
-export { cancel }
+export { adminCancel }

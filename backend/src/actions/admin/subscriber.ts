@@ -32,19 +32,28 @@ const subscriber = async (req: Request, res: Response) => {
       type: 'service', // サブスクリプションに限定する
     })
     const productMap = _.mapKeys(products, 'id')
-    const { data: customers } =
-      await stripeInstance.customers.list()
+    const { data: customers } = await stripeInstance.customers.list()
     const customerMap = _.mapKeys(customers, 'id')
 
-    const { data: s }: {data: Array<{
-        id: string,
-        current_period_start: number,
-        current_period_end: number,
-        status: string,
-        cancel_at: number,
-        customer: string,
-        plan: { planId: string, product: string, interval: 'month' | 'year', currency: string, amount: number },
-      }>} = await stripeInstance.subscriptions.list()
+    const {
+      data: s,
+    }: {
+      data: Array<{
+        id: string
+        current_period_start: number
+        current_period_end: number
+        status: string
+        cancel_at: number
+        customer: string
+        plan: {
+          planId: string
+          product: string
+          interval: 'month' | 'year'
+          currency: string
+          amount: number
+        }
+      }>
+    } = await stripeInstance.subscriptions.list()
 
     const data: Subscription[] = s.map(
       ({

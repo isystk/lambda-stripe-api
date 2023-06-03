@@ -92,7 +92,9 @@ exports[`LandingPageTemplate Match Snapshot 1`] = `
             <p
               class="text-2xl "
             >
-              The page could not be displayed properly. Please check the information you entered and try again in a few minutes.
+              The page could not be displayed properly. 
+              <br />
+              Please check the information you entered and try again in a few minutes.
             </p>
           </div>
         </div>
