@@ -7,7 +7,7 @@ import MainVisual from '@/components/04_organisms/MainVisual'
 import Price from '@/components/04_organisms/Price'
 import News from '@/components/04_organisms/News'
 import Footer from '@/components/04_organisms/Footer'
-import SideMenu from '@/components/04_organisms/SideMenu'
+import SlideMenu from '@/components/04_organisms/SlideMenu'
 import { frontMenuItems, frontFooterMenuItems } from '@/constants/menu'
 import { APP_NAME, APP_URL } from '@/constants/index'
 
@@ -40,7 +40,7 @@ const LandingPageTemplatePresenter: FC<PresenterProps> = ({
     <News />
     <Footer menuItems={frontFooterMenuItems} />
     <div className="md:hidden">
-      <SideMenu
+      <SlideMenu
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
         menuItems={frontMenuItems}

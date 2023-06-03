@@ -1,5 +1,5 @@
 import Circles from '@/components/02_interactions/Circles'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { ContainerProps, WithChildren } from 'types'
 import { connect } from '@/components/hoc'
 import HtmlSkeleton, {
@@ -16,6 +16,8 @@ import Breadcrumb, {
   type BreadcrumbItem,
 } from '@/components/01_atoms/Breadcrumb'
 import DropDown from '@/components/01_atoms/DropDown'
+import Hamburger from '@/components/01_atoms/Hamburger'
+import SideMenu from '@/components/04_organisms/SideMenu'
 
 /** AdminTemplateProps Props */
 export type AdminTemplateProps = WithChildren & {
@@ -28,6 +30,8 @@ export type PresenterProps = AdminTemplateProps & {
   t
   logout
   router
+  isMenuOpen
+  setMenuOpen
 }
 
 /** Presenter Component */
@@ -39,6 +43,8 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
   breadcrumb = [],
   logout,
   router,
+  isMenuOpen,
+  setMenuOpen,
   ...props
 }) => (
   <HtmlSkeleton>
@@ -46,6 +52,9 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
     <NoIndex />
     <div className="h-screen">
       <div className="h-16 bg-base p-4 md:p-0 flex">
+        <div className="flex pr-3 z-50 md:hidden">
+          <Hamburger isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+        </div>
         <Logo link={Url.AdminHome} />
         {main.user && (
           <div className="ml-auto p-3">
@@ -56,37 +65,20 @@ const AdminTemplatePresenter: FC<PresenterProps> = ({
           </div>
         )}
       </div>
-      <div className="grid grid-cols-12">
-        <div className="col-span-2 bg-base hidden md:block">
-          <div className="p-4 border-t">
-            <ul className="list-none">
-              {adminMenuItems.map(({ label, href, target }, idx) => (
-                <li className="my-6" key={idx}>
-                  <a
-                    href="#"
-                    target={target}
-                    rel={target ? 'noreferrer' : ''}
-                    className="break-words whitespace-pre-wrap text-gray-700 font-bold whitespace-nowrap"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      router.push(href)
-                    }}
-                  >
-                    {t(label)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="col-span-12 md:col-span-10">
+      <div className="flex">
+        <SideMenu
+          isMenuOpen={isMenuOpen}
+          setMenuOpen={setMenuOpen}
+          menuItems={adminMenuItems}
+        />
+        <div className="w-full">
           <div
             className="flex items-center justify-center"
             style={{ height: 'calc(100vh - 4rem)' }}
           >
             <Circles>
               {main.user && <Breadcrumb items={breadcrumb} />}
-              <div className="py-8 md:p-8 w-full">{children}</div>
+              <div className="py-8 md:p-8 m-auto">{children}</div>
             </Circles>
           </div>
         </div>
@@ -101,6 +93,8 @@ const AdminTemplateContainer: React.FC<
 > = ({ presenter, main, children, ...props }) => {
   const router = useRouter()
   const { t } = useI18n('Admin')
+  const [isMenuOpen, setMenuOpen] = useState(false)
+
   const logout = async () => {
     await main.logout()
     location.reload()
@@ -112,6 +106,8 @@ const AdminTemplateContainer: React.FC<
     t,
     logout,
     router,
+    isMenuOpen,
+    setMenuOpen,
     ...props,
   })
 }

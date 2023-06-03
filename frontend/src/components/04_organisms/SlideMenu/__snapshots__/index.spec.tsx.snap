@@ -1,18 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideMenu Match Snapshot 1`] = `
+exports[`SlideMenu Match Snapshot 1`] = `
 [
   <div
-    className="css-12c2knp p-4 border-t z-50 h-screen bg-base css-c8xbpn"
+    className="undefined fixed top-0 right-0 z-30 bg-base h-screen w-64 css-1mfqb2z"
   >
+    <div
+      className="mt-24"
+    />
     <ul
       className="list-none"
     >
       <li
-        className="my-6"
+        className="py-4"
       >
         <a
-          className="break-words whitespace-pre-wrap text-gray-700 font-bold whitespace-nowrap"
+          className="block text-gray-700 font-bold whitespace-nowrap px-4"
           href="https://menu1"
           rel=""
         >
@@ -20,10 +23,10 @@ exports[`SideMenu Match Snapshot 1`] = `
         </a>
       </li>
       <li
-        className="my-6"
+        className="py-4"
       >
         <a
-          className="break-words whitespace-pre-wrap text-gray-700 font-bold whitespace-nowrap"
+          className="block text-gray-700 font-bold whitespace-nowrap px-4"
           href="https://menu2"
           rel=""
         >
@@ -31,10 +34,10 @@ exports[`SideMenu Match Snapshot 1`] = `
         </a>
       </li>
       <li
-        className="my-6"
+        className="py-4"
       >
         <a
-          className="break-words whitespace-pre-wrap text-gray-700 font-bold whitespace-nowrap"
+          className="block text-gray-700 font-bold whitespace-nowrap px-4"
           href="https://menu3"
           rel="noreferrer"
           target="_blank"
@@ -45,7 +48,7 @@ exports[`SideMenu Match Snapshot 1`] = `
     </ul>
   </div>,
   <div
-    className="block z-20 opacity-50 fixed top-0 w-full h-screen"
+    className="block z-20 bg-black opacity-50 fixed top-0 w-full h-screen"
     onClick={[Function]}
   />,
 ]

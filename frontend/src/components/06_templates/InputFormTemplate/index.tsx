@@ -7,7 +7,7 @@ import HtmlSkeleton, {
   Title,
 } from '@/components/05_layouts/HtmlSkeleton'
 import Header from '@/components/04_organisms/Header'
-import SideMenu from '@/components/04_organisms/SideMenu'
+import SlideMenu from '@/components/04_organisms/SlideMenu'
 import { frontMenuItems } from '@/constants/menu'
 import MainService from '@/services/main'
 
@@ -43,7 +43,7 @@ const InputFormTemplatePresenter: FC<PresenterProps> = ({
       </Circles>
     </div>
     <div className="md:hidden">
-      <SideMenu
+      <SlideMenu
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
         menuItems={frontMenuItems}

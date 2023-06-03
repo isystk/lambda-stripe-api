@@ -7,7 +7,7 @@ import { connect } from '@/components/hoc'
 import React, { useState } from 'react'
 import { ContainerProps } from 'types'
 import Header from '@/components/04_organisms/Header'
-import SideMenu from '@/components/04_organisms/SideMenu'
+import SlideMenu from '@/components/04_organisms/SlideMenu'
 import { frontMenuItems } from '@/constants/menu'
 import { useI18n } from '@/components/i18n'
 
@@ -57,7 +57,7 @@ const ErrorTemplatePresenter: React.FC<PresenterProps> = ({
       </div>
     </div>
     <div className="md:hidden">
-      <SideMenu
+      <SlideMenu
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
         menuItems={frontMenuItems}
