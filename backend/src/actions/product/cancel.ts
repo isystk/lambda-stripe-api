@@ -5,6 +5,7 @@ const dbClient = new DynamoDBClient('stripe_subscription_api_posts')
 import stripe from 'stripe'
 
 import { SmtpClient } from '../../utils/smtp-client'
+import { Mails } from '../../mails'
 const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(STRIPE_SECRET)
@@ -15,6 +16,9 @@ const cancel = async (req: Request, res: Response) => {
     productId: req.body['productId'],
     cancelToken: req.body['cancelToken'],
   }
+  const acceptLanguage: string | undefined = req.headers['accept-language'] as
+    | string
+    | undefined
   try {
     if (productId === undefined) {
       throw new Error('productId is required.')
@@ -66,19 +70,11 @@ const cancel = async (req: Request, res: Response) => {
     const customer = await stripeInstance.customers.retrieve(post.customer_id)
 
     // 解約完了のメールを送信する
-    const text = [
-      `${customer.name}様`,
-      '解約手続きが完了しましたのでご案内申し上げます。',
-      '期間満了までは引き続きご利用頂けます。',
-      'またのご利用をお待ちしております。',
-    ].join('\n\n')
-
-    // メールを送信します。
-    await mailClient.mailSend(
-      undefined,
+    await mailClient.sendToUser(
       customer.email,
-      '解約手続き完了のお知らせ',
-      text
+      Mails.CANCEL,
+      { name: customer.name },
+      acceptLanguage
     )
 
     res.json({ message: 'Successfully removed a Subscription!' })

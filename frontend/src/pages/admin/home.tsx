@@ -13,7 +13,7 @@ import LineChart, { LineChartProps } from '@/components/01_atoms/LineChart'
 
 const Index: FC = () => {
   const main = useAppRoot()
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
 
   const productId = 'prod_NpvV9ohJIlgElI'
 

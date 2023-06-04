@@ -92,7 +92,7 @@ const AdminTemplateContainer: React.FC<
   ContainerProps<AdminTemplateProps, PresenterProps>
 > = ({ presenter, main, children, ...props }) => {
   const router = useRouter()
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
   const [isMenuOpen, setMenuOpen] = useState(false)
 
   const logout = async () => {

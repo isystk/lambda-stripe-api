@@ -21,7 +21,7 @@ type FormInputs = {
 const Index: FC = () => {
   const router = useRouter()
   const main = useAppRoot()
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
   const [checkLoading, setCheckLoading] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')

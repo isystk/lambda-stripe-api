@@ -61,7 +61,7 @@ const SideMenuPresenter: FC<PresenterProps> = ({
 const SideMenuContainer: React.FC<
   ContainerProps<SideMenuProps, PresenterProps>
 > = ({ presenter, setMenuOpen, isMenuOpen, ...props }) => {
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
 
   return presenter({
     t,

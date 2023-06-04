@@ -6,6 +6,7 @@ import uuid from 'node-uuid'
 import stripe from 'stripe'
 
 import { SmtpClient } from '../../utils/smtp-client'
+import { Mails } from '../../mails'
 const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(STRIPE_SECRET)
@@ -16,6 +17,9 @@ const cancelRequest = async (req: Request, res: Response) => {
     productId: req.body['productId'],
     email: req.body['email'],
   }
+  const acceptLanguage: string | undefined = req.headers['accept-language'] as
+    | string
+    | undefined
   try {
     if (productId === undefined) {
       throw new Error('productId is required.')
@@ -72,16 +76,12 @@ const cancelRequest = async (req: Request, res: Response) => {
 
     const cancelUrl = `${ORIGIN_URL}/product/${productId}/cancel/${post.cancel_token}`
     // 解約ページのURLをメールで送信する
-    const text = [
-      `${customer.name}様`,
-      'いつもご利用頂きありがとうございます。',
-      'お手数ですが以下のURLからご契約のプランの解約手続きをお願い致します。',
-      '',
-      cancelUrl,
-    ].join('\n\n')
-
-    // メールを送信します。
-    await mailClient.mailSend(undefined, email, '解約手続きのご案内', text)
+    await mailClient.sendToUser(
+      email,
+      Mails.CANCEL_REQUEST,
+      { name: customer.name, cancelUrl },
+      acceptLanguage
+    )
 
     res.json({
       message:

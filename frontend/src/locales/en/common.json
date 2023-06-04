@@ -45,5 +45,18 @@
   "The cancellation has been completed. We look forward to serving you again.": "The cancellation has been completed. We look forward to serving you again.",
   "I will cancel the contract. May I?": "I will cancel the contract. May I?",
   
+  "Login": "Login",
+  "username": "username",
+  "Please enter your user name": "Please enter your user name",
+  "password": "password",
+  "Please enter your password": "Please enter your password",
+  "Log in": "Log in",
+  "Authentication failed.": "Authentication failed.",
+  "Logout": "Logout",
+  "Product List": "Product List",
+  "Subscribe List": "Subscribe List",
+
+  "Hello.": "Hello.",
+
   "": ""
 }

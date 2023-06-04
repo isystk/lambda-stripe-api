@@ -14,6 +14,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
     initGA()
     logPageView()
 
+    const acceptLanguage = navigator.language || navigator.userLanguage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('acceptLanguage', acceptLanguage)
+    }
+
     router.events.on('routeChangeComplete', logPageView)
     return () => {
       router.events.off('routeChangeComplete', logPageView)

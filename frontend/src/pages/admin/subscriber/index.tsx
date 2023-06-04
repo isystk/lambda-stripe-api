@@ -19,7 +19,7 @@ import Modal from '@/components/02_interactions/Modal'
 
 const Index: FC = () => {
   const main = useAppRoot()
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
   const {
     query: { productName, customerName },
   } = useRouter()

@@ -16,7 +16,7 @@ import { TableColumn } from 'react-data-table-component'
 
 const Index: FC = () => {
   const main = useAppRoot()
-  const { t } = useI18n('Admin')
+  const { t } = useI18n('Common')
   const {
     push,
     query: { productName },

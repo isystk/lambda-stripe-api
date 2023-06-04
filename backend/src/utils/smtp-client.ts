@@ -7,6 +7,7 @@ import {
   SMTP_PASS,
   MAIL_FROM_ADDRESS,
 } from '../constants'
+import { MailLanguageType, LanguageType } from '../mails'
 
 type MailOptions = {
   from: string
@@ -34,13 +35,35 @@ class SmtpClient {
     fromEmail: string | undefined = MAIL_FROM_ADDRESS,
     toEmail: string,
     subject: string,
-    bodyText: string
+    text: string
   ) {
     const mailOptions = {
       from: fromEmail,
       to: toEmail,
-      subject: subject,
-      text: bodyText,
+      subject,
+      text,
+    } as MailOptions
+    const info = await this.transporter.sendMail(mailOptions)
+    console.log(info)
+  }
+
+  async sendToUser(
+    toEmail: string,
+    mail: MailLanguageType,
+    args: Record<never, never>,
+    acceptLanguage = 'ja'
+  ) {
+    const selectedLanguage = ['ja', 'ja-JP', 'en', 'en-US'].includes(
+      acceptLanguage
+    )
+      ? acceptLanguage
+      : 'ja'
+    const m = mail[selectedLanguage as LanguageType]
+    const mailOptions = {
+      from: MAIL_FROM_ADDRESS,
+      to: toEmail,
+      subject: m.subject(args),
+      text: m.bodyText(args),
     } as MailOptions
     const info = await this.transporter.sendMail(mailOptions)
     console.log(info)

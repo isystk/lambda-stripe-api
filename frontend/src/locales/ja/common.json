@@ -44,6 +44,19 @@
   "After that, you will not be able to use the service. If you like, please click Cancel": "以降はご利用できなくなります。宜しければ「解約する」を押してください。",
   "The cancellation has been completed. We look forward to serving you again.": "解約が完了しました。\nまたのご利用をお待ちしております。",
   "I will cancel the contract. May I?": "解約します。よろしいですか？",
-  
+
+  "Login": "ログイン",
+  "username": "ユーザー名",
+  "Please enter your user name": "ユーザー名を入力してください",
+  "password": "パスワード",
+  "Please enter your password": "パスワードを入力してください",
+  "Log in": "ログインする",
+  "Authentication failed.": "認証に失敗しました。",
+  "Logout": "ログアウト",
+  "Product List": "商品一覧",
+  "Subscribe List": "契約一覧",
+
+  "Hello.": "こんにちわ。",
+
   "": ""
 }

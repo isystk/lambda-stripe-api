@@ -6,6 +6,7 @@ import crypto from 'crypto'
 import stripe from 'stripe'
 
 import { SmtpClient } from '../../utils/smtp-client'
+import { Mails } from '../../mails'
 const mailClient = new SmtpClient()
 // @ts-ignore
 const stripeInstance = stripe(STRIPE_SECRET)
@@ -19,6 +20,9 @@ const payment = async (req: Request, res: Response) => {
     email: req.body['email'],
     planId: req.body['planId'],
   }
+  const acceptLanguage: string | undefined = req.headers['accept-language'] as
+    | string
+    | undefined
   try {
     if (userKey === undefined) {
       throw new Error('userKey is required.')
@@ -115,22 +119,12 @@ const payment = async (req: Request, res: Response) => {
         date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate()
     }
 
-    const text = [
-      `${name}様`,
-      'この度は、ご利用いただき、誠にありがとうございます。',
-      '会員登録が完了しました。',
-      '----',
-      `現在の有効期限： ～${currentPeriodEnd}`,
-      '----',
-      'お客様の会員資格はキャンセルされるまで毎月自動で更新し、毎月更新日に会費が請求されます。',
-    ].join('\n\n')
-
     // メールを送信します。
-    await mailClient.mailSend(
-      undefined,
+    await mailClient.sendToUser(
       email,
-      'ご登録ありがとうございます',
-      text
+      Mails.PAYMENT,
+      { name, currentPeriodEnd },
+      acceptLanguage
     )
 
     res.json({
