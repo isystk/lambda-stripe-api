@@ -59,14 +59,12 @@ class SmtpClient {
       ? acceptLanguage
       : 'ja'
     const m = mail[selectedLanguage as LanguageType]
-    const mailOptions = {
-      from: MAIL_FROM_ADDRESS,
-      to: toEmail,
-      subject: m.subject(args),
-      text: m.bodyText(args),
-    } as MailOptions
-    const info = await this.transporter.sendMail(mailOptions)
-    console.log(info)
+    await this.mailSend(
+        MAIL_FROM_ADDRESS,
+        toEmail,
+        m.subject(args),
+        m.bodyText(args),
+    )
   }
 }
 

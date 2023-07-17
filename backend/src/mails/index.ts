@@ -15,6 +15,10 @@ const MailNames = [
 ] as const
 export type MailNameType = (typeof MailNames)[number]
 
+export type MailType = {
+  [key in MailNameType]: MailLanguageType
+}
+
 export const Mails: MailType = {
   PAYMENT: {
     ja: jaPayment,
@@ -43,10 +47,6 @@ export type LanguageType = (typeof Languages)[number]
 export type Mail = {
   subject: (args?: Record<never, never>) => string
   bodyText: (args?: Record<never, never>) => string
-}
-
-export type MailType = {
-  [key in MailNameType]: MailLanguageType
 }
 
 export type MailLanguageType = {
