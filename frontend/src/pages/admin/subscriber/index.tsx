@@ -8,14 +8,19 @@ import { useI18n } from '@/components/i18n'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
-import { Url } from '@/constants/url'
 import axios from '@/utils/axios'
 import { dateFormat, unixTimeToDate } from '@/utils/general'
 import Table, { TableProps } from '@/components/01_atoms/Table'
+import DateInput from '@/components/01_atoms/DateInput'
 import { TableColumn } from 'react-data-table-component'
 import { AxiosError } from 'axios'
 import Loading from '@/components/01_atoms/Loading'
 import Modal from '@/components/02_interactions/Modal'
+import { useForm } from 'react-hook-form'
+
+type FormInputs = {
+  dateStart: string
+}
 
 const Index: FC = () => {
   const main = useAppRoot()
@@ -25,9 +30,18 @@ const Index: FC = () => {
   } = useRouter()
   const [fProductName, setFProductName] = useState('')
   const [fCustomerName, setFCustomerName] = useState('')
+  const [fPeriodFrom, setFPeriodFrom] = useState('')
+  const [fPeriodTo, setFPeriodTo] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [subscriptionId, setSubscriptionId] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormInputs>()
 
   useEffect(() => {
     setFProductName(Array.isArray(productName) ? productName[0] : productName)
@@ -164,15 +178,40 @@ const Index: FC = () => {
   ]
   const tableProps: TableProps = {
     columns,
-    data: customers.filter(({ productName, customerName }) => {
-      if (fProductName && productName !== fProductName) {
-        return false
+    data: customers.filter(
+      ({
+        productName,
+        customerName,
+        current_period_start,
+        current_period_end,
+      }) => {
+        if (fProductName && productName !== fProductName) {
+          return false
+        }
+        if (fCustomerName && customerName !== fCustomerName) {
+          return false
+        }
+        if (fPeriodFrom) {
+          const fPeriodFromDate = new Date(fPeriodFrom)
+          fPeriodFromDate.setHours(0, 0, 0, 0)
+          const currentPeriodEndDate = new Date(current_period_end * 1000)
+          currentPeriodEndDate.setHours(0, 0, 0, 0)
+          if (currentPeriodEndDate.getTime() < fPeriodFromDate.getTime()) {
+            return false
+          }
+        }
+        if (fPeriodTo) {
+          const fPeriodToDate = new Date(fPeriodTo)
+          fPeriodToDate.setHours(0, 0, 0, 0)
+          const currentPeriodStartDate = new Date(current_period_start * 1000)
+          currentPeriodStartDate.setHours(0, 0, 0, 0)
+          if (fPeriodToDate.getTime() < currentPeriodStartDate.getTime()) {
+            return false
+          }
+        }
+        return true
       }
-      if (fCustomerName && customerName !== fCustomerName) {
-        return false
-      }
-      return true
-    }),
+    ),
   }
 
   const props: AdminTemplateProps = {
@@ -196,7 +235,7 @@ const Index: FC = () => {
                 商品名
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="product-name"
                 type="text"
                 placeholder="商品名"
@@ -212,12 +251,45 @@ const Index: FC = () => {
                 顧客名
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="product-name"
                 type="text"
                 placeholder="顧客名"
                 value={fCustomerName}
                 onChange={(e) => setFCustomerName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap -mx-2">
+            <div className="w-full px-2 mb-4 md:mb-0">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="product-name"
+              >
+                契約期間
+              </label>
+              <DateInput
+                {...{
+                  small: true,
+                  name: 'periodFrom',
+                  placeholder: '契約期間（開始）',
+                  value: fPeriodFrom,
+                  onChange: (date) => {
+                    setFPeriodFrom(date)
+                  },
+                }}
+              />
+              <span>～</span>
+              <DateInput
+                {...{
+                  small: true,
+                  name: 'periodTo',
+                  placeholder: '契約期間（終了）',
+                  value: fPeriodTo,
+                  onChange: (date) => {
+                    setFPeriodTo(date)
+                  },
+                }}
               />
             </div>
           </div>

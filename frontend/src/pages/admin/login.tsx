@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { Api } from '@/constants/api'
 import Loading from '@/components/01_atoms/Loading'
 import Input from '@/components/01_atoms/Input'
-import DateInput from '@/components/01_atoms/DateInput'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Url } from '@/constants/url'
 import axios from '@/utils/axios'
@@ -17,7 +16,6 @@ import { AxiosError } from 'axios'
 type FormInputs = {
   user: string
   password: string
-  date: string
 }
 
 const Index: FC = () => {
@@ -56,9 +54,6 @@ const Index: FC = () => {
     password: {
       required: t('Please enter your password'),
     },
-    date: {
-      required: t('Please enter your date'),
-    },
   }
 
   if (checkLoading) return <></>
@@ -67,11 +62,8 @@ const Index: FC = () => {
   const onsubmit: SubmitHandler<FormInputs> = async ({
     userName,
     password,
-    date,
   }) => {
     try {
-      console.log(date)
-      return
       setLoading(true)
 
       const {
@@ -124,17 +116,6 @@ const Index: FC = () => {
                   placeholder: t('password'),
                   type: 'password',
                   name: 'password',
-                  register,
-                  validate,
-                  errors,
-                }}
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <DateInput
-                {...{
-                  name: 'date',
-                  control,
                   register,
                   validate,
                   errors,
