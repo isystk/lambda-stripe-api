@@ -11,6 +11,7 @@ import { Api } from '@/constants/api'
 import axios from '@/utils/axios'
 import { dateFormat, unixTimeToDate } from '@/utils/general'
 import Table, { TableProps } from '@/components/01_atoms/Table'
+import Input from '@/components/01_atoms/Input'
 import DateInput from '@/components/01_atoms/DateInput'
 import { TableColumn } from 'react-data-table-component'
 import { AxiosError } from 'axios'
@@ -234,13 +235,17 @@ const Index: FC = () => {
               >
                 商品名
               </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="product-name"
-                type="text"
-                placeholder="商品名"
-                value={fProductName}
-                onChange={(e) => setFProductName(e.target.value)}
+              <Input
+                {...{
+                  small: true,
+                  name: 'product-name',
+                  type: 'text',
+                  placeholder: '商品名',
+                  value: fProductName,
+                  onChange: (value) => {
+                    setFProductName(value)
+                  },
+                }}
               />
             </div>
             <div className="w-full md:w-1/3 px-2 mb-4 md:mb-0">
@@ -250,13 +255,17 @@ const Index: FC = () => {
               >
                 顧客名
               </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="product-name"
-                type="text"
-                placeholder="顧客名"
-                value={fCustomerName}
-                onChange={(e) => setFCustomerName(e.target.value)}
+              <Input
+                {...{
+                  small: true,
+                  name: 'customer-name',
+                  type: 'text',
+                  placeholder: '顧客名',
+                  value: fCustomerName,
+                  onChange: (value) => {
+                    setFCustomerName(value)
+                  },
+                }}
               />
             </div>
           </div>
@@ -268,29 +277,31 @@ const Index: FC = () => {
               >
                 契約期間
               </label>
-              <DateInput
-                {...{
-                  small: true,
-                  name: 'periodFrom',
-                  placeholder: '契約期間（開始）',
-                  value: fPeriodFrom,
-                  onChange: (date) => {
-                    setFPeriodFrom(date)
-                  },
-                }}
-              />
-              <span>～</span>
-              <DateInput
-                {...{
-                  small: true,
-                  name: 'periodTo',
-                  placeholder: '契約期間（終了）',
-                  value: fPeriodTo,
-                  onChange: (date) => {
-                    setFPeriodTo(date)
-                  },
-                }}
-              />
+              <div className="flex flex-wrap w-full">
+                <DateInput
+                  {...{
+                    small: true,
+                    name: 'periodFrom',
+                    placeholder: '契約期間（開始）',
+                    value: fPeriodFrom,
+                    onChange: (date) => {
+                      setFPeriodFrom(date)
+                    },
+                  }}
+                />
+                <span className="p-3">～</span>
+                <DateInput
+                  {...{
+                    small: true,
+                    name: 'periodTo',
+                    placeholder: '契約期間（終了）',
+                    value: fPeriodTo,
+                    onChange: (date) => {
+                      setFPeriodTo(date)
+                    },
+                  }}
+                />
+              </div>
             </div>
           </div>
         </form>

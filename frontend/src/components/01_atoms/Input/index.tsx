@@ -5,9 +5,12 @@ import * as styles from './styles'
 
 /** InputProps Props */
 export type InputProps = {
+  small: boolean
   type: 'text' | 'password' | 'email'
   name: string
   placeholder: string
+  value
+  onChange
   register
   validate
   errors
@@ -17,22 +20,38 @@ export type PresenterProps = InputProps
 
 /** Presenter Component */
 const InputPresenter: FC<PresenterProps> = ({
-  type,
+  small,
   name,
-  placeholder,
+  value = '',
+  onChange,
   register,
   validate,
   errors,
+  ...props
 }) => (
   <>
-    <input
-      placeholder={placeholder}
-      type={type}
-      className={`${styles.input} p-3 bg-gray-200 rounded-md`}
-      {...register(name, validate[name])}
-    />
-    {errors[name] && (
-      <span className="pt-4 text-red-500">{errors[name].message}</span>
+    {register ? (
+      <>
+        <input
+          {...props}
+          className={`${styles.input} ${
+            small ? 'p-2' : 'p-3'
+          } w-full bg-gray-200 rounded-md`}
+          {...register(name, validate[name])}
+        />
+        {errors[name] && (
+          <span className="pt-4 text-red-500">{errors[name].message}</span>
+        )}
+      </>
+    ) : (
+      <input
+        {...props}
+        className={`${styles.input} ${
+          small ? 'p-2' : 'p-3'
+        } w-full bg-gray-200 rounded-md`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
     )}
   </>
 )

@@ -40,7 +40,7 @@ exports[`CheckoutForm Match Snapshot 1`] = `
       className="flex flex-col mb-4"
     >
       <input
-        className="css-0 p-3 bg-gray-200 rounded-md"
+        className="css-0 p-3 w-full bg-gray-200 rounded-md"
         name="name"
         onBlur={[Function]}
         onChange={[Function]}
@@ -52,7 +52,7 @@ exports[`CheckoutForm Match Snapshot 1`] = `
       className="flex flex-col mb-4"
     >
       <input
-        className="css-0 p-3 bg-gray-200 rounded-md"
+        className="css-0 p-3 w-full bg-gray-200 rounded-md"
         name="email"
         onBlur={[Function]}
         onChange={[Function]}

@@ -81,7 +81,7 @@ const DateInputPresenter: FC<PresenterProps> = ({
   ...props
 }) => (
   <>
-    {control ? (
+    {register ? (
       <Controller
         control={control}
         name={name}

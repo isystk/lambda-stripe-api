@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react'
 import AdminTemplate, {
   type AdminTemplateProps,
 } from '@/components/06_templates/AdminTemplate'
+import Input from '@/components/01_atoms/Input'
 import Image from '@/components/01_atoms/Image'
 import useAppRoot from '@/stores/useAppRoot'
 import { withAuth } from '@/components/auth'
@@ -135,12 +136,17 @@ const Index: FC = () => {
               >
                 商品名
               </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="product-name"
-                type="text"
-                placeholder="商品名"
-                onChange={(e) => setFProductName(e.target.value)}
+              <Input
+                {...{
+                  small: true,
+                  name: 'product-name',
+                  type: 'text',
+                  placeholder: '商品名',
+                  value: fProductName,
+                  onChange: (value) => {
+                    setFProductName(value)
+                  },
+                }}
               />
             </div>
           </div>
