@@ -12,6 +12,8 @@ services:
       - 8000:8000
     volumes:
       - stripe-subscription-api-dynamodb-store:/home/dynamodblocal/data
+    security_opt:
+      - seccomp:unconfined
     user: root
     command: -jar DynamoDBLocal.jar -sharedDb -dbPath ./data
     networks:
