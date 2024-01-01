@@ -32,9 +32,9 @@ const Template: Story = () => {
     errors,
   }
   return (
-      <div className="w-56">
-        <MonthInput {...props} />
-      </div>
+    <div className="w-56">
+      <MonthInput {...props} />
+    </div>
   )
 }
 

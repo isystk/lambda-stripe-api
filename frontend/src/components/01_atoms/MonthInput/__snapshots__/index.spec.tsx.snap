@@ -12,7 +12,7 @@ exports[`MonthInput Match Snapshot 1`] = `
     onKeyDown={[Function]}
     onMouseDown={[Function]}
     onPaste={[Function]}
-    placeholder="生年月日"
+    placeholder="処理年月"
     type="text"
     value=""
   />

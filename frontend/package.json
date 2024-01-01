@@ -35,7 +35,7 @@
     "i18next-browser-languagedetector": "^7.0.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.29",
-    "next": "^13.4.2",
+    "next": "^14.0.4",
     "next-redux-wrapper": "^8.1.0",
     "react": "^18.2.0",
     "react-data-table-component": "^7.5.3",
